@@ -9,6 +9,7 @@ import {
 import * as acm from 'aws-cdk-lib/aws-certificatemanager';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
+import * as iam from 'aws-cdk-lib/aws-iam';
 import * as s3deploy from 'aws-cdk-lib/aws-s3-deployment';
 import * as s3 from 'aws-cdk-lib/aws-s3';
 
@@ -62,6 +63,34 @@ export class MarketingSiteStack extends Stack {
       prune: true,
     });
 
+    const githubOidcProvider = new iam.OpenIdConnectProvider(this, 'GitHubOidcProvider', {
+      url: 'https://token.actions.githubusercontent.com',
+      clientIds: ['sts.amazonaws.com'],
+    });
+
+    const githubDeployRole = new iam.Role(this, 'GitHubDeployRole', {
+      assumedBy: new iam.WebIdentityPrincipal(
+        githubOidcProvider.openIdConnectProviderArn,
+        {
+          StringEquals: {
+            'token.actions.githubusercontent.com:aud': 'sts.amazonaws.com',
+            'token.actions.githubusercontent.com:sub': `repo:${props.githubRepository}:ref:refs/heads/${props.githubBranch}`,
+          },
+        },
+        'sts:AssumeRoleWithWebIdentity',
+      ),
+      description: 'GitHub Actions deploy role for the TokiGig marketing site.',
+      roleName: props.githubRoleName,
+    });
+
+    siteBucket.grantReadWrite(githubDeployRole);
+    githubDeployRole.addToPolicy(
+      new iam.PolicyStatement({
+        actions: ['cloudfront:CreateInvalidation', 'cloudfront:GetInvalidation'],
+        resources: ['*'],
+      }),
+    );
+
     new CfnOutput(this, 'SiteBucketName', {
       value: siteBucket.bucketName,
       description: 'S3 bucket that stores the built Astro site.',
@@ -80,6 +109,16 @@ export class MarketingSiteStack extends Stack {
     new CfnOutput(this, 'CloudflareRootDomainNote', {
       value: `For ${props.domainName}, use a Cloudflare proxied CNAME flattening record pointed at ${distribution.distributionDomainName}.`,
       description: 'Root domain DNS guidance.',
+    });
+
+    new CfnOutput(this, 'GitHubOidcProviderArn', {
+      value: githubOidcProvider.openIdConnectProviderArn,
+      description: 'IAM OIDC provider for GitHub Actions.',
+    });
+
+    new CfnOutput(this, 'GitHubDeployRoleArn', {
+      value: githubDeployRole.roleArn,
+      description: 'Set this value as the AWS_ROLE_TO_ASSUME GitHub secret.',
     });
   }
 }

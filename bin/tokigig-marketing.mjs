@@ -15,6 +15,9 @@ const domainName = process.env.SITE_DOMAIN ?? 'tokigig.com';
 const siteSubdomain = process.env.SITE_SUBDOMAIN ?? '';
 const fullDomainName = siteSubdomain ? `${siteSubdomain}.${domainName}` : domainName;
 const certificateArnExportName = process.env.CERTIFICATE_ARN_EXPORT_NAME ?? 'TokiGigCertificateArn';
+const githubRepository = process.env.GITHUB_REPOSITORY_NAME ?? 'TokiGig/tokigig-website';
+const githubBranch = process.env.GITHUB_DEPLOY_BRANCH ?? 'main';
+const githubRoleName = process.env.GITHUB_DEPLOY_ROLE_NAME ?? 'tokigig-marketing-github-deploy';
 const subjectAlternativeNames = [
   ...new Set(
     [domainName, fullDomainName, `www.${domainName}`].filter(Boolean),
@@ -40,6 +43,9 @@ const marketingSiteStack = new MarketingSiteStack(app, 'TokiGigMarketingSiteStac
   domainName: fullDomainName,
   alternateDomainNames: subjectAlternativeNames.filter((name) => name !== fullDomainName),
   certificateArnExportName,
+  githubRepository,
+  githubBranch,
+  githubRoleName,
 });
 
 marketingSiteStack.addDependency(certificateStack);

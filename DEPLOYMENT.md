@@ -23,6 +23,9 @@ Optional environment variables:
 - `AWS_ACCOUNT_ID`
 - `AWS_REGION`
 - `CERTIFICATE_ARN_EXPORT_NAME`
+- `GITHUB_REPOSITORY_NAME`
+- `GITHUB_DEPLOY_BRANCH`
+- `GITHUB_DEPLOY_ROLE_NAME`
 
 ## Deploy
 
@@ -59,3 +62,10 @@ Set these GitHub repository secrets before enabling it:
 Optional GitHub repository variable:
 
 - `AWS_REGION` with a default of `us-east-1`
+
+The CDK stack also creates:
+
+- An IAM OIDC provider for `https://token.actions.githubusercontent.com`
+- A GitHub Actions deploy role scoped to the `TokiGig/tokigig-website` repo on the `main` branch
+
+After deploying, copy the `GitHubDeployRoleArn` stack output into the `AWS_ROLE_TO_ASSUME` GitHub secret.
