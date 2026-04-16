@@ -182,8 +182,16 @@ const LOGO_PATHS = {
       <div class="container container-narrow">
         <span class="teaser-badge">Something bigger is coming</span>
         <h2 class="teaser-h2">TokiScan is just the beginning.</h2>
-        <p class="teaser-p">TokiScan is one workforce. Toki-OS runs many. We're building the infrastructure layer for AI-driven business operations — and you're getting in at the beginning.</p>
-        <p class="teaser-hint">Join early and you'll be first to know.</p>
+        <p class="teaser-p">TokiScan is one workforce. Toki-OS runs many. We're building the infrastructure layer for AI that businesses can actually trust — whether you're building on it or running on it.</p>
+        <p class="teaser-hint">Come find us early.</p>
+        <div class="teaser-actions">
+          <a href="https://twitter.com/TokiOSHQ" target="_blank" rel="noopener" class="teaser-btn">
+            Follow on X
+          </a>
+          <a href="https://discord.gg/7Dj56T34VZ" target="_blank" rel="noopener" class="teaser-btn teaser-btn-discord">
+            Join Discord
+          </a>
+        </div>
       </div>
     </section>
 
@@ -324,6 +332,30 @@ const LOGO_PATHS = {
     gap: 12px;
     justify-content: center;
     flex-wrap: wrap;
+  }
+
+  .teaser-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+  }
+  .teaser-btn {
+    display: inline-block;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    border: 0.5px solid var(--toki-border);
+    color: var(--toki-black);
+    background: white;
+    transition: border-color 0.2s;
+  }
+  .teaser-btn:hover { border-color: var(--toki-green); color: var(--toki-green); }
+  .teaser-btn-discord {
+    background: var(--toki-mint);
+    border-color: var(--toki-border);
   }
 
   /* ─── BUTTONS ─── */
