@@ -1,0 +1,85 @@
+import path from 'node:path';
+import {
+  CfnOutput,
+  Duration,
+  Fn,
+  RemovalPolicy,
+  Stack,
+} from 'aws-cdk-lib';
+import * as acm from 'aws-cdk-lib/aws-certificatemanager';
+import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
+import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
+import * as s3deploy from 'aws-cdk-lib/aws-s3-deployment';
+import * as s3 from 'aws-cdk-lib/aws-s3';
+
+export class MarketingSiteStack extends Stack {
+  constructor(scope, id, props) {
+    super(scope, id, props);
+
+    const siteBucket = new s3.Bucket(this, 'MarketingSiteBucket', {
+      blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
+      enforceSSL: true,
+      encryption: s3.BucketEncryption.S3_MANAGED,
+      autoDeleteObjects: false,
+      removalPolicy: RemovalPolicy.RETAIN,
+    });
+
+    const certificateArn = Fn.importValue(props.certificateArnExportName);
+    const certificate = acm.Certificate.fromCertificateArn(this, 'ImportedCertificate', certificateArn);
+
+    const distribution = new cloudfront.Distribution(this, 'MarketingDistribution', {
+      defaultRootObject: 'index.html',
+      domainNames: [props.domainName, ...props.alternateDomainNames],
+      certificate,
+      minimumProtocolVersion: cloudfront.SecurityPolicyProtocol.TLS_V1_2_2021,
+      defaultBehavior: {
+        origin: origins.S3BucketOrigin.withOriginAccessControl(siteBucket),
+        viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+        compress: true,
+        cachePolicy: cloudfront.CachePolicy.CACHING_OPTIMIZED,
+      },
+      errorResponses: [
+        {
+          httpStatus: 403,
+          responseHttpStatus: 200,
+          responsePagePath: '/index.html',
+          ttl: Duration.minutes(5),
+        },
+        {
+          httpStatus: 404,
+          responseHttpStatus: 200,
+          responsePagePath: '/index.html',
+          ttl: Duration.minutes(5),
+        },
+      ],
+    });
+
+    new s3deploy.BucketDeployment(this, 'DeployMarketingSite', {
+      sources: [s3deploy.Source.asset(path.join(props.projectRoot, 'dist'))],
+      destinationBucket: siteBucket,
+      distribution,
+      distributionPaths: ['/*'],
+      prune: true,
+    });
+
+    new CfnOutput(this, 'SiteBucketName', {
+      value: siteBucket.bucketName,
+      description: 'S3 bucket that stores the built Astro site.',
+    });
+
+    new CfnOutput(this, 'CloudFrontDistributionId', {
+      value: distribution.distributionId,
+      description: 'CloudFront distribution identifier.',
+    });
+
+    new CfnOutput(this, 'CloudFrontDistributionDomainName', {
+      value: distribution.distributionDomainName,
+      description: 'Target this from Cloudflare as a proxied CNAME.',
+    });
+
+    new CfnOutput(this, 'CloudflareRootDomainNote', {
+      value: `For ${props.domainName}, use a Cloudflare proxied CNAME flattening record pointed at ${distribution.distributionDomainName}.`,
+      description: 'Root domain DNS guidance.',
+    });
+  }
+}

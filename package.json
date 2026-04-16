@@ -9,11 +9,19 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "cdk": "cdk",
+    "cdk:bootstrap": "cdk bootstrap",
+    "deploy:infra": "pnpm build && cdk deploy --all"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.2",
     "astro": "^6.1.5",
+    "aws-cdk-lib": "^2.220.0",
+    "constructs": "^10.4.2",
     "tailwindcss": "^4.2.2"
+  },
+  "devDependencies": {
+    "aws-cdk": "^2.1016.0"
   }
 }

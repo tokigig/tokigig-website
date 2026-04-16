@@ -1,370 +1,715 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import '../styles/global.css';
+
+const LOGO_PATHS = {
+  body: "M264.25,176.02c4.71-3.57,7.79-10.66,12.07-14.46,19.8-17.6,52.89-4.69,56.65,20.51,5.86,39.25-20.77,53.99-53.37,61.56-7.5,1.74-.86,16.69,1.55,22.41,2.9,6.89,18.31,24.63,4.46,28.63-4.94,1.43-30.26.94-36.71.4-17.98-1.49-14.75-17.86-25.83-28.81-25.83,8.73-56.58,10.02-81.63-1.58-4.53.87-14.82,24.93-21.45,28.39-4.77,2.48-35.81,3.13-41.13,1.61-4.13-1.19-7.43-7.07-5.63-11.3l20.56-38.18c-5.76-3.46-22.49-1.56-24.93-6.44-6.68-13.35,19.71-14.55,21.49-22.02-5.56-25.47-3.18-50.78,10.2-73.35,26.73-45.13,89.32-67.37,134.65-35.58,10.82,7.58,29.05,31.64,29.05,44.91v23.32ZM229.92,207.62c27.26-26.75,27.2-71.88-8.56-90.81-42.4-22.44-100.63,3.97-114.23,49.22-23.21,77.24,69.86,115.37,128.69,75.62,13.61-9.2,19.29-13.95,20.46-30.99.17-2.53,1.19-11.03-1.65-12.11-22.11,41.08-79.32,59.94-117.27,27.99-50-42.11,14.4-122.8,72.22-96.34,56.01,25.64-3.16,106.35-46.52,77.07-34.61-23.38,20.2-69.48,35.1-46.37,8.25,12.79-12.61,25.18-14.36,10.33-3.42-3.16-26.19,13.54-12.77,23.25,20.1,14.53,69.55-26.29,34.27-48.75-36.92-23.51-97.09,34.85-57.66,68.92,23.61,20.4,60.99,13.86,82.28-7.03ZM274.09,228.89c19.53.41,40.98-13.32,44.12-33.5,2.16-13.88-6.39-26.9-21.17-27.28-21.91-.55-28.06,44.99-22.95,60.78ZM259.41,243.56c-1.57-1.14-19.34,12.6-20.15,14.51-1.45,3.42,5.39,18.36,8.9,20.07l22.52.79-11.27-35.36ZM125.94,254.87c-6.1-1.3-9.33-8.77-15.98-8.03l-16.15,33.69,17.36-.33,14.77-25.34Z",
+  spiral: "M229.92,207.62c-21.29,20.89-58.66,27.43-82.28,7.03-39.43-34.07,20.74-92.42,57.66-68.92,35.28,22.46-14.17,63.28-34.27,48.75-13.42-9.7,9.34-26.41,12.77-23.25,1.76,14.85,22.61,2.46,14.36-10.33-14.9-23.11-69.71,22.99-35.1,46.37,43.36,29.28,102.53-51.43,46.52-77.07-57.82-26.47-122.22,54.23-72.22,96.34,37.94,31.95,95.16,13.09,117.27-27.99,2.84,1.09,1.83,9.58,1.65,12.11-1.17,17.05-6.85,21.79-20.46,30.99-58.83,39.75-151.89,1.62-128.69-75.62,13.59-45.25,71.83-71.65,114.23-49.22,35.76,18.93,35.82,64.05,8.56,90.81Z",
+  head: "M274.09,228.89c-5.11-15.78,1.04-61.33,22.95-60.78,14.78.37,23.33,13.4,21.17,27.28-3.14,20.18-24.59,33.91-44.12,33.5ZM302.43,193.33c4.36-3.86,3.09-11.45-5.23-11.01-12.65.66-2.79,18.12,5.23,11.01Z",
+  legL: "M259.41,243.56l11.27,35.36-22.52-.79c-3.52-1.71-10.35-16.65-8.9-20.07.81-1.91,18.58-15.65,20.15-14.51Z",
+  legR: "M125.94,254.87l-14.77,25.34-17.36.33,16.15-33.69c6.65-.75,9.88,6.73,15.98,8.03Z",
+  eye:  "M302.43,193.33c-8.02,7.1-17.88-10.35-5.23-11.01,8.31-.44,9.59,7.15,5.23,11.01Z",
+};
 ---
 
 <Layout
-  title="TokiGig"
-  description="Stay in control as everything changes.."
+  title="TokiGig — Is Your Business Invisible to AI?"
+  description="TokiScan analyzes how AI models read, understand, and trust your website. Find out your AI Trust Score and get a plain-English fix list in under two minutes — free."
 >
-  <main class="overflow-x-hidden">
-    <section class="sticky top-0 z-40 border-b border-border-default/80 bg-white/90 backdrop-blur">
-      <div class="mx-auto flex max-w-content items-center justify-between px-6 py-4">
-        <a href="/" class="text-lg font-semibold tracking-tight text-text-primary">
-          TokiGig
-        </a>
+  <!-- ═══════════ NAV ═══════════ -->
+  <header id="site-nav">
+    <div class="nav-inner">
+      <a href="/" class="logo-lockup" aria-label="TokiGig home">
+        <!-- White logo (dark hero state) -->
+        <svg class="logo-svg logo-white" width="36" height="36" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d={LOGO_PATHS.body}  fill="white"/>
+          <path d={LOGO_PATHS.spiral} fill="#0A0A0A"/>
+          <path d={LOGO_PATHS.head}  fill="#0A0A0A"/>
+          <path d={LOGO_PATHS.legL}  fill="#0A0A0A"/>
+          <path d={LOGO_PATHS.legR}  fill="#0A0A0A"/>
+          <path d={LOGO_PATHS.eye}   fill="white"/>
+        </svg>
+        <!-- Green logo (light scrolled state) -->
+        <svg class="logo-svg logo-green" width="36" height="36" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d={LOGO_PATHS.body}  fill="#0F6E56"/>
+          <path d={LOGO_PATHS.spiral} fill="white"/>
+          <path d={LOGO_PATHS.head}  fill="white"/>
+          <path d={LOGO_PATHS.legL}  fill="white"/>
+          <path d={LOGO_PATHS.legR}  fill="white"/>
+          <path d={LOGO_PATHS.eye}   fill="#0F6E56"/>
+        </svg>
+        <span class="wordmark">toki<span class="wordmark-accent">gig</span></span>
+      </a>
 
-        <nav class="hidden items-center gap-8 text-sm text-text-secondary md:flex">
-          <a class="transition hover:text-text-primary" href="#platform">Platform</a>
-          <a class="transition hover:text-text-primary" href="#tokiscan">TokiScan</a>
-          <a class="transition hover:text-text-primary" href="#future">Future</a>
-          <a
-            href="https://apps.tokigig.com"
-            class="inline-flex items-center justify-center rounded-full bg-blue-default px-5 py-2.5 font-medium text-white shadow-soft transition hover:bg-blue-hover"
-          >
-            Access App
+      <a href="https://apps.tokigig.com" class="nav-cta">
+        Scan my site free
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <!-- ═══════════ HERO ═══════════ -->
+    <section class="hero">
+      <div class="hero-inner">
+        <p class="eyebrow">Powered by the Toki AI Trust Engine</p>
+        <h1 class="hero-h1">
+          Does AI trust<br>
+          <em>your business?</em>
+        </h1>
+        <p class="hero-sub">
+          When someone asks ChatGPT to recommend a business like yours, AI makes a trust decision in milliseconds. TokiScan shows you exactly how that decision is made — and what's blocking your score.
+          </p>
+        <div class="hero-actions">
+          <a href="https://apps.tokigig.com" class="btn-primary">
+            See my AI Trust Score
           </a>
-        </nav>
+          <a href="#how" class="btn-secondary">
+            How AI decides
+          </a>
+        </div>
       </div>
     </section>
 
-   <section class="relative bg-bg-default py-20 md:py-28">
-      <div class="pointer-events-none absolute inset-x-0 top-0 overflow-hidden">
-        <div class="absolute left-[-8rem] top-[-6rem] h-72 w-72 rounded-full bg-blue-default/10 blur-3xl"></div>
-        <div class="absolute right-[-6rem] top-20 h-64 w-64 rounded-full bg-blue-default/5 blur-3xl"></div>
-      </div>
-
-      <div class="relative mx-auto grid max-w-content gap-14 px-6 py-16 md:grid-cols-[1.05fr_.95fr] md:items-center md:py-24">
-  		<div class="absolute inset-0 -z-10 bg-gradient-to-b from-white to-transparent"></div>
-        <div class="space-y-5">
-          <div class="inline-flex rounded-full border border-border-default bg-white px-3 py-1 text-sm font-medium text-text-secondary shadow-soft">
-            Operator-first systems
+    <!-- ═══════════ MOCK REPORT ═══════════ -->
+    <section class="report-section">
+      <div class="container">
+        <div class="report-card">
+          <div class="report-bar">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-amber"></span>
+            <span class="dot dot-green"></span>
+            <span class="report-bar-label">TokiScan — AI Trust Report</span>
           </div>
-
-          <div class="space-y-5">
-            <h1 class="max-w-2xl text-5xl font-semibold leading-[1.05] tracking-tight text-text-primary md:text-7xl">
-              Stay ahead without losing control.
-            </h1>
-
-            <p class="max-w-xl text-lg leading-8 text-text-secondary">
-              TokiGig helps operators navigate changing systems, workflows, and technologies with
-              clarity and confidence — so nothing falls through the cracks as things evolve.
-            </p>
-
-			<p class="mt-4 text-sm font-medium text-text-primary">
-  			  Most teams are reacting to change. You don’t have to.
-			</p>
-            <p class="max-w-xl text-sm leading-7 text-text-secondary">
-              Built for teams adapting to new tools, new systems, and new expectations.
-            </p>
-          </div>
-
-          <div class="flex flex-col gap-4 pt-2 sm:flex-row">
-            <a
-  			 href="https://apps.tokigig.com"
-  			 class="inline-flex items-center justify-center rounded-full bg-blue-default px-6 py-3 font-semibold text-white shadow-soft transition hover:bg-blue-hover hover:shadow-md active:scale-[0.98]"
-			>
- 			 Enter the platform →
-			</a>
-            <a
-              href="#platform"
-              class="inline-flex items-center justify-center rounded-full border border-border-default bg-white px-6 py-3 font-medium text-text-primary transition hover:bg-bg-secondary"
-            >
-              See the platform
-            </a>
-          </div>
-
-		<!-- ===== HERO: LIVE SYSTEM SIGNAL (10E) ===== -->
-			<div class="mt-10 flex items-center gap-6 text-sm text-text-secondary">
-  				<div class="flex items-center gap-2">
-    				<div class="h-2 w-2 rounded-full bg-green-default"></div>
-    				<span>System stable</span>
-  				</div>
-
-  			<div class="flex items-center gap-2">
-    			<div class="h-2 w-2 rounded-full bg-blue-default"></div>
-    			<span>24 workflows active</span>
-  			</div>
-		</div>
-		<!-- ===== END HERO: LIVE SYSTEM SIGNAL ===== -->
-
-        <!-- ===== HERO: SUPPORTING SIGNALS (SIMPLIFIED) ===== -->
-			<div class="mt-8 flex flex-wrap gap-6 text-sm text-text-secondary">
-  				<div>
-    		<span class="font-medium text-text-primary">Calm oversight</span>
-    		<span class="ml-2">A steadier way to manage change</span>
-  		</div>
-
-  				<div>
-    		<span class="font-medium text-text-primary">System visibility</span>
-    		<span class="ml-2">See what matters across workflows</span>
-  		</div>
-
-  				<div>
-    		<span class="font-medium text-text-primary">Reliable execution</span>
-    		<span class="ml-2">Operate with confidence</span>
-  		</div>
-	</div>
-	<!-- ===== END HERO: SUPPORTING SIGNALS ===== -->
-
-          <div class="pt-2 text-sm font-medium text-text-secondary">
-            Calm systems. Clear action.
-          </div>
-        </div>
-
-        <div class="relative">
-          <div class="rounded-[2rem] border border-border-default bg-white p-4 shadow-soft md:p-5">
-  			<div class="rounded-[1.5rem] border border-border-default/60 bg-bg-secondary p-5 md:p-6">
-              <div class="mb-6 flex items-start justify-between gap-4 border-b border-border-default pb-4">
- 				 <div>
-    				<div class="mb-2 text-xs font-medium uppercase tracking-[0.14em] text-text-muted">
-     				  Live system state
-    				</div>
-    				<div class="text-sm font-semibold text-text-primary">System Overview</div>
-    				<div class="mt-1 text-sm text-text-secondary">
-      				  Live coordination across the platform
-    				</div>
- 				 </div>
-
-  				<div class="inline-flex items-center gap-2 rounded-full border border-border-terminal bg-white px-3 py-1 text-xs font-medium text-text-primary shadow-soft">
-    				<span class="h-2 w-2 rounded-full bg-green-default"></span>
-    				Stable
-  				</div>
-			</div>
-
-              <div class="space-y-4">
-                <div class="rounded-2xl border border-border-default/70 bg-white p-5 shadow-soft">
-                  <div class="flex items-start justify-between gap-4">
-                    <div>
-                      <div class="text-sm font-medium text-text-primary">Workflow Status</div>
-                      <div class="mt-1 text-sm leading-6 text-text-secondary">
-                        All workflows running within expected parameters.
-                      </div>
-                    </div>
-                    <div class="text-sm font-semibold text-blue-default">24 active workflows</div>
-                  </div>
-                </div>
-
-                <div class="rounded-2xl border border-border-default/70 bg-white p-5 shadow-soft">
-                  <div class="flex items-start justify-between gap-4">
-                    <div>
-                      <div class="text-sm font-medium text-text-primary">System Coordination</div>
-                      <div class="mt-1 text-sm leading-6 text-text-secondary">
-                        Teams and systems operating in sync.
-                      </div>
-                    </div>
-                    <div class="mt-1 h-2 w-2 rounded-full bg-green-default"></div>
-                  </div>
-                </div>
-
-                <div class="rounded-2xl border border-border-default/70 bg-white p-5 shadow-soft">
-                  <div class="text-sm font-medium text-text-primary">Recent Execution</div>
-                  <div class="mt-3 rounded-xl border border-border-terminal bg-bg-default p-4 font-mono text-sm shadow-inner">
-  					<div class="text-text-secondary">&gt; Sync system state</div>
-  					<div class="mt-2 text-green-default">✓ All workflows updated</div>
-				  </div>
-                </div>
+          <div class="report-body">
+            <p class="report-url">yourbusiness.com · scanned just now</p>
+            <div class="score-row">
+              <span class="score-num">34</span>
+              <div>
+                <p class="score-title">AI Trust Score</p>
+                <p class="score-sub">Your site is partially readable by AI models. Significant gaps are blocking accurate recommendations.</p>
               </div>
             </div>
-          </div>
-
-          <div class="absolute -bottom-5 -right-4 hidden rounded-2xl border border-border-subtle bg-white px-4 py-3 text-sm text-text-secondary shadow-soft lg:block">
-            Calm systems. Clear action.
+            <div class="progress-track">
+              <div class="progress-fill" style="width: 34%"></div>
+            </div>
+            <ul class="issue-list">
+              <li class="issue">
+                <span class="issue-dot issue-dot-red"></span>
+                <p><strong>No structured data detected.</strong> AI models can't confirm what you sell, where you're located, or who you serve.</p>
+              </li>
+              <li class="issue">
+                <span class="issue-dot issue-dot-amber"></span>
+                <p><strong>Homepage purpose is ambiguous.</strong> The main heading doesn't clearly state what your business does in plain language.</p>
+              </li>
+              <li class="issue">
+                <span class="issue-dot issue-dot-amber"></span>
+                <p><strong>Missing trust signals.</strong> No reviews, credentials, or social proof that AI systems use to assess recommendation confidence.</p>
+              </li>
+              <li class="issue">
+                <span class="issue-dot issue-dot-green"></span>
+                <p><strong>Page speed is good.</strong> Fast-loading pages are indexed more thoroughly by AI crawlers.</p>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="platform" class="bg-white py-20 md:py-24">
-      <div class="mx-auto max-w-content px-6">
-        <div class="max-w-3xl">
-          <div class="mb-4 inline-flex rounded-full border border-border-default bg-white px-3 py-1 text-sm font-medium text-text-secondary">
-            Why TokiGig
+    <!-- ═══════════ PAIN POINTS ═══════════ -->
+    <section class="pain-section">
+      <div class="container">
+        <p class="section-label">The trust gap</p>
+        <div class="pain-grid">
+          <div class="pain-card">
+            <div class="pain-icon pain-icon-coral">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            </div>
+            <h3>Search is changing fast</h3>
+            <p>Millions of people now use AI to find and recommend businesses — skipping traditional search entirely. The rules changed and most businesses don't know it yet.</p>
           </div>
-
-          <h2 class="text-3xl font-semibold leading-tight tracking-tight text-text-primary md:text-5xl">
-            A steadier system for a faster-moving world.
-          </h2>
-
-          <p class="mt-5 text-lg leading-8 text-text-secondary">
-            Business teams are under pressure to adapt to new technology, new workflows, and new
-            expectations without losing momentum. TokiGig brings clarity, trust, and reliability to
-            that transition.
-          </p>
-        </div>
-
-        <div class="mt-12 grid gap-6 md:grid-cols-3">
-          <article class="rounded-[1.75rem] bg-white p-7 shadow-soft">
-            <h3 class="text-lg font-semibold text-text-primary">See what is changing</h3>
-            <p class="mt-3 leading-7 text-text-secondary">
-              Get clearer visibility into workflows, signals, and system state so change does not
-              catch your team flat-footed.
-            </p>
-          </article>
-
-          <article class="rounded-[1.75rem] bg-white p-7 shadow-soft">
-            <h3 class="text-lg font-semibold text-text-primary">Stay coordinated</h3>
-            <p class="mt-3 leading-7 text-text-secondary">
-              Keep people, processes, and tools aligned through one operator-focused system built for
-              real execution.
-            </p>
-          </article>
-
-          <article class="rounded-[1.75rem] bg-white p-7 shadow-soft">
-            <h3 class="text-lg font-semibold text-text-primary">Move with confidence</h3>
-            <p class="mt-3 leading-7 text-text-secondary">
-              Adapt faster without creating more chaos, more blind spots, or more operational
-              overhead.
-            </p>
-          </article>
+          <div class="pain-card">
+            <div class="pain-icon pain-icon-amber">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+            </div>
+            <h3>Most sites aren't ready</h3>
+            <p>Websites built for human readers aren't structured for AI. Missing signals, vague language, and no schema markup means AI simply can't understand — or recommend — you.</p>
+          </div>
+          <div class="pain-card">
+            <div class="pain-icon pain-icon-green">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <h3>Fixable in hours, not months</h3>
+            <p>Unlike traditional SEO, most AI visibility gaps can be closed quickly. TokiScan shows you exactly what to fix, in plain English, ranked by impact.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="tokiscan" class="bg-bg-secondary py-20 md:py-24">
-      <div class="mx-auto max-w-content px-6">
-        <div class="rounded-[2rem] bg-white p-8 shadow-soft md:p-10 transition hover:shadow-md">
-          <div class="grid gap-10 md:grid-cols-[1.05fr_.95fr] md:items-center">
+    <!-- ═══════════ HOW IT WORKS ═══════════ -->
+    <section class="how-section" id="how">
+      <div class="container">
+        <p class="section-label">How it works</p>
+        <h2 class="section-h2">Three steps. Under two minutes.</h2>
+        <p class="section-sub">No technical knowledge needed.</p>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
             <div>
-              <div class="mb-4 text-sm font-semibold text-blue-default">
- 				 Early access signal
-			  </div>
-
-			  <div class="mb-4 inline-flex rounded-full border border-border-default bg-bg-secondary px-3 py-1 text-sm font-medium text-text-secondary">
-  				TokiScan
-			  </div>
-
-              <h2 class="text-3xl font-semibold leading-tight tracking-tight text-text-primary md:text-5xl">
-                Make sure your business is still found.
-              </h2>
-
-              <p class="mt-5 text-lg leading-8 text-text-secondary">
-                TokiScan helps businesses understand and adapt to emerging AI-driven discovery systems
-                so they remain visible, relevant, and competitive as search behavior changes.
-              </p>
-
-              <p class="mt-4 text-sm font-medium text-text-primary">
-  				Search is changing faster than most teams realize.
-			  </p>
-
-			  <p class="mt-2 text-sm leading-7 text-text-secondary">
-  				Most businesses will not notice the shift until it affects traffic, leads, and sales.
-  				TokiScan helps you stay ahead calmly, early, and with confidence.
-			  </p>
-
-              <div class="mt-8 flex flex-wrap gap-3">
-                <span class="rounded-full bg-bg-secondary px-3 py-1.5 text-sm text-text-secondary">
-                  Visibility monitoring
-                </span>
-                <span class="rounded-full bg-bg-secondary px-3 py-1.5 text-sm text-text-secondary">
-                  Shift detection
-                </span>
-                <span class="rounded-full bg-bg-secondary px-3 py-1.5 text-sm text-text-secondary">
-                  Early signals
-                </span>
-              </div>
+              <h3>Enter your website URL</h3>
+              <p>We crawl your live site and run it through our AI Trust Engine — scoring the exact signals AI models use when deciding whether to recommend your business. Any AI can give you an opinion. TokiScan measures what AI actually trusts.</p>
             </div>
-
-            <div class="rounded-[1.75rem] border border-border-default/60 bg-bg-secondary p-5 md:p-6">
-  			  <div class="rounded-[1.5rem] border border-border-default/70 bg-white p-5 shadow-soft">
-                <div class="flex items-start justify-between gap-4 border-b border-border-default pb-4">
-  			<div>
-    			<div class="mb-2 text-xs font-medium uppercase tracking-[0.14em] text-text-muted">
-      				Live discovery state
-    			</div>
-    			<div class="text-sm font-semibold text-text-primary">Discovery Signals</div>
-    			<div class="mt-1 text-sm text-text-secondary">
-      				AI search visibility snapshot
-    		</div>
-  		</div>
-
-  <div class="inline-flex items-center gap-2 rounded-full border border-border-terminal bg-bg-default px-3 py-1 text-xs font-medium text-text-primary shadow-soft">
-    <span class="h-2 w-2 rounded-full bg-green-default"></span>
-    Monitoring
-  </div>
-</div>
-
-                <div class="mt-5 space-y-4">
-                  <div class="rounded-2xl border border-border-default/70 bg-white p-4 shadow-soft">
-                    <div class="flex items-center justify-between gap-4">
-                      <span class="text-sm font-medium text-text-primary">Brand discoverability</span>
-                      <span class="text-sm font-semibold text-blue-default">Tracked</span>
-                    </div>
-                    <p class="mt-2 text-sm leading-6 text-text-secondary">
-                      Monitor how your business appears across changing search surfaces.
-                    </p>
-                  </div>
-
-                  <div class="rounded-2xl border border-border-default/70 bg-white p-4 shadow-soft">
-                    <div class="flex items-center justify-between gap-4">
-                      <span class="text-sm font-medium text-text-primary">Shift detection</span>
-                      <span class="h-2 w-2 rounded-full bg-green-default"></span>
-                    </div>
-                    <p class="mt-2 text-sm leading-6 text-text-secondary">
-                      Spot changes early before they become a business problem.
-                    </p>
-                  </div>
-
-                  <div class="rounded-2xl border border-border-terminal bg-bg-default p-4 font-mono text-sm">
-                    <div class="text-text-secondary">&gt; Check search presence</div>
-                    <div class="mt-2 text-green-default">✓ Visibility scan complete</div>
-                  </div>
-                </div>
-              </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div>
+              <h3>Get your AI Trust Score</h3>
+              <p>Your personalized report shows exactly where AI models are struggling to understand your business — and the specific gaps standing between you and an AI recommendation.</p>
             </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div>
+              <h3>Fix what AI doesn't trust</h3>
+              <p>See the key issues affecting how AI understands and trusts your business. Take the first steps now — or unlock the full action plan with the Pro Report.</p>
+             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="future" class="bg-white py-20 md:py-24">
-      <div class="mx-auto max-w-content px-6">
-        <div class="max-w-3xl">
-          <div class="mb-4 inline-flex rounded-full border border-border-default bg-white px-3 py-1 text-sm font-medium text-text-secondary">
-            Direction
-          </div>
-
-          <h2 class="text-3xl font-semibold leading-tight tracking-tight text-text-primary md:text-5xl">
-            Built for today’s operators, with room to grow.
-          </h2>
-
-          <p class="mt-5 text-lg leading-8 text-text-secondary">
-            TokiGig creates the customer-facing system and operator experience. Over time, that
-            foundation can expand into broader platform capabilities, community, and future Toki-OS
-            development without muddying the product story today.
-          </p>
-        </div>
-
-        <div class="mt-12 grid gap-6 md:grid-cols-3">
-          <article class="rounded-[1.75rem] bg-white p-7 shadow-soft">
-            <h3 class="text-lg font-semibold text-text-primary">Credible MVP</h3>
-            <p class="mt-3 leading-7 text-text-secondary">
-              Launch with a clear message, trustworthy design, and a direct path into the platform.
-            </p>
-          </article>
-
-          <article class="rounded-[1.75rem] bg-white p-7 shadow-soft">
-            <h3 class="text-lg font-semibold text-text-primary">Operational depth</h3>
-            <p class="mt-3 leading-7 text-text-secondary">
-              Expand into richer visibility, stronger execution tooling, and deeper system
-              intelligence.
-            </p>
-          </article>
-
-          <article class="rounded-[1.75rem] bg-white p-7 shadow-soft">
-            <h3 class="text-lg font-semibold text-text-primary">Future ecosystem</h3>
-            <p class="mt-3 leading-7 text-text-secondary">
-              Grow into wider platform, marketplace, and community layers through the Toki-OS vision.
-            </p>
-          </article>
-        </div>
+    <!-- ═══════════ TEASER ═══════════ -->
+    <section class="teaser-section">
+      <div class="container container-narrow">
+        <span class="teaser-badge">Something bigger is coming</span>
+        <h2 class="teaser-h2">TokiScan is just the beginning.</h2>
+        <p class="teaser-p">TokiScan is one workforce. Toki-OS runs many. We're building the infrastructure layer for AI-driven business operations — and you're getting in at the beginning.</p>
+        <p class="teaser-hint">Join early and you'll be first to know.</p>
       </div>
     </section>
 
-    <footer class="border-t border-border-default bg-white">
-      <div class="mx-auto flex max-w-content flex-col gap-3 px-6 py-8 text-sm text-text-secondary md:flex-row md:items-center md:justify-between">
-        <span>© 2026 TokiGig</span>
-        <span>Calm systems. Clear action.</span>
+    <!-- ═══════════ CTA ═══════════ -->
+    <section class="cta-section">
+      <div class="container container-narrow" style="text-align: center;">
+        <h2 class="cta-h2">Find out if AI trusts you — free.</h2>
+        <p class="cta-sub">Enter your URL. Find out if AI would recommend your business — in under two minutes.</p>
+        <form class="cta-form" action="https://apps.tokigig.com" method="GET">
+          <input type="text" name="url" placeholder="yourbusiness.com" class="cta-input" autocomplete="url" />
+          <button type="submit" class="btn-primary">Scan my site</button>
+        </form>
+        <p class="cta-note">No account needed. No credit card. Takes 90 seconds.</p>
       </div>
-    </footer>
+    </section>
   </main>
+
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <svg width="24" height="24" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d={LOGO_PATHS.body}  fill="#1D9E75"/>
+          <path d={LOGO_PATHS.spiral} fill="white"/>
+          <path d={LOGO_PATHS.head}  fill="white"/>
+          <path d={LOGO_PATHS.legL}  fill="white"/>
+          <path d={LOGO_PATHS.legR}  fill="white"/>
+          <path d={LOGO_PATHS.eye}   fill="#1D9E75"/>
+        </svg>
+        <span>toki<span style="color: #1D9E75;">gig</span></span>
+      </div>
+      <p class="footer-copy">© 2026 TokiGig · Built for businesses, not engineers</p>
+    </div>
+  </footer>
 </Layout>
+
+<style>
+  /* ─── NAV ─── */
+  #site-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+    background: transparent;
+    border-bottom: 0.5px solid transparent;
+  }
+  #site-nav.scrolled {
+    background: rgba(255, 255, 255, 0.97);
+    border-bottom-color: var(--toki-border);
+    box-shadow: 0 1px 16px rgba(0, 0, 0, 0.06);
+  }
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1.1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .logo-lockup {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .logo-svg { display: none; }
+  .logo-white { display: block; }
+  #site-nav.scrolled .logo-white { display: none; }
+  #site-nav.scrolled .logo-green { display: block; }
+
+  .wordmark {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+    color: #ffffff;
+    transition: color 0.35s ease;
+  }
+  #site-nav.scrolled .wordmark { color: var(--toki-black); }
+  .wordmark-accent {
+    color: var(--toki-green-lt);
+    transition: color 0.35s ease;
+  }
+  #site-nav.scrolled .wordmark-accent { color: var(--toki-green); }
+
+  .nav-cta {
+    background: var(--toki-green);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 9px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    white-space: nowrap;
+  }
+  .nav-cta:hover { opacity: 0.88; }
+
+  /* ─── HERO ─── */
+  .hero {
+    background: var(--toki-black);
+    padding: calc(5rem + 64px) 2rem 6rem;
+    margin-top: -64px;
+    text-align: center;
+  }
+  .hero-inner {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    color: var(--toki-green-lt);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .hero-h1 {
+    font-size: clamp(36px, 6vw, 58px);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+    color: #ffffff;
+    margin-bottom: 1.25rem;
+  }
+  .hero-h1 em {
+    font-style: normal;
+    color: var(--toki-green-lt);
+  }
+  .hero-sub {
+    font-size: 17px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.6);
+    max-width: 560px;
+    margin: 0 auto 2.25rem;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* ─── BUTTONS ─── */
+  .btn-primary {
+    background: var(--toki-green);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 13px 28px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { opacity: 0.88; }
+  .btn-secondary {
+    background: transparent;
+    color: rgba(255, 255, 255, 0.85);
+    border: 0.5px solid rgba(255, 255, 255, 0.25);
+    border-radius: 8px;
+    padding: 13px 28px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color 0.2s;
+    display: inline-block;
+  }
+  .btn-secondary:hover { border-color: rgba(255, 255, 255, 0.5); }
+
+  /* ─── LAYOUT ─── */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  .container-narrow {
+    max-width: 680px;
+  }
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    color: var(--toki-green);
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  .section-h2 {
+    font-size: clamp(22px, 3.5vw, 30px);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.3px;
+  }
+  .section-sub {
+    font-size: 15px;
+    color: var(--toki-muted);
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  /* ─── REPORT ─── */
+  .report-section {
+    background: var(--toki-black);
+    padding: 0 2rem 5rem;
+  }
+  .report-card {
+    max-width: 680px;
+    margin: 0 auto;
+    background: #161616;
+    border: 0.5px solid #2a2a2a;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .report-bar {
+    background: #111111;
+    border-bottom: 0.5px solid #2a2a2a;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot-red   { background: #E24B4A; }
+  .dot-amber { background: #EF9F27; }
+  .dot-green { background: #639922; }
+  .report-bar-label {
+    font-size: 12px;
+    color: #555;
+    margin-left: 8px;
+    font-family: ui-monospace, monospace;
+  }
+  .report-body { padding: 1.5rem; }
+  .report-url {
+    font-size: 12px;
+    color: #555;
+    font-family: ui-monospace, monospace;
+    margin-bottom: 1.25rem;
+  }
+  .score-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 1.25rem;
+  }
+  .score-num {
+    font-size: 42px;
+    font-weight: 700;
+    color: #EF9F27;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .score-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: #e0e0e0;
+    margin-bottom: 4px;
+  }
+  .score-sub { font-size: 13px; color: #666; line-height: 1.5; }
+  .progress-track {
+    height: 6px;
+    background: #252525;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 1.25rem;
+  }
+  .progress-fill {
+    height: 100%;
+    background: #EF9F27;
+    border-radius: 3px;
+  }
+  .issue-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+  .issue {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 12px;
+    background: #111;
+    border-radius: 8px;
+  }
+  .issue-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-top: 5px;
+    flex-shrink: 0;
+  }
+  .issue-dot-red   { background: #E24B4A; }
+  .issue-dot-amber { background: #EF9F27; }
+  .issue-dot-green { background: #639922; }
+  .issue p {
+    font-size: 13px;
+    color: #888;
+    line-height: 1.55;
+    margin: 0;
+  }
+  .issue p strong { color: #ccc; font-weight: 500; }
+
+  /* ─── PAIN ─── */
+  .pain-section {
+    background: white;
+    padding: 5rem 2rem;
+    border-top: 0.5px solid var(--toki-border);
+  }
+  .pain-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+  .pain-card {
+    background: white;
+    border: 0.5px solid var(--toki-border);
+    border-radius: 12px;
+    padding: 1.5rem;
+  }
+  .pain-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+  .pain-icon-coral { background: #FAECE7; color: #993C1D; }
+  .pain-icon-amber { background: #FAEEDA; color: #854F0B; }
+  .pain-icon-green { background: #E1F5EE; color: #0F6E56; }
+  .pain-card h3 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--toki-black);
+  }
+  .pain-card p {
+    font-size: 14px;
+    color: var(--toki-secondary);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* ─── HOW ─── */
+  .how-section {
+    background: var(--toki-mint);
+    padding: 5rem 2rem;
+    border-top: 0.5px solid var(--toki-border);
+  }
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  .step {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    padding: 1.25rem 1.5rem;
+    background: white;
+    border: 0.5px solid var(--toki-border);
+    border-radius: 12px;
+  }
+  .step-num {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #E1F5EE;
+    color: var(--toki-green-dk);
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .step h3 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--toki-black);
+  }
+  .step p {
+    font-size: 13px;
+    color: var(--toki-secondary);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* ─── TEASER ─── */
+  .teaser-section {
+    background: white;
+    padding: 5rem 2rem;
+    text-align: center;
+    border-top: 0.5px solid var(--toki-border);
+  }
+  .teaser-badge {
+    display: inline-block;
+    background: var(--toki-mint);
+    color: var(--toki-green-dk);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 16px;
+    border-radius: 20px;
+    border: 0.5px solid var(--toki-border);
+    margin-bottom: 1.5rem;
+  }
+  .teaser-h2 {
+    font-size: clamp(22px, 3.5vw, 32px);
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    margin-bottom: 1rem;
+    max-width: 540px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .teaser-p {
+    font-size: 15px;
+    color: var(--toki-secondary);
+    line-height: 1.7;
+    max-width: 520px;
+    margin: 0 auto 0.5rem;
+  }
+  .teaser-hint {
+    font-size: 13px;
+    color: var(--toki-muted);
+    margin-top: 0.75rem;
+  }
+
+  /* ─── CTA ─── */
+  .cta-section {
+    background: var(--toki-mint);
+    padding: 5rem 2rem;
+    border-top: 0.5px solid var(--toki-border);
+  }
+  .cta-h2 {
+    font-size: clamp(22px, 3.5vw, 30px);
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    margin-bottom: 0.75rem;
+  }
+  .cta-sub {
+    font-size: 15px;
+    color: var(--toki-secondary);
+    margin-bottom: 2rem;
+  }
+  .cta-form {
+    display: flex;
+    gap: 10px;
+    max-width: 480px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .cta-input {
+    flex: 1;
+    min-width: 220px;
+    padding: 12px 16px;
+    border: 0.5px solid var(--toki-border);
+    border-radius: 8px;
+    font-size: 14px;
+    background: white;
+    color: var(--toki-black);
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .cta-input:focus { border-color: var(--toki-green); }
+  .cta-note {
+    font-size: 12px;
+    color: var(--toki-muted);
+    margin-top: 1rem;
+  }
+
+  /* ─── FOOTER ─── */
+  .site-footer {
+    background: white;
+    border-top: 0.5px solid var(--toki-border);
+    padding: 1.75rem 2rem;
+  }
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--toki-black);
+  }
+  .footer-copy {
+    font-size: 12px;
+    color: var(--toki-muted);
+    margin: 0;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 600px) {
+    .nav-inner { padding: 1rem 1.25rem; }
+    .hero { padding: calc(4rem + 64px) 1.25rem 4rem; }
+    .pain-section, .how-section, .teaser-section, .cta-section { padding: 3.5rem 1.25rem; }
+    .report-section { padding: 0 1.25rem 3.5rem; }
+  }
+</style>
+
+<script>
+  const nav = document.getElementById('site-nav');
+  const hero = document.querySelector('.hero') as HTMLElement;
+
+  const onScroll = () => {
+    const heroBottom = hero ? hero.offsetHeight : 300;
+    if (window.scrollY > heroBottom * 0.6) {
+      nav?.classList.add('scrolled');
+    } else {
+      nav?.classList.remove('scrolled');
+    }
+  };
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>

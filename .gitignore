@@ -1,5 +1,6 @@
 # build output
 dist/
+cdk.out/
 # generated types
 .astro/
 
@@ -22,3 +23,6 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# SFTP config with sensitive credentials
+.vscode/sftp.json
