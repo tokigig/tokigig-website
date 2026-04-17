@@ -104,7 +104,7 @@
 
     --score-track:    #E5F5EE;
 
-    --section-hero:     #0A0A0A;   /* Hero stays dark in light mode — brand anchor */
+    --section-hero:     #FFFFFF;
     --section-report:   #0A0A0A;
     --section-pain:     #FFFFFF;
     --section-how:      #F4FAF7;
@@ -149,7 +149,7 @@
 
       --score-track:    #E5F5EE;
 
-      --section-hero:     #0A0A0A;
+      --section-hero:     #FFFFFF;
       --section-report:   #0A0A0A;
       --section-pain:     #FFFFFF;
       --section-how:      #F4FAF7;
@@ -255,15 +255,14 @@
     left: 0;
     right: 0;
     z-index: 100;
-    background: rgba(10,10,10,0.95); /* Always dark — nav sits over always-dark hero */
+    background: var(--nav-bg); /* Dark in dark mode, light in light mode */
     border-bottom: 0.5px solid transparent;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
   }
 
   #site-nav.scrolled {
-    background: var(--nav-bg); /* Picks up theme color once past hero */
     border-bottom-color: var(--nav-border);
     box-shadow: var(--shadow-sm);
   }
@@ -285,21 +284,17 @@
   }
 
   .logo-svg { display: none; }
-  .logo-white { display: block; }  /* Nav starts dark — white logo always */
+  .logo-white { display: block; }  /* Dark mode: white logo */
 
-  /* Light mode: keep white logo until scrolled past hero, then switch to green */
-  [data-theme="light"] #site-nav.scrolled .logo-white { display: none; }
-  [data-theme="light"] #site-nav.scrolled .logo-green { display: block; }
+  [data-theme="light"] .logo-white { display: none; }
+  [data-theme="light"] .logo-green { display: block; }
 
   .wordmark {
     font-size: 18px;
     font-weight: 600;
     letter-spacing: -0.3px;
-    color: #F5F5F5;  /* Nav starts dark — always white */
+    color: var(--text-primary);
   }
-
-  /* Light mode: wordmark goes dark once nav turns white */
-  [data-theme="light"] #site-nav.scrolled .wordmark { color: var(--text-primary); }
 
   .wordmark-accent { color: var(--toki-green); }
 
@@ -309,14 +304,13 @@
     gap: 0.75rem;
   }
 
-  /* Theme toggle button — nav starts dark so hardcode dark defaults */
   .theme-toggle {
     width: 36px;
     height: 36px;
     border-radius: 8px;
-    border: 0.5px solid rgba(255,255,255,0.15);
-    background: rgba(255,255,255,0.06);
-    color: #A1A1AA;
+    border: 0.5px solid var(--border-base);
+    background: var(--bg-elevated);
+    color: var(--text-secondary);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -325,19 +319,6 @@
   }
 
   .theme-toggle:hover {
-    background: rgba(255,255,255,0.12);
-    color: #F5F5F5;
-    border-color: rgba(255,255,255,0.3);
-  }
-
-  /* Light mode + scrolled: nav is white, toggle adapts */
-  [data-theme="light"] #site-nav.scrolled .theme-toggle {
-    border-color: var(--border-base);
-    background: var(--bg-elevated);
-    color: var(--text-secondary);
-  }
-
-  [data-theme="light"] #site-nav.scrolled .theme-toggle:hover {
     background: var(--bg-card-hover);
     color: var(--text-primary);
     border-color: var(--border-strong);
@@ -395,7 +376,7 @@
     font-weight: 700;
     letter-spacing: -0.04em;
     line-height: 1.1;
-    color: #F5F5F5;   /* Always white — hero is always dark */
+    color: var(--text-primary);
     margin: 0 0 1.25rem;
   }
 
@@ -406,7 +387,7 @@
 
   .hero-sub {
     font-size: clamp(15px, 2vw, 17px);
-    color: #A1A1AA;   /* Always muted white — hero is always dark */
+    color: var(--text-secondary);
     line-height: 1.7;
     max-width: 580px;
     margin: 0 auto 2.5rem;
@@ -437,18 +418,18 @@
 
   .btn-secondary {
     background: transparent;
-    color: #A1A1AA;
+    color: var(--text-secondary);
     padding: 0.75rem 1.75rem;
     border-radius: var(--radius-sm);
     font-size: 15px;
     font-weight: 500;
-    border: 0.5px solid rgba(255,255,255,0.15);
+    border: 0.5px solid var(--border-strong);
     transition: border-color 0.15s, color 0.15s;
   }
 
   .btn-secondary:hover {
-    border-color: rgba(255,255,255,0.35);
-    color: #F5F5F5;
+    border-color: var(--toki-green);
+    color: var(--text-primary);
   }
 
   /* ═══════════════════════════════════════════════════
