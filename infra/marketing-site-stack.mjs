@@ -83,6 +83,15 @@ export class MarketingSiteStack extends Stack {
       roleName: props.githubRoleName,
     });
 
+    siteBucket.addToResourcePolicy(
+      new iam.PolicyStatement({
+        effect: iam.Effect.ALLOW,
+        principals: [new iam.ArnPrincipal(githubDeployRole.roleArn)],
+        actions: ['s3:ListBucket', 's3:GetObject', 's3:PutObject', 's3:DeleteObject'],
+        resources: [siteBucket.bucketArn, `${siteBucket.bucketArn}/*`],
+      }),
+    );
+
     siteBucket.grantReadWrite(githubDeployRole);
     githubDeployRole.addToPolicy(
       new iam.PolicyStatement({
