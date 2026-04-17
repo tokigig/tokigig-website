@@ -353,7 +353,7 @@
   ═══════════════════════════════════════════════════ */
 
   .hero {
-    background: #0A0A0A;
+    background: var(--section-hero);
     padding: 9rem 2rem 5rem;
     text-align: center;
   }
@@ -438,7 +438,7 @@
   ═══════════════════════════════════════════════════ */
 
   .report-section {
-    background: #0A0A0A;
+    background: var(--section-report);
     padding: 0 2rem 5rem;
   }
 
@@ -593,7 +593,7 @@
   ═══════════════════════════════════════════════════ */
 
   .pain-section {
-    background: #0D0D0D;
+    background: var(--section-pain);
     padding: 5rem 2rem;
     border-top: 0.5px solid var(--border-base);
   }
@@ -655,7 +655,7 @@
   ═══════════════════════════════════════════════════ */
 
   .how-section {
-    background: #111111;
+    background: var(--section-how);
     padding: 5rem 2rem;
     border-top: 0.5px solid var(--border-base);
     text-align: center;
@@ -717,7 +717,7 @@
   ═══════════════════════════════════════════════════ */
 
   .vision-section {
-    background: #0A0A0A;
+    background: var(--section-vision);
     padding: 5rem 2rem;
     border-top: 0.5px solid var(--border-base);
     text-align: center;
@@ -766,7 +766,7 @@
   ═══════════════════════════════════════════════════ */
 
   .cta-section {
-    background: #0D0D0D;
+    background: var(--section-cta);
     padding: 5rem 2rem;
     border-top: 0.5px solid var(--border-base);
     text-align: center;
@@ -846,14 +846,34 @@
   ═══════════════════════════════════════════════════ */
 
   .site-footer {
-    background: #080808;
+    background: var(--section-footer);
     border-top: 0.5px solid var(--border-base);
-    padding: 2rem;
-    text-align: center;
+    padding: 1.75rem 2rem;
   }
 
-  .site-footer p {
-    font-size: 13px;
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #F5F5F5;
+  }
+
+  .footer-logo-accent { color: var(--toki-green); }
+
+  .footer-copy {
+    font-size: 12px;
     color: var(--text-tertiary);
     margin: 0;
   }

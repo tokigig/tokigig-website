@@ -205,7 +205,20 @@ const LOGO_PATHS = {
 
   <!-- ═══════════ FOOTER ═══════════ -->
   <footer class="site-footer">
-    <p>© 2026 TokiGig · Built for businesses, not engineers</p>
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <svg width="24" height="24" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d={LOGO_PATHS.body}  style="fill: var(--toki-green)"/>
+          <path d={LOGO_PATHS.spiral} style="fill: white"/>
+          <path d={LOGO_PATHS.head}  style="fill: white"/>
+          <path d={LOGO_PATHS.legL}  style="fill: white"/>
+          <path d={LOGO_PATHS.legR}  style="fill: white"/>
+          <path d={LOGO_PATHS.eye}   style="fill: var(--toki-green)"/>
+        </svg>
+        <span>toki<span class="footer-logo-accent">gig</span></span>
+      </div>
+      <p class="footer-copy">© 2026 TokiGig · Built for businesses, not engineers</p>
+    </div>
   </footer>
 </Layout>
 
