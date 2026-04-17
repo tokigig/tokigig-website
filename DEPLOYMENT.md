@@ -31,7 +31,12 @@ Optional environment variables:
 
 1. Install dependencies: `pnpm install`
 2. Bootstrap CDK if needed: `pnpm cdk:bootstrap`
-3. Build and deploy: `pnpm deploy:infra`
+3. Build and deploy the AWS infrastructure: `pnpm deploy:infra`
+4. Copy these `TokiGigMarketingSiteStack` outputs into GitHub repository secrets:
+   `GitHubDeployRoleArn` -> `AWS_ROLE_TO_ASSUME`
+   `SiteBucketName` -> `AWS_S3_BUCKET`
+   `CloudFrontDistributionId` -> `AWS_CLOUDFRONT_DISTRIBUTION_ID`
+5. After the secrets are set, pushes to `main` can use GitHub Actions for routine site deploys.
 
 ## Cloudflare steps
 
@@ -45,6 +50,8 @@ Use Cloudflare proxied DNS records. For the apex/root domain, Cloudflare CNAME f
 ## GitHub Actions deploy
 
 The repo now includes `.github/workflows/deploy-marketing.yml`.
+
+Use the CDK deploy above first. The GitHub Actions workflow only uploads the built site and invalidates CloudFront; it does not create or update the S3 bucket policy, IAM role, or distribution.
 
 On every push to `main`, it will:
 
@@ -68,4 +75,8 @@ The CDK stack also creates:
 - An IAM OIDC provider for `https://token.actions.githubusercontent.com`
 - A GitHub Actions deploy role scoped to the `TokiGig/tokigig-website` repo on the `main` branch
 
-After deploying, copy the `GitHubDeployRoleArn` stack output into the `AWS_ROLE_TO_ASSUME` GitHub secret.
+After the one-time infrastructure deploy, copy these outputs into GitHub:
+
+- `GitHubDeployRoleArn` -> `AWS_ROLE_TO_ASSUME`
+- `SiteBucketName` -> `AWS_S3_BUCKET`
+- `CloudFrontDistributionId` -> `AWS_CLOUDFRONT_DISTRIBUTION_ID`
