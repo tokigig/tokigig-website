@@ -178,12 +178,13 @@
     box-sizing: border-box;
   }
 
-  html {
-    background-color: var(--bg-base);
+  html, body {
+    background: #0A0A0A;
     color: var(--text-primary);
+  }
+
+  html {
     scroll-behavior: smooth;
-    /* Prevent flash on theme load */
-    transition: background-color 0.2s ease, color 0.2s ease;
   }
 
   body {
@@ -193,8 +194,6 @@
     text-rendering: optimizeLegibility;
     font-size: 16px;
     line-height: 1.6;
-    background-color: var(--bg-base);
-    color: var(--text-primary);
   }
 
   a {
@@ -354,7 +353,7 @@
   ═══════════════════════════════════════════════════ */
 
   .hero {
-    background: var(--section-hero);
+    background: #0A0A0A;
     padding: 9rem 2rem 5rem;
     text-align: center;
   }
@@ -439,7 +438,7 @@
   ═══════════════════════════════════════════════════ */
 
   .report-section {
-    background: var(--section-report);
+    background: #0A0A0A;
     padding: 0 2rem 5rem;
   }
 
@@ -594,7 +593,7 @@
   ═══════════════════════════════════════════════════ */
 
   .pain-section {
-    background: var(--section-pain);
+    background: #0D0D0D;
     padding: 5rem 2rem;
     border-top: 0.5px solid var(--border-base);
   }
@@ -656,7 +655,7 @@
   ═══════════════════════════════════════════════════ */
 
   .how-section {
-    background: var(--section-how);
+    background: #111111;
     padding: 5rem 2rem;
     border-top: 0.5px solid var(--border-base);
     text-align: center;
@@ -718,7 +717,7 @@
   ═══════════════════════════════════════════════════ */
 
   .vision-section {
-    background: var(--section-vision);
+    background: #0A0A0A;
     padding: 5rem 2rem;
     border-top: 0.5px solid var(--border-base);
     text-align: center;
@@ -767,7 +766,7 @@
   ═══════════════════════════════════════════════════ */
 
   .cta-section {
-    background: var(--section-cta);
+    background: #0D0D0D;
     padding: 5rem 2rem;
     border-top: 0.5px solid var(--border-base);
     text-align: center;
@@ -847,7 +846,7 @@
   ═══════════════════════════════════════════════════ */
 
   .site-footer {
-    background: var(--section-footer);
+    background: #080808;
     border-top: 0.5px solid var(--border-base);
     padding: 2rem;
     text-align: center;
