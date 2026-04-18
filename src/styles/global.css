@@ -105,7 +105,7 @@
     --score-track:    #E5F5EE;
 
     --section-hero:     #FFFFFF;
-    --section-report:   #0A0A0A;
+    --section-report:   #FFFFFF;
     --section-pain:     #FFFFFF;
     --section-how:      #F4FAF7;
     --section-vision:   #FFFFFF;
@@ -150,7 +150,7 @@
       --score-track:    #E5F5EE;
 
       --section-hero:     #FFFFFF;
-      --section-report:   #0A0A0A;
+      --section-report:   #FFFFFF;
       --section-pain:     #FFFFFF;
       --section-how:      #F4FAF7;
       --section-vision:   #FFFFFF;
@@ -186,12 +186,9 @@
   html[data-theme="light"] { background: #ffffff; }
 
   body {
+    margin: 0;
     background: var(--bg-base);
     color: var(--text-primary);
-  }
-
-  body {
-    margin: 0;
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
@@ -451,7 +448,7 @@
     border: 0.5px solid var(--border-base);
     border-radius: var(--radius-lg);
     overflow: hidden;
-    box-shadow: 0 0 0 1px rgba(255,255,255,0.1), var(--shadow-lg);
+    box-shadow: var(--shadow-lg);
   }
 
   .report-bar {
