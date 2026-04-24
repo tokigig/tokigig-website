@@ -1,0 +1,285 @@
+<div class="hero-network" data-hero-network aria-hidden="true">
+  <canvas class="hero-network__canvas" data-network-canvas></canvas>
+  <div class="hero-network__mask"></div>
+</div>
+
+<script>
+  const roots = document.querySelectorAll('[data-hero-network]');
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const mobileQuery = window.matchMedia('(max-width: 900px)');
+
+  const COLORS = {
+    green: '#7ab86a',
+    blue: '#4a9add',
+    amber: '#c8a030',
+  };
+
+  function hashNoise(seed) {
+    return Math.abs(Math.sin(seed * 12.9898) * 43758.5453) % 1;
+  }
+
+  function clamp(value, min, max) {
+    return Math.max(min, Math.min(max, value));
+  }
+
+  function createNodes(width, height, mobile) {
+    const count = mobile ? 74 : 148;
+    const leftBound = width * (mobile ? 0.5 : 0.42);
+    const usableWidth = Math.max(width - leftBound - 24, 40);
+    const nodes = [];
+
+    for (let index = 0; index < count; index += 1) {
+      const column = hashNoise(index + 11);
+      const row = hashNoise(index + 37);
+      const drift = hashNoise(index + 71) - 0.5;
+      const x = leftBound + column * usableWidth;
+      const y = clamp(24 + row * (height - 48) + drift * 28, 18, height - 18);
+      const intensity = clamp((x - leftBound) / usableWidth, 0, 1);
+      const size = (mobile ? 1.2 : 1.4) + intensity * (mobile ? 2.2 : 3.6);
+      const paletteRoll = hashNoise(index + 101);
+      const color = paletteRoll < 0.6 ? COLORS.green : paletteRoll < 0.88 ? COLORS.blue : COLORS.amber;
+
+      nodes.push({
+        id: index,
+        x,
+        y,
+        size,
+        intensity,
+        color,
+        twinkleOffset: hashNoise(index + 211) * Math.PI * 2,
+        twinkleSpeed: 0.4 + hashNoise(index + 271) * 1.1,
+      });
+    }
+
+    const outputNode = {
+      id: count,
+      x: width * 0.91,
+      y: height * 0.5,
+      size: mobile ? 7.5 : 10.5,
+      intensity: 1,
+      color: COLORS.green,
+      twinkleOffset: 0,
+      twinkleSpeed: 1,
+      isOutput: true,
+    };
+
+    nodes.push(outputNode);
+    return nodes;
+  }
+
+  function createEdges(nodes, width, mobile) {
+    const output = nodes[nodes.length - 1];
+    const maxDistance = mobile ? 108 : 124;
+    const maxEdgesPerNode = mobile ? 2 : 3;
+    const edges = [];
+    const neighborCounts = new Array(nodes.length).fill(0);
+
+    for (let index = 0; index < nodes.length - 1; index += 1) {
+      const node = nodes[index];
+      const candidates = [];
+
+      for (let compare = index + 1; compare < nodes.length; compare += 1) {
+        const target = nodes[compare];
+        const dx = target.x - node.x;
+        const dy = target.y - node.y;
+        const distance = Math.hypot(dx, dy);
+
+        if (dx <= 0 || distance > maxDistance) {
+          continue;
+        }
+
+        candidates.push({ index: compare, distance, dx });
+      }
+
+      candidates
+        .sort((left, right) => left.distance - right.distance || left.dx - right.dx)
+        .slice(0, maxEdgesPerNode)
+        .forEach((candidate) => {
+          if (neighborCounts[index] >= maxEdgesPerNode || neighborCounts[candidate.index] >= maxEdgesPerNode + 1) {
+            return;
+          }
+
+          edges.push({
+            from: node,
+            to: nodes[candidate.index],
+            strength: 1 - candidate.distance / maxDistance,
+            pulseOffset: hashNoise(index * 19 + candidate.index * 23) * 5000,
+            pulseSpeed: 0.00018 + hashNoise(index * 7 + candidate.index * 5) * 0.00018,
+          });
+          neighborCounts[index] += 1;
+          neighborCounts[candidate.index] += 1;
+        });
+    }
+
+    const farRightNodes = nodes
+      .slice(0, -1)
+      .filter((node) => node.x > width * (mobile ? 0.73 : 0.77))
+      .sort((left, right) => Math.abs(left.y - output.y) - Math.abs(right.y - output.y))
+      .slice(0, mobile ? 4 : 6);
+
+    farRightNodes.forEach((node, index) => {
+      edges.push({
+        from: node,
+        to: output,
+        strength: 0.95 - index * 0.08,
+        pulseOffset: hashNoise(index * 43 + 13) * 4000,
+        pulseSpeed: 0.00024 + index * 0.00002,
+      });
+    });
+
+    return edges;
+  }
+
+  function drawFrame(ctx, width, height, nodes, edges, time, animated) {
+    ctx.clearRect(0, 0, width, height);
+
+    edges.forEach((edge) => {
+      const gradient = ctx.createLinearGradient(edge.from.x, edge.from.y, edge.to.x, edge.to.y);
+      gradient.addColorStop(0, 'rgba(122, 184, 106, 0.04)');
+      gradient.addColorStop(0.55, 'rgba(74, 154, 221, 0.08)');
+      gradient.addColorStop(1, 'rgba(122, 184, 106, 0.12)');
+
+      ctx.beginPath();
+      ctx.moveTo(edge.from.x, edge.from.y);
+      ctx.lineTo(edge.to.x, edge.to.y);
+      ctx.strokeStyle = gradient;
+      ctx.lineWidth = 0.5 + edge.strength * 0.8;
+      ctx.stroke();
+
+      if (animated) {
+        const phase = (time * edge.pulseSpeed + edge.pulseOffset) % 1;
+        if (phase < 0.24) {
+          const t = phase / 0.24;
+          const x = edge.from.x + (edge.to.x - edge.from.x) * t;
+          const y = edge.from.y + (edge.to.y - edge.from.y) * t;
+          const radius = 1.2 + edge.strength * 1.8;
+
+          const pulseGradient = ctx.createRadialGradient(x, y, 0, x, y, radius * 8);
+          pulseGradient.addColorStop(0, 'rgba(122, 184, 106, 0.95)');
+          pulseGradient.addColorStop(0.45, 'rgba(74, 154, 221, 0.4)');
+          pulseGradient.addColorStop(1, 'rgba(122, 184, 106, 0)');
+
+          ctx.beginPath();
+          ctx.fillStyle = pulseGradient;
+          ctx.arc(x, y, radius * 8, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+    });
+
+    nodes.forEach((node) => {
+      const twinkle = animated
+        ? 0.72 + (Math.sin(time * 0.001 * node.twinkleSpeed + node.twinkleOffset) + 1) * 0.18
+        : 0.82;
+      const radius = node.size * twinkle;
+      const glowRadius = radius * (node.isOutput ? 8 : 5 + node.intensity * 3);
+
+      const glow = ctx.createRadialGradient(node.x, node.y, 0, node.x, node.y, glowRadius);
+      const alphaBase = node.isOutput ? 0.42 : 0.18 + node.intensity * 0.14;
+      glow.addColorStop(0, `${node.color}${node.isOutput ? 'bb' : '8a'}`);
+      glow.addColorStop(0.25, `${node.color}${Math.round(alphaBase * 255).toString(16).padStart(2, '0')}`);
+      glow.addColorStop(1, `${node.color}00`);
+
+      ctx.beginPath();
+      ctx.fillStyle = glow;
+      ctx.arc(node.x, node.y, glowRadius, 0, Math.PI * 2);
+      ctx.fill();
+
+      if (node.isOutput) {
+        const ringPhase = animated ? (Math.sin(time * 0.0022) + 1) * 0.5 : 0.4;
+        ctx.beginPath();
+        ctx.strokeStyle = `rgba(122, 184, 106, ${0.22 + ringPhase * 0.2})`;
+        ctx.lineWidth = 1.2;
+        ctx.arc(node.x, node.y, radius * (2.1 + ringPhase * 0.4), 0, Math.PI * 2);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.strokeStyle = `rgba(74, 154, 221, ${0.12 + ringPhase * 0.12})`;
+        ctx.lineWidth = 0.8;
+        ctx.arc(node.x, node.y, radius * (3 + ringPhase * 0.55), 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      ctx.beginPath();
+      ctx.fillStyle = node.color;
+      ctx.arc(node.x, node.y, radius, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    const clearZone = ctx.createLinearGradient(0, 0, width * 0.38, 0);
+    clearZone.addColorStop(0, 'rgba(8, 8, 8, 1)');
+    clearZone.addColorStop(0.7, 'rgba(8, 8, 8, 0.92)');
+    clearZone.addColorStop(1, 'rgba(8, 8, 8, 0)');
+
+    ctx.fillStyle = clearZone;
+    ctx.fillRect(0, 0, width * 0.38, height);
+  }
+
+  roots.forEach((root) => {
+    const canvas = root.querySelector('[data-network-canvas]');
+    if (!(canvas instanceof HTMLCanvasElement)) {
+      return;
+    }
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) {
+      return;
+    }
+
+    let animationFrame = 0;
+    let cleanupResize = () => {};
+
+    const render = () => {
+      const bounds = root.getBoundingClientRect();
+      const width = Math.max(Math.floor(bounds.width), 320);
+      const height = Math.max(Math.floor(bounds.height), mobileQuery.matches ? 280 : 420);
+      const dpr = clamp(window.devicePixelRatio || 1, 1, 2);
+
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      const mobile = mobileQuery.matches;
+      const animated = !reduceMotion.matches;
+      const nodes = createNodes(width, height, mobile);
+      const edges = createEdges(nodes, width, mobile);
+
+      const frame = (time) => {
+        drawFrame(ctx, width, height, nodes, edges, time, animated);
+        if (animated) {
+          animationFrame = window.requestAnimationFrame(frame);
+        }
+      };
+
+      window.cancelAnimationFrame(animationFrame);
+      frame(0);
+      if (animated) {
+        animationFrame = window.requestAnimationFrame(frame);
+      }
+    };
+
+    const observer = new ResizeObserver(() => {
+      render();
+    });
+
+    observer.observe(root);
+    cleanupResize = () => observer.disconnect();
+
+    const handleMediaChange = () => render();
+    reduceMotion.addEventListener('change', handleMediaChange);
+    mobileQuery.addEventListener('change', handleMediaChange);
+
+    render();
+
+    window.addEventListener('pagehide', () => {
+      window.cancelAnimationFrame(animationFrame);
+      cleanupResize();
+      reduceMotion.removeEventListener('change', handleMediaChange);
+      mobileQuery.removeEventListener('change', handleMediaChange);
+    }, { once: true });
+  });
+</script>

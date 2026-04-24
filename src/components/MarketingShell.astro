@@ -1,0 +1,115 @@
+---
+import Layout from '../layouts/Layout.astro';
+import '../styles/global.css';
+import { LOGO_PATHS } from '../lib/brand';
+import { buildScanHref } from '../lib/scan-flow';
+
+interface Props {
+  title: string;
+  description: string;
+  currentPath: '/' | '/scan' | '/os';
+  schema?: Record<string, unknown> | null;
+}
+
+const { title, description, currentPath, schema = null } = Astro.props;
+
+const navItems = [
+  { label: 'Products', href: '/scan' },
+  { label: 'About', href: currentPath === '/' ? '#builds' : '/' },
+  { label: 'Pricing', href: '/scan' },
+];
+---
+
+<Layout title={title} description={description} path={currentPath} schema={schema}>
+  <div class="marketing-shell">
+    <header class="marketing-header" id="site-nav">
+      <div class="marketing-header__inner">
+        <a href="/" class="marketing-brand" aria-label="TokiGig home">
+          <svg class="logo-svg logo-white" width="36" height="36" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d={LOGO_PATHS.body} style="fill: white" />
+            <path d={LOGO_PATHS.spiral} style="fill: var(--toki-black)" />
+            <path d={LOGO_PATHS.head} style="fill: var(--toki-black)" />
+            <path d={LOGO_PATHS.legL} style="fill: var(--toki-black)" />
+            <path d={LOGO_PATHS.legR} style="fill: var(--toki-black)" />
+            <path d={LOGO_PATHS.eye} style="fill: white" />
+          </svg>
+          <svg class="logo-svg logo-green" width="36" height="36" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d={LOGO_PATHS.body} style="fill: var(--toki-green-dk)" />
+            <path d={LOGO_PATHS.spiral} style="fill: white" />
+            <path d={LOGO_PATHS.head} style="fill: white" />
+            <path d={LOGO_PATHS.legL} style="fill: white" />
+            <path d={LOGO_PATHS.legR} style="fill: white" />
+            <path d={LOGO_PATHS.eye} style="fill: var(--toki-green-dk)" />
+          </svg>
+          <span class="wordmark">toki<span class="wordmark-accent">gig</span></span>
+        </a>
+
+        <nav class="marketing-nav" aria-label="Primary">
+          {navItems.map((item) => (
+            <a href={item.href} class:list={['marketing-nav__link', { 'is-current': currentPath === item.href }]}>
+              {item.label}
+            </a>
+          ))}
+          <a href="https://apps.tokigig.com" class="marketing-nav__link">Sign in</a>
+          <span class="marketing-nav__divider" aria-hidden="true">|</span>
+        </nav>
+
+        <div class="marketing-header__actions">
+          <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+            <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>
+            <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5" /><line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" /><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" /><line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" /><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" /></svg>
+          </button>
+          <a href={buildScanHref(`nav-${currentPath === '/' ? 'home' : currentPath.slice(1) || 'home'}`)} class="nav-cta">Free scan</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="marketing-main">
+      <slot />
+    </main>
+
+    <footer class="marketing-footer">
+      <div class="marketing-footer__inner">
+        <div class="footer-logo">
+          <svg width="24" height="24" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d={LOGO_PATHS.body} style="fill: var(--toki-green)" />
+            <path d={LOGO_PATHS.spiral} style="fill: white" />
+            <path d={LOGO_PATHS.head} style="fill: white" />
+            <path d={LOGO_PATHS.legL} style="fill: white" />
+            <path d={LOGO_PATHS.legR} style="fill: white" />
+            <path d={LOGO_PATHS.eye} style="fill: var(--toki-green)" />
+          </svg>
+          <span>toki<span class="footer-logo-accent">gig</span></span>
+        </div>
+
+        <div class="marketing-footer__links" aria-label="Marketing routes">
+          <a href="/scan">Products</a>
+          <a href={currentPath === '/' ? '#builds' : '/'}>About</a>
+          <a href="/scan">Pricing</a>
+          <a href="/os">toki-os</a>
+          <a href="/privacy">Privacy</a>
+        </div>
+
+        <div class="marketing-footer__social">
+          <a href="https://x.com/TheKingofKimchi" target="_blank" rel="noreferrer">@TheKingofKimchi</a>
+        </div>
+      </div>
+      <p class="marketing-footer__bottom">© 2026 tokigig. Built on <a href="/os">toki-os</a>.</p>
+    </footer>
+  </div>
+</Layout>
+
+<script>
+  const nav = document.getElementById('site-nav');
+  window.addEventListener('scroll', () => {
+    nav?.classList.toggle('scrolled', window.scrollY > 24);
+  }, { passive: true });
+
+  const toggle = document.getElementById('theme-toggle');
+  toggle?.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('toki-theme', next);
+  });
+</script>

@@ -1,0 +1,17 @@
+tokigig
+
+tokigig builds AI tools for business operators. The company focuses on helping businesses become more visible, more trusted, and more capable when AI systems decide which businesses to understand and recommend.
+
+Products
+- tokiscan: AI visibility diagnostic that checks whether AI can understand and recommend a business website.
+- toki-os: The underlying AI operating system used to build tokigig tools, designed to be inspectable, extensible, and trustworthy.
+
+Public URLs
+- https://tokigig.com/ : Company homepage
+- https://tokigig.com/scan : tokiscan product page
+- https://tokigig.com/os : toki-os public stub
+
+Summary
+- tokigig is the company homepage and public marketing surface.
+- tokiscan is the immediate public entry point for checking AI visibility.
+- toki-os is the underlying system layer behind the broader product direction.

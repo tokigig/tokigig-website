@@ -2,8 +2,11 @@
 interface Props {
   title: string;
   description: string;
+  path?: string;
+  schema?: Record<string, unknown> | null;
 }
-const { title, description } = Astro.props;
+const { title, description, path = '/', schema = null } = Astro.props;
+const pageUrl = new URL(path, 'https://tokigig.com').toString();
 ---
 <!doctype html>
 <html lang="en">
@@ -12,14 +15,19 @@ const { title, description } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <meta name="theme-color" content="#0A0A0A" />
+    <link rel="canonical" href={pageUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://tokigig.com" />
+    <meta property="og:site_name" content="tokigig" />
+    <meta property="og:url" content={pageUrl} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <title>{title}</title>
+    {schema ? (
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    ) : null}
     <script is:inline>
       const saved = localStorage.getItem('toki-theme');
       const preferred = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';

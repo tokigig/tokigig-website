@@ -1,240 +1,246 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import '../styles/global.css';
+import MarketingShell from '../components/MarketingShell.astro';
+import HeroNetwork from '../components/HeroNetwork.astro';
+import { APP_SCAN_ENTRY, buildScanHref } from '../lib/scan-flow';
 
-const LOGO_PATHS = {
-  body: "M264.25,176.02c4.71-3.57,7.79-10.66,12.07-14.46,19.8-17.6,52.89-4.69,56.65,20.51,5.86,39.25-20.77,53.99-53.37,61.56-7.5,1.74-.86,16.69,1.55,22.41,2.9,6.89,18.31,24.63,4.46,28.63-4.94,1.43-30.26.94-36.71.4-17.98-1.49-14.75-17.86-25.83-28.81-25.83,8.73-56.58,10.02-81.63-1.58-4.53.87-14.82,24.93-21.45,28.39-4.77,2.48-35.81,3.13-41.13,1.61-4.13-1.19-7.43-7.07-5.63-11.3l20.56-38.18c-5.76-3.46-22.49-1.56-24.93-6.44-6.68-13.35,19.71-14.55,21.49-22.02-5.56-25.47-3.18-50.78,10.2-73.35,26.73-45.13,89.32-67.37,134.65-35.58,10.82,7.58,29.05,31.64,29.05,44.91v23.32ZM229.92,207.62c27.26-26.75,27.2-71.88-8.56-90.81-42.4-22.44-100.63,3.97-114.23,49.22-23.21,77.24,69.86,115.37,128.69,75.62,13.61-9.2,19.29-13.95,20.46-30.99.17-2.53,1.19-11.03-1.65-12.11-22.11,41.08-79.32,59.94-117.27,27.99-50-42.11,14.4-122.8,72.22-96.34,56.01,25.64-3.16,106.35-46.52,77.07-34.61-23.38,20.2-69.48,35.1-46.37,8.25,12.79-12.61,25.18-14.36,10.33-3.42-3.16-26.19,13.54-12.77,23.25,20.1,14.53,69.55-26.29,34.27-48.75-36.92-23.51-97.09,34.85-57.66,68.92,23.61,20.4,60.99,13.86,82.28-7.03ZM274.09,228.89c19.53.41,40.98-13.32,44.12-33.5,2.16-13.88-6.39-26.9-21.17-27.28-21.91-.55-28.06,44.99-22.95,60.78ZM259.41,243.56c-1.57-1.14-19.34,12.6-20.15,14.51-1.45,3.42,5.39,18.36,8.9,20.07l22.52.79-11.27-35.36ZM125.94,254.87c-6.1-1.3-9.33-8.77-15.98-8.03l-16.15,33.69,17.36-.33,14.77-25.34Z",
-  spiral: "M229.92,207.62c-21.29,20.89-58.66,27.43-82.28,7.03-39.43-34.07,20.74-92.42,57.66-68.92,35.28,22.46-14.17,63.28-34.27,48.75-13.42-9.7,9.34-26.41,12.77-23.25,1.76,14.85,22.61,2.46,14.36-10.33-14.9-23.11-69.71,22.99-35.1,46.37,43.36,29.28,102.53-51.43,46.52-77.07-57.82-26.47-122.22,54.23-72.22,96.34,37.94,31.95,95.16,13.09,117.27-27.99,2.84,1.09,1.83,9.58,1.65,12.11-1.17,17.05-6.85,21.79-20.46,30.99-58.83,39.75-151.89,1.62-128.69-75.62,13.59-45.25,71.83-71.65,114.23-49.22,35.76,18.93,35.82,64.05,8.56,90.81Z",
-  head: "M274.09,228.89c-5.11-15.78,1.04-61.33,22.95-60.78,14.78.37,23.33,13.4,21.17,27.28-3.14,20.18-24.59,33.91-44.12,33.5ZM302.43,193.33c4.36-3.86,3.09-11.45-5.23-11.01-12.65.66-2.79,18.12,5.23,11.01Z",
-  legL: "M259.41,243.56l11.27,35.36-22.52-.79c-3.52-1.71-10.35-16.65-8.9-20.07.81-1.91,18.58-15.65,20.15-14.51Z",
-  legR: "M125.94,254.87l-14.77,25.34-17.36.33,16.15-33.69c6.65-.75,9.88,6.73,15.98,8.03Z",
-  eye:  "M302.43,193.33c-8.02,7.1-17.88-10.35-5.23-11.01,8.31-.44,9.59,7.15,5.23,11.01Z",
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'tokigig',
+  url: 'https://tokigig.com',
+  logo: 'https://tokigig.com/logo.svg',
+  sameAs: ['https://x.com/TheKingofKimchi'],
+  description:
+    'tokigig builds AI tools for business operators, including tokiscan for AI visibility and toki-os as the underlying operating system.',
 };
 ---
 
-<Layout
-  title="TokiGig — Is Your Business Invisible to AI?"
-  description="TokiScan analyzes how AI models read, understand, and trust your website. Find out your AI Trust Score and get a plain-English fix list in under two minutes — free."
+<MarketingShell
+  title="tokigig - AI visibility for your business"
+  description="AI is recommending businesses to your customers right now. Find out if yours is showing up - or getting skipped."
+  currentPath="/"
+  schema={organizationSchema}
 >
-  <!-- ═══════════ NAV ═══════════ -->
-  <header id="site-nav">
-    <div class="nav-inner">
-      <a href="/" class="logo-lockup" aria-label="TokiGig home">
-        <svg class="logo-svg logo-white" width="36" height="36" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d={LOGO_PATHS.body}  style="fill: white"/>
-          <path d={LOGO_PATHS.spiral} style="fill: var(--toki-black)"/>
-          <path d={LOGO_PATHS.head}  style="fill: var(--toki-black)"/>
-          <path d={LOGO_PATHS.legL}  style="fill: var(--toki-black)"/>
-          <path d={LOGO_PATHS.legR}  style="fill: var(--toki-black)"/>
-          <path d={LOGO_PATHS.eye}   style="fill: white"/>
-        </svg>
-        <svg class="logo-svg logo-green" width="36" height="36" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d={LOGO_PATHS.body}  style="fill: var(--toki-green-dk)"/>
-          <path d={LOGO_PATHS.spiral} style="fill: white"/>
-          <path d={LOGO_PATHS.head}  style="fill: white"/>
-          <path d={LOGO_PATHS.legL}  style="fill: white"/>
-          <path d={LOGO_PATHS.legR}  style="fill: white"/>
-          <path d={LOGO_PATHS.eye}   style="fill: var(--toki-green-dk)"/>
-        </svg>
-        <span class="wordmark">toki<span class="wordmark-accent">gig</span></span>
-      </a>
-
-      <div class="nav-right">
-        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
-          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-        </button>
-        <a href="https://apps.tokigig.com" class="nav-cta">See my score</a>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    <!-- ═══════════ HERO ═══════════ -->
-    <section class="hero">
-      <div class="hero-inner">
-        <p class="eyebrow">Powered by the Toki AI Trust Engine</p>
-        <h1 class="hero-h1">
-          Does AI trust<br>
-          <em>your business?</em>
+  <section class="homepage-hero">
+    <div class="homepage-hero__layout">
+      <div class="homepage-hero__copy">
+        <p class="route-kicker">AI VISIBILITY</p>
+        <h1 class="homepage-hero__headline">
+          <span>AI is recommending</span>
+          <span>businesses to your</span>
+          <span class="headline-accent">customers right now.</span>
         </h1>
-        <p class="hero-sub">
-          When someone asks ChatGPT to recommend a business like yours, AI makes a trust decision in milliseconds. TokiScan shows you exactly how that decision is made — and what's blocking your score.
+        <p class="homepage-hero__subhead">Is yours showing up — or getting skipped?</p>
+        <div class="route-actions homepage-hero__actions">
+          <a href={buildScanHref('homepage-hero')} class="btn-primary">run a free scan</a>
+          <a href="#tokiscan-in-action" class="btn-secondary">see how it works</a>
+        </div>
+        <p class="homepage-hero__powered">
+          powered by <a href="/os">toki-os</a>
         </p>
-        <div class="hero-actions">
-          <a href="https://apps.tokigig.com" class="btn-primary">See my AI Trust Score</a>
-          <a href="#how" class="btn-secondary">How AI decides</a>
-        </div>
       </div>
-    </section>
 
-    <!-- ═══════════ MOCK REPORT ═══════════ -->
-    <section class="report-section">
-      <div class="container">
-        <div class="report-card">
-          <div class="report-bar">
-            <span class="dot dot-red"></span>
-            <span class="dot dot-amber"></span>
-            <span class="report-bar-label">TokiScan — AI Trust Report</span>
-          </div>
-          <div class="report-body">
-            <p class="report-url">yourbusiness.com · scanned just now</p>
-            <div class="score-row">
-              <span class="score-num">34</span>
-              <div>
-                <p class="score-title">AI Trust Score</p>
-                <p class="score-sub">3 issues limiting AI trust</p>
-              </div>
-            </div>
-            <div class="progress-track">
-              <div class="progress-fill" style="width: 34%"></div>
-            </div>
-            <div class="report-problems-label">⚠ 3 issues limiting AI trust</div>
-            <ul class="issue-list">
-              <li class="issue">
-                <span class="issue-dot issue-dot-red"></span>
-                <p><strong>No structured data detected.</strong> AI models can't confirm what you sell, where you're located, or who you serve.</p>
-              </li>
-              <li class="issue">
-                <span class="issue-dot issue-dot-amber"></span>
-                <p><strong>Homepage purpose is ambiguous.</strong> The main heading doesn't clearly state what your business does in plain language.</p>
-              </li>
-              <li class="issue">
-                <span class="issue-dot issue-dot-amber"></span>
-                <p><strong>Missing trust signals.</strong> No reviews, credentials, or social proof that AI systems use to assess recommendation confidence.</p>
-              </li>
-            </ul>
-            <div class="report-passing">
-              <span class="passing-dot"></span>
-              <p>1 baseline check passed</p>
-            </div>
-          </div>
-        </div>
+      <div class="homepage-hero__network" aria-hidden="true">
+        <HeroNetwork />
       </div>
-    </section>
-
-    <!-- ═══════════ PAIN POINTS ═══════════ -->
-    <section class="pain-section">
-      <div class="container">
-        <p class="section-label">The trust gap</p>
-        <div class="pain-grid">
-          <div class="pain-card">
-            <div class="pain-icon pain-icon-coral">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-            </div>
-            <h3>Google finds you. AI recommends you.</h3>
-            <p>Google works when someone is already searching for you. AI works differently — someone asks for a recommendation and it names specific businesses. If you're not in that answer, you don't exist in that moment. More people every day are skipping Google and going straight to AI. Most businesses have no idea.</p>
-          </div>
-          <div class="pain-card">
-            <div class="pain-icon pain-icon-amber">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
-            </div>
-            <h3>Most sites aren't ready</h3>
-            <p>Websites built for human readers aren't structured for AI. Missing signals, vague language, and no schema markup means AI simply can't understand — or recommend — you.</p>
-          </div>
-          <div class="pain-card">
-            <div class="pain-icon pain-icon-green">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-            </div>
-            <h3>Fixable in hours, not months</h3>
-            <p>Unlike traditional SEO, most AI visibility gaps can be closed quickly. TokiScan shows you exactly what to fix, in plain English, ranked by impact.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════ HOW IT WORKS ═══════════ -->
-    <section class="how-section" id="how">
-      <div class="container">
-        <p class="section-label">How it works</p>
-        <h2 class="section-h2">Three steps. Under two minutes.</h2>
-        <p class="section-sub">No technical knowledge needed.</p>
-        <div class="steps">
-          <div class="step">
-            <div class="step-num">1</div>
-            <div>
-              <h3>Enter your website URL</h3>
-              <p>We crawl your live site and run it through our AI Trust Engine — scoring the exact signals AI models use when deciding whether to recommend your business. Any AI can give you an opinion. TokiScan measures what AI actually trusts.</p>
-            </div>
-          </div>
-          <div class="step">
-            <div class="step-num">2</div>
-            <div>
-              <h3>Get your AI Trust Score</h3>
-              <p>Your personalized report shows exactly where AI models are struggling to understand your business — and the specific gaps standing between you and an AI recommendation.</p>
-            </div>
-          </div>
-          <div class="step">
-            <div class="step-num">3</div>
-            <div>
-              <h3>Fix what AI doesn't trust</h3>
-              <p>See the key issues affecting how AI understands and trusts your business. Take the first steps now — or unlock the full action plan with the Pro Report.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════ VISION ═══════════ -->
-    <section class="vision-section">
-      <div class="container">
-        <span class="vision-badge">Something bigger is coming</span>
-        <h2 class="section-h2">TokiScan is just the beginning.</h2>
-        <p style="font-size:15px; color:var(--text-secondary); line-height:1.7; max-width:520px; margin:1rem auto 0.5rem;">TokiScan is one workforce. Toki-OS runs many. We're building the infrastructure layer for AI that businesses can actually trust — whether you're building on it or running on it.</p>
-        <p style="font-size:13px; color:var(--text-tertiary); margin-top:0.75rem;">Come find us early.</p>
-        <div class="vision-actions">
-          <a href="https://twitter.com/TokiOSHQ" target="_blank" rel="noopener" class="btn-outline">Follow on X</a>
-          <a href="https://discord.gg/7Dj56T34VZ" target="_blank" rel="noopener" class="btn-outline">Join Discord</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════ CTA ═══════════ -->
-    <section class="cta-section">
-      <div class="container">
-        <h2>Find out where I stand.</h2>
-        <p>Most businesses are surprised by what they find. See how AI reads your business in under two minutes.</p>
-        <form class="cta-form" action="https://apps.tokigig.com" method="GET">
-          <input type="text" name="url" placeholder="yourbusiness.com" class="cta-input" autocomplete="url" />
-          <button type="submit" class="cta-submit">See how AI reads my business</button>
-        </form>
-        <p class="cta-fine">No account needed. No credit card. Takes 90 seconds.</p>
-      </div>
-    </section>
-  </main>
-
-  <!-- ═══════════ FOOTER ═══════════ -->
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <div class="footer-logo">
-        <svg width="24" height="24" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d={LOGO_PATHS.body}  style="fill: var(--toki-green)"/>
-          <path d={LOGO_PATHS.spiral} style="fill: white"/>
-          <path d={LOGO_PATHS.head}  style="fill: white"/>
-          <path d={LOGO_PATHS.legL}  style="fill: white"/>
-          <path d={LOGO_PATHS.legR}  style="fill: white"/>
-          <path d={LOGO_PATHS.eye}   style="fill: var(--toki-green)"/>
-        </svg>
-        <span>toki<span class="footer-logo-accent">gig</span></span>
-      </div>
-      <p class="footer-copy">© 2026 TokiGig · Built for businesses, not engineers</p>
     </div>
-  </footer>
-</Layout>
+  </section>
 
-<script>
-  // Nav scroll border
-  const nav = document.getElementById('site-nav');
-  window.addEventListener('scroll', () => {
-    nav?.classList.toggle('scrolled', window.scrollY > 40);
-  }, { passive: true });
+  <section class="home-section home-section--contrast">
+    <div class="section-intro section-intro--center">
+      <h2>What AI actually sees on your site</h2>
+    </div>
+    <div class="contrast-panels">
+      <article class="contrast-panel contrast-panel--warm">
+        <p class="contrast-panel__label">What you think AI sees</p>
+        <ul class="contrast-list">
+          <li>Beautiful product photos</li>
+          <li>Your brand story</li>
+          <li>Years of expertise</li>
+          <li>Glowing customer reviews</li>
+        </ul>
+      </article>
+      <article class="contrast-panel contrast-panel--cold">
+        <p class="contrast-panel__label">What AI actually extracts</p>
+        <ul class="contrast-list contrast-list--mono">
+          <li>"Loading..."</li>
+          <li>No structured data detected</li>
+          <li>Business type: unclear</li>
+          <li>Recommendation confidence: low</li>
+        </ul>
+      </article>
+    </div>
+    <p class="section-quote">“AI can’t recommend what it can’t understand. Most businesses are invisible without knowing it.”</p>
+  </section>
 
-  // Theme toggle
-  const toggle = document.getElementById('theme-toggle');
-  toggle?.addEventListener('click', () => {
-    const current = document.documentElement.getAttribute('data-theme');
-    const next = current === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', next);
-    localStorage.setItem('toki-theme', next);
+  <section class="home-section" id="builds">
+    <div class="section-intro">
+      <h2>We build AI tools that work for your business — with you in control.</h2>
+    </div>
+    <div class="pillar-grid">
+      <article class="pillar-card">
+        <div class="pillar-card__icon">◌</div>
+        <h3>Visibility</h3>
+        <p>Can AI find, understand, and recommend you? Most businesses don’t know the answer. We show you.</p>
+      </article>
+      <article class="pillar-card">
+        <div class="pillar-card__icon">◇</div>
+        <h3>Trust</h3>
+        <p>Every tokigig tool keeps the operator in control. AI does the work. You make the calls.</p>
+      </article>
+      <article class="pillar-card">
+        <div class="pillar-card__icon">△</div>
+        <h3>Autonomy</h3>
+        <p>Your business running AI workflows without constant oversight. That’s the destination. We build the path.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="home-section home-section--scan" id="tokiscan-in-action">
+    <div class="section-intro">
+      <p class="route-kicker">TOKISCAN</p>
+      <h2>Find out if AI can understand and recommend your business — in 60 seconds.</h2>
+    </div>
+    <div class="scan-report">
+      <div class="scan-report__score">
+        <div class="scan-report__score-main">
+          <span class="scan-report__score-value">59</span>
+          <span class="scan-report__score-total">/100</span>
+        </div>
+        <p class="scan-report__score-label">Borderline</p>
+      </div>
+
+      <div class="scan-report__issue">
+        <p class="scan-report__eyebrow">Priority issue</p>
+        <h3>No structured data — AI is guessing at your business</h3>
+        <div class="scan-report__action">
+          <p class="scan-report__action-label">What to do</p>
+          <p>Add structured business markup so AI can identify what you do, who you serve, and how to categorize you.</p>
+        </div>
+      </div>
+
+      <div class="scan-report__locked">
+        <div class="scan-report__locked-blur"></div>
+        <p>+20 more issues in the Pro Report</p>
+      </div>
+    </div>
+
+    <p class="section-quote section-quote--narrow">“Most businesses score under 65 on their first scan. The Pro Report shows exactly what’s wrong and what to fix.”</p>
+    <div class="section-cta">
+      <a href={buildScanHref('homepage-section-4')} class="btn-primary">Run your free scan — takes 60 seconds</a>
+      <p>No account required · No credit card · Instant results</p>
+    </div>
+  </section>
+
+  <section class="home-section">
+    <div class="section-intro">
+      <h2>tokiscan is just the beginning.</h2>
+      <p>We’re building a suite of AI tools for business operators — each one designed to make your business more visible, more trusted, and more capable. No technical expertise required.</p>
+    </div>
+    <div class="module-list" aria-label="Upcoming modules">
+      <article class="module-row module-row--active">
+        <div>
+          <h3>tokiscan</h3>
+          <p>AI visibility diagnostic</p>
+        </div>
+        <span>Available now</span>
+      </article>
+      <article class="module-row">
+        <div>
+          <h3>tokipatch</h3>
+          <p>AI-powered fix implementation</p>
+        </div>
+        <span>Coming soon</span>
+      </article>
+      <article class="module-row">
+        <div>
+          <h3>tokiworker</h3>
+          <p>Autonomous AI workforce</p>
+        </div>
+        <span>Coming soon</span>
+      </article>
+    </div>
+  </section>
+
+  <section class="trust-band">
+    <div class="trust-band__inner">
+      <h2>AI that won’t act without you.</h2>
+      <p class="trust-band__subhead">Autonomous but accountable.</p>
+      <p class="trust-band__body">Every tokigig tool is built on a simple principle: AI does the work, you make the calls. No black boxes. No surprises. No agents going rogue. Just your business, running smarter — with you in control.</p>
+      <p class="trust-band__foot">Built on <a href="/os">toki-os</a> — an open AI operating system anyone can inspect, extend, and trust.</p>
+    </div>
+  </section>
+
+  <section class="home-section home-section--final">
+    <div class="section-intro section-intro--center">
+      <h2>Find out where you stand.</h2>
+      <p>Most businesses are surprised by what AI can’t understand about them.</p>
+    </div>
+    <form class="final-cta" id="homepage-scan-form" action={buildScanHref('homepage-final')} method="GET" novalidate>
+      <input type="text" name="url" placeholder="yourbusiness.com" aria-label="Business URL" autocomplete="url" />
+      <button type="submit">Run free AI scan</button>
+    </form>
+    <p class="final-cta__error" id="homepage-scan-error" aria-live="polite"></p>
+    <p class="final-cta__micro">No account required · Takes 60 seconds</p>
+    <p class="final-cta__secondary">Want the full platform? <a href="https://apps.tokigig.com">Get early access →</a></p>
+  </section>
+</MarketingShell>
+
+<script define:vars={{ appScanEntry: APP_SCAN_ENTRY }}>
+  const form = document.getElementById('homepage-scan-form');
+  const input = form?.querySelector('input[name="url"]');
+  const error = document.getElementById('homepage-scan-error');
+
+  function normalizeDomain(value) {
+    const trimmed = value.trim();
+    if (!trimmed) {
+      return null;
+    }
+
+    const candidate = trimmed.match(/^https?:\/\//i) ? trimmed : `https://${trimmed}`;
+
+    try {
+      const parsed = new URL(candidate);
+      const hostname = parsed.hostname.toLowerCase();
+
+      if (!hostname || !hostname.includes('.') || hostname.includes(' ')) {
+        return null;
+      }
+
+      return hostname;
+    } catch {
+      return null;
+    }
+  }
+
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const normalized = normalizeDomain(input instanceof HTMLInputElement ? input.value : '');
+
+    if (!normalized) {
+      if (error) {
+        error.textContent = 'Enter a valid domain like yourbusiness.com';
+      }
+      if (input instanceof HTMLInputElement) {
+        input.setAttribute('aria-invalid', 'true');
+        input.focus();
+      }
+      return;
+    }
+
+    if (error) {
+      error.textContent = '';
+    }
+    if (input instanceof HTMLInputElement) {
+      input.removeAttribute('aria-invalid');
+    }
+
+    const destination = new URL(appScanEntry);
+    destination.searchParams.set('source', 'homepage-final');
+    destination.searchParams.set('domain', normalized);
+    destination.searchParams.set('url', normalized);
+
+    window.location.assign(destination.toString());
   });
 </script>

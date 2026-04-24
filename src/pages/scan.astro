@@ -1,0 +1,162 @@
+---
+import MarketingShell from '../components/MarketingShell.astro';
+import { buildScanHref } from '../lib/scan-flow';
+---
+
+<MarketingShell
+  title="tokiscan - see how AI reads your business"
+  description="tokiscan checks whether AI can understand and recommend your business, then shows what to fix next."
+  currentPath="/scan"
+>
+  <section class="scan-hero">
+    <div class="scan-hero__inner">
+      <div class="scan-hero__copy">
+        <p class="route-kicker">TOKISCAN</p>
+        <h1>See if AI can understand and recommend your business.</h1>
+        <p class="scan-hero__lede">
+          tokiscan scans your live website, looks at the signals AI systems rely on, and shows where your business is getting understood, skipped, or guessed at.
+        </p>
+        <div class="route-actions scan-hero__actions">
+          <a href={buildScanHref('scan-page-hero')} class="btn-primary">run a free scan</a>
+          <a href="#example-output" class="btn-secondary">see example output</a>
+        </div>
+        <p class="scan-hero__trust">No account required · No credit card · Takes 60 seconds</p>
+      </div>
+
+      <div class="scan-hero__summary">
+        <div class="scan-summary-card">
+          <p class="scan-summary-card__label">What you get</p>
+          <ul class="scan-summary-list">
+            <li>A fast read on whether AI can make sense of your site</li>
+            <li>The biggest issues lowering recommendation confidence</li>
+            <li>A clear next step, whether you stay on Free or go deeper with Pro</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="home-section">
+    <div class="section-intro">
+      <h2>What tokiscan checks</h2>
+      <p>tokiscan does not bury you in technical jargon. It looks for the signals AI systems need in order to understand what your business is, who you serve, and whether they can recommend you with confidence.</p>
+    </div>
+    <div class="pillar-grid">
+      <article class="pillar-card">
+        <div class="pillar-card__icon">◌</div>
+        <h3>Clarity</h3>
+        <p>Can AI tell what your business does from the words and structure on the page, or is it still guessing?</p>
+      </article>
+      <article class="pillar-card">
+        <div class="pillar-card__icon">◇</div>
+        <h3>Trust signals</h3>
+        <p>Are the basics there that help AI feel confident, like structured business details, proof, and context?</p>
+      </article>
+      <article class="pillar-card">
+        <div class="pillar-card__icon">△</div>
+        <h3>Recommendation readiness</h3>
+        <p>If someone asks AI for a business like yours, do you look understandable and recommendable, or easy to skip?</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="home-section home-section--comparison">
+    <div class="section-intro">
+      <h2>Free vs Pro</h2>
+      <p>The free scan gives you fast awareness. Pro shows the full diagnostic and the deeper issue set behind your score.</p>
+    </div>
+    <div class="comparison-grid">
+      <article class="comparison-card comparison-card--free">
+        <p class="comparison-card__label">Free</p>
+        <h3>Snapshot and awareness</h3>
+        <ul class="comparison-list">
+          <li>Quick scan of your live site</li>
+          <li>Your score and a few surfaced issues</li>
+          <li>A fast read on whether AI is struggling to understand you</li>
+        </ul>
+      </article>
+      <article class="comparison-card comparison-card--pro">
+        <p class="comparison-card__label">Pro</p>
+        <h3>Full diagnostic and prioritized fixes</h3>
+        <ul class="comparison-list">
+          <li>Deeper issue set behind the score</li>
+          <li>Prioritized fix guidance on what to do next</li>
+          <li>The fuller picture of what is blocking recommendation confidence</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="home-section home-section--scan-preview" id="example-output">
+    <div class="section-intro">
+      <h2>Example output</h2>
+      <p>This is the kind of signal tokiscan surfaces right away when a site is not clearly readable to AI.</p>
+    </div>
+
+    <div class="scan-preview-layout">
+      <div class="report-card">
+        <div class="report-bar">
+          <span class="dot dot-red"></span>
+          <span class="dot dot-amber"></span>
+          <span class="report-bar-label">tokiscan — AI Trust Report</span>
+        </div>
+        <div class="report-body">
+          <p class="report-url">yourbusiness.com · scanned just now</p>
+          <div class="score-row">
+            <span class="score-num">34</span>
+            <div>
+              <p class="score-title">AI Trust Score</p>
+              <p class="score-sub">3 issues limiting AI trust</p>
+            </div>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" style="width: 34%"></div>
+          </div>
+          <div class="report-problems-label">3 issues limiting AI trust</div>
+          <ul class="issue-list">
+            <li class="issue">
+              <span class="issue-dot issue-dot-red"></span>
+              <p><strong>No structured data detected.</strong> AI models can't confirm what you sell, where you're located, or who you serve.</p>
+            </li>
+            <li class="issue">
+              <span class="issue-dot issue-dot-amber"></span>
+              <p><strong>Homepage purpose is ambiguous.</strong> The main heading doesn't clearly state what your business does in plain language.</p>
+            </li>
+            <li class="issue">
+              <span class="issue-dot issue-dot-amber"></span>
+              <p><strong>Missing trust signals.</strong> No reviews, credentials, or social proof that AI systems use to assess recommendation confidence.</p>
+            </li>
+          </ul>
+          <div class="report-passing">
+            <span class="passing-dot"></span>
+            <p>1 baseline check passed</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="scan-value-stack">
+        <article class="scan-value-card">
+          <p class="scan-value-card__label">Why this matters</p>
+          <h3>AI can’t recommend what it can’t understand.</h3>
+          <p>The point of the free scan is to stop guessing. You get a concrete read on whether AI sees a trustworthy business or a confusing site.</p>
+        </article>
+        <article class="scan-value-card">
+          <p class="scan-value-card__label">What happens next</p>
+          <h3>Free gives you the signal. Pro gives you the deeper fix path.</h3>
+          <p>That makes the next step obvious instead of leaving you with a vague score and no idea what to change.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="home-section home-section--final">
+    <div class="section-intro section-intro--center">
+      <h2>Run the scan before AI makes the call without you.</h2>
+      <p>If your site is unclear to AI today, your business is already easier to skip than you think.</p>
+    </div>
+    <div class="section-cta">
+      <a href={buildScanHref('scan-page-bottom')} class="btn-primary">run a free scan</a>
+      <p>No account required · No credit card · Takes 60 seconds</p>
+    </div>
+  </section>
+</MarketingShell>
