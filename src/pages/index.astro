@@ -21,7 +21,8 @@ const organizationSchema = {
   currentPath="/"
   schema={organizationSchema}
 >
-  <section class="homepage-hero">
+  <section class="homepage-hero" id="hero-section">
+    <HeroNetwork />
     <div class="homepage-hero__layout">
       <div class="homepage-hero__copy">
         <p class="route-kicker">AI VISIBILITY</p>
@@ -40,9 +41,7 @@ const organizationSchema = {
         </p>
       </div>
 
-      <div class="homepage-hero__network" aria-hidden="true">
-        <HeroNetwork />
-      </div>
+      <div class="homepage-hero__network" aria-hidden="true"></div>
     </div>
   </section>
 

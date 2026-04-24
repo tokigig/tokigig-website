@@ -1,285 +1,240 @@
-<div class="hero-network" data-hero-network aria-hidden="true">
-  <canvas class="hero-network__canvas" data-network-canvas></canvas>
-  <div class="hero-network__mask"></div>
-</div>
+<canvas id="neural-canvas" aria-hidden="true"></canvas>
 
 <script>
-  const roots = document.querySelectorAll('[data-hero-network]');
+  const canvas = document.getElementById('neural-canvas');
+  const wrap = document.getElementById('hero-section');
 
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const mobileQuery = window.matchMedia('(max-width: 900px)');
-
-  const COLORS = {
-    green: '#7ab86a',
-    blue: '#4a9add',
-    amber: '#c8a030',
-  };
-
-  function hashNoise(seed) {
-    return Math.abs(Math.sin(seed * 12.9898) * 43758.5453) % 1;
+  if (!(canvas instanceof HTMLCanvasElement) || !(wrap instanceof HTMLElement)) {
+    throw new Error('Hero network canvas mount failed.');
   }
 
-  function clamp(value, min, max) {
-    return Math.max(min, Math.min(max, value));
+  const ctx = canvas.getContext('2d');
+
+  if (!ctx) {
+    throw new Error('Hero network canvas context failed.');
   }
 
-  function createNodes(width, height, mobile) {
-    const count = mobile ? 74 : 148;
-    const leftBound = width * (mobile ? 0.5 : 0.42);
-    const usableWidth = Math.max(width - leftBound - 24, 40);
-    const nodes = [];
+  let W, H, nodes = [], edges = [], twinkles = [], pulses = [], t = 0;
 
-    for (let index = 0; index < count; index += 1) {
-      const column = hashNoise(index + 11);
-      const row = hashNoise(index + 37);
-      const drift = hashNoise(index + 71) - 0.5;
-      const x = leftBound + column * usableWidth;
-      const y = clamp(24 + row * (height - 48) + drift * 28, 18, height - 18);
-      const intensity = clamp((x - leftBound) / usableWidth, 0, 1);
-      const size = (mobile ? 1.2 : 1.4) + intensity * (mobile ? 2.2 : 3.6);
-      const paletteRoll = hashNoise(index + 101);
-      const color = paletteRoll < 0.6 ? COLORS.green : paletteRoll < 0.88 ? COLORS.blue : COLORS.amber;
+  function rnd(a, b) { return a + Math.random() * (b - a); }
+  function ri(a, b) { return Math.floor(rnd(a, b)); }
 
+  function init() {
+    W = wrap.offsetWidth;
+    H = Math.max(wrap.offsetHeight, 420);
+    canvas.width = W;
+    canvas.height = H;
+    nodes = []; edges = []; twinkles = []; pulses = [];
+
+    const netLeft = W * 0.42;
+    const netRight = W * 0.99;
+    const netTop = H * 0.02;
+    const netBottom = H * 0.98;
+
+    const count = W < 500 ? 80 : 140;
+    for (let i = 0; i < count; i++) {
+      const x = rnd(netLeft, netRight);
+      const y = rnd(netTop, netBottom);
+      const rightness = (x - netLeft) / (netRight - netLeft);
+      const baseR = rnd(0.8, rightness > 0.6 ? 3.5 : 2.2);
       nodes.push({
-        id: index,
-        x,
-        y,
-        size,
-        intensity,
-        color,
-        twinkleOffset: hashNoise(index + 211) * Math.PI * 2,
-        twinkleSpeed: 0.4 + hashNoise(index + 271) * 1.1,
+        x, y, rightness, baseR, r: baseR,
+        twinkOff: rnd(0, Math.PI * 2),
+        twinkSpd: rnd(0.006, 0.02),
+        glowOff: rnd(0, Math.PI * 2),
+        glowSpd: rnd(0.008, 0.018),
+        alpha: rnd(0.08, 0.18) + rightness * 0.28,
+        isKey: rightness > 0.7 && Math.random() > 0.65
       });
     }
 
-    const outputNode = {
-      id: count,
-      x: width * 0.91,
-      y: height * 0.5,
-      size: mobile ? 7.5 : 10.5,
-      intensity: 1,
-      color: COLORS.green,
-      twinkleOffset: 0,
-      twinkleSpeed: 1,
-      isOutput: true,
-    };
+    for (let i = 0; i < 8; i++) {
+      const x = rnd(W * 0.78, W * 0.96);
+      const y = rnd(H * 0.15, H * 0.85);
+      const rightness = (x - netLeft) / (netRight - netLeft);
+      nodes.push({
+        x, y, rightness, baseR: rnd(4, 8), r: 5,
+        twinkOff: rnd(0, Math.PI * 2), twinkSpd: rnd(0.005, 0.012),
+        glowOff: rnd(0, Math.PI * 2), glowSpd: rnd(0.007, 0.015),
+        alpha: rnd(0.5, 0.85), isKey: true
+      });
+    }
 
-    nodes.push(outputNode);
-    return nodes;
-  }
+    nodes.push({
+      x: W * 0.92, y: H * 0.5,
+      baseR: 12, r: 12, rightness: 1,
+      twinkOff: 0, twinkSpd: 0.008,
+      glowOff: 0, glowSpd: 0.01,
+      alpha: 1, isKey: true, isOutput: true
+    });
 
-  function createEdges(nodes, width, mobile) {
-    const output = nodes[nodes.length - 1];
-    const maxDistance = mobile ? 108 : 124;
-    const maxEdgesPerNode = mobile ? 2 : 3;
-    const edges = [];
-    const neighborCounts = new Array(nodes.length).fill(0);
-
-    for (let index = 0; index < nodes.length - 1; index += 1) {
-      const node = nodes[index];
-      const candidates = [];
-
-      for (let compare = index + 1; compare < nodes.length; compare += 1) {
-        const target = nodes[compare];
-        const dx = target.x - node.x;
-        const dy = target.y - node.y;
-        const distance = Math.hypot(dx, dy);
-
-        if (dx <= 0 || distance > maxDistance) {
-          continue;
-        }
-
-        candidates.push({ index: compare, distance, dx });
-      }
-
-      candidates
-        .sort((left, right) => left.distance - right.distance || left.dx - right.dx)
-        .slice(0, maxEdgesPerNode)
-        .forEach((candidate) => {
-          if (neighborCounts[index] >= maxEdgesPerNode || neighborCounts[candidate.index] >= maxEdgesPerNode + 1) {
-            return;
-          }
-
+    for (let i = 0; i < nodes.length; i++) {
+      const a = nodes[i];
+      for (let j = i + 1; j < nodes.length; j++) {
+        const b = nodes[j];
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const maxDist = W < 500 ? 80 : 110;
+        if (dist < maxDist && Math.random() > 0.55) {
+          const avgRight = (a.rightness + b.rightness) / 2;
           edges.push({
-            from: node,
-            to: nodes[candidate.index],
-            strength: 1 - candidate.distance / maxDistance,
-            pulseOffset: hashNoise(index * 19 + candidate.index * 23) * 5000,
-            pulseSpeed: 0.00018 + hashNoise(index * 7 + candidate.index * 5) * 0.00018,
+            a, b,
+            alpha: rnd(0.04, 0.14) + avgRight * 0.12,
+            w: rnd(0.3, 0.8) * (0.5 + avgRight * 0.8)
           });
-          neighborCounts[index] += 1;
-          neighborCounts[candidate.index] += 1;
-        });
+        }
+      }
     }
-
-    const farRightNodes = nodes
-      .slice(0, -1)
-      .filter((node) => node.x > width * (mobile ? 0.73 : 0.77))
-      .sort((left, right) => Math.abs(left.y - output.y) - Math.abs(right.y - output.y))
-      .slice(0, mobile ? 4 : 6);
-
-    farRightNodes.forEach((node, index) => {
-      edges.push({
-        from: node,
-        to: output,
-        strength: 0.95 - index * 0.08,
-        pulseOffset: hashNoise(index * 43 + 13) * 4000,
-        pulseSpeed: 0.00024 + index * 0.00002,
-      });
-    });
-
-    return edges;
   }
 
-  function drawFrame(ctx, width, height, nodes, edges, time, animated) {
-    ctx.clearRect(0, 0, width, height);
+  function drawGlow(x, y, r, color, alpha) {
+    const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+    if (color === 'blue') {
+      g.addColorStop(0, `rgba(74,154,221,${alpha})`);
+      g.addColorStop(1, 'rgba(26,74,122,0)');
+    } else if (color === 'amb') {
+      g.addColorStop(0, `rgba(200,160,48,${alpha})`);
+      g.addColorStop(1, 'rgba(122,90,16,0)');
+    } else {
+      g.addColorStop(0, `rgba(122,184,106,${alpha})`);
+      g.addColorStop(1, 'rgba(61,107,53,0)');
+    }
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fillStyle = g;
+    ctx.fill();
+  }
 
-    edges.forEach((edge) => {
-      const gradient = ctx.createLinearGradient(edge.from.x, edge.from.y, edge.to.x, edge.to.y);
-      gradient.addColorStop(0, 'rgba(122, 184, 106, 0.04)');
-      gradient.addColorStop(0.55, 'rgba(74, 154, 221, 0.08)');
-      gradient.addColorStop(1, 'rgba(122, 184, 106, 0.12)');
+  function frame() {
+    ctx.clearRect(0, 0, W, H);
+    t++;
 
+    for (const e of edges) {
       ctx.beginPath();
-      ctx.moveTo(edge.from.x, edge.from.y);
-      ctx.lineTo(edge.to.x, edge.to.y);
-      ctx.strokeStyle = gradient;
-      ctx.lineWidth = 0.5 + edge.strength * 0.8;
+      ctx.moveTo(e.a.x, e.a.y);
+      ctx.lineTo(e.b.x, e.b.y);
+      ctx.strokeStyle = `rgba(61,107,53,${e.alpha})`;
+      ctx.lineWidth = e.w;
       ctx.stroke();
+    }
 
-      if (animated) {
-        const phase = (time * edge.pulseSpeed + edge.pulseOffset) % 1;
-        if (phase < 0.24) {
-          const t = phase / 0.24;
-          const x = edge.from.x + (edge.to.x - edge.from.x) * t;
-          const y = edge.from.y + (edge.to.y - edge.from.y) * t;
-          const radius = 1.2 + edge.strength * 1.8;
-
-          const pulseGradient = ctx.createRadialGradient(x, y, 0, x, y, radius * 8);
-          pulseGradient.addColorStop(0, 'rgba(122, 184, 106, 0.95)');
-          pulseGradient.addColorStop(0.45, 'rgba(74, 154, 221, 0.4)');
-          pulseGradient.addColorStop(1, 'rgba(122, 184, 106, 0)');
-
-          ctx.beginPath();
-          ctx.fillStyle = pulseGradient;
-          ctx.arc(x, y, radius * 8, 0, Math.PI * 2);
-          ctx.fill();
-        }
-      }
-    });
-
-    nodes.forEach((node) => {
-      const twinkle = animated
-        ? 0.72 + (Math.sin(time * 0.001 * node.twinkleSpeed + node.twinkleOffset) + 1) * 0.18
-        : 0.82;
-      const radius = node.size * twinkle;
-      const glowRadius = radius * (node.isOutput ? 8 : 5 + node.intensity * 3);
-
-      const glow = ctx.createRadialGradient(node.x, node.y, 0, node.x, node.y, glowRadius);
-      const alphaBase = node.isOutput ? 0.42 : 0.18 + node.intensity * 0.14;
-      glow.addColorStop(0, `${node.color}${node.isOutput ? 'bb' : '8a'}`);
-      glow.addColorStop(0.25, `${node.color}${Math.round(alphaBase * 255).toString(16).padStart(2, '0')}`);
-      glow.addColorStop(1, `${node.color}00`);
-
+    for (let i = pulses.length - 1; i >= 0; i--) {
+      const p = pulses[i];
+      p.t += p.spd;
+      if (p.t >= 1) { pulses.splice(i, 1); continue; }
+      const frac = p.fwd ? p.t : 1 - p.t;
+      const x = p.edge.a.x + (p.edge.b.x - p.edge.a.x) * frac;
+      const y = p.edge.a.y + (p.edge.b.y - p.edge.a.y) * frac;
+      drawGlow(x, y, p.r * 3.5, p.color, 0.45);
       ctx.beginPath();
-      ctx.fillStyle = glow;
-      ctx.arc(node.x, node.y, glowRadius, 0, Math.PI * 2);
+      ctx.arc(x, y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = p.color === 'blue' ? 'rgba(74,154,221,1)' : 'rgba(122,184,106,1)';
       ctx.fill();
+    }
 
-      if (node.isOutput) {
-        const ringPhase = animated ? (Math.sin(time * 0.0022) + 1) * 0.5 : 0.4;
-        ctx.beginPath();
-        ctx.strokeStyle = `rgba(122, 184, 106, ${0.22 + ringPhase * 0.2})`;
-        ctx.lineWidth = 1.2;
-        ctx.arc(node.x, node.y, radius * (2.1 + ringPhase * 0.4), 0, Math.PI * 2);
-        ctx.stroke();
-
-        ctx.beginPath();
-        ctx.strokeStyle = `rgba(74, 154, 221, ${0.12 + ringPhase * 0.12})`;
-        ctx.lineWidth = 0.8;
-        ctx.arc(node.x, node.y, radius * (3 + ringPhase * 0.55), 0, Math.PI * 2);
-        ctx.stroke();
-      }
-
+    for (let i = twinkles.length - 1; i >= 0; i--) {
+      const tw = twinkles[i];
+      tw.life++;
+      if (tw.life >= tw.dur) { twinkles.splice(i, 1); continue; }
+      const env = Math.sin((tw.life / tw.dur) * Math.PI);
+      const r = tw.node.baseR + (tw.maxR - tw.node.baseR) * env;
+      const a = tw.maxA * env;
+      drawGlow(tw.node.x, tw.node.y, r * 3, tw.color, a * 0.55);
       ctx.beginPath();
-      ctx.fillStyle = node.color;
-      ctx.arc(node.x, node.y, radius, 0, Math.PI * 2);
+      ctx.arc(tw.node.x, tw.node.y, r, 0, Math.PI * 2);
+      const fc = tw.color === 'blue' ? `rgba(100,170,255,${a})` :
+        tw.color === 'amb' ? `rgba(220,180,60,${a})` :
+        `rgba(168,216,136,${a})`;
+      ctx.fillStyle = fc;
       ctx.fill();
-    });
+      ctx.beginPath();
+      ctx.arc(tw.node.x, tw.node.y, r * 0.35, 0, Math.PI * 2);
+      ctx.fillStyle = tw.color === 'blue' ? `rgba(220,240,255,${a * 0.9})` :
+        tw.color === 'amb' ? `rgba(255,230,140,${a * 0.9})` :
+        `rgba(230,255,210,${a * 0.9})`;
+      ctx.fill();
+    }
 
-    const clearZone = ctx.createLinearGradient(0, 0, width * 0.38, 0);
-    clearZone.addColorStop(0, 'rgba(8, 8, 8, 1)');
-    clearZone.addColorStop(0.7, 'rgba(8, 8, 8, 0.92)');
-    clearZone.addColorStop(1, 'rgba(8, 8, 8, 0)');
+    for (const n of nodes) {
+      const tw = Math.sin(t * n.twinkSpd + n.twinkOff) * 0.5 + 0.5;
+      const gl = Math.sin(t * n.glowSpd + n.glowOff) * 0.5 + 0.5;
+      n.r = n.baseR + tw * (n.isOutput ? 3 : n.isKey ? 1.8 : 0.8);
+      const a = n.alpha + tw * 0.15;
 
-    ctx.fillStyle = clearZone;
-    ctx.fillRect(0, 0, width * 0.38, height);
+      if (n.isOutput) {
+        drawGlow(n.x, n.y, n.r * 5, 'green', 0.22 + gl * 0.12);
+        ctx.beginPath(); ctx.arc(n.x, n.y, n.r * 2, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(29,51,26,${0.6 + gl * 0.2})`; ctx.fill();
+        ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(90,143,78,${0.88 + gl * 0.12})`; ctx.fill();
+        ctx.beginPath(); ctx.arc(n.x, n.y, n.r * 0.42, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(168,216,136,0.92)`; ctx.fill();
+      } else if (n.isKey) {
+        drawGlow(n.x, n.y, n.r * 3.5, 'green', a * 0.4);
+        ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(90,143,78,${a * 0.9})`; ctx.fill();
+        ctx.beginPath(); ctx.arc(n.x, n.y, n.r * 0.4, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(168,216,136,${a * 0.8})`; ctx.fill();
+      } else {
+        if (a > 0.15) drawGlow(n.x, n.y, n.r * 2.5, 'green', a * 0.25);
+        ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(90,143,78,${a})`; ctx.fill();
+      }
+    }
+
+    const mask = ctx.createLinearGradient(0, 0, W, 0);
+    mask.addColorStop(0, 'rgba(8,8,8,1)');
+    mask.addColorStop(0.28, 'rgba(8,8,8,1)');
+    mask.addColorStop(0.44, 'rgba(8,8,8,0.92)');
+    mask.addColorStop(0.55, 'rgba(8,8,8,0.4)');
+    mask.addColorStop(0.68, 'rgba(8,8,8,0.0)');
+    ctx.fillStyle = mask;
+    ctx.fillRect(0, 0, W, H);
+
+    requestAnimationFrame(frame);
   }
 
-  roots.forEach((root) => {
-    const canvas = root.querySelector('[data-network-canvas]');
-    if (!(canvas instanceof HTMLCanvasElement)) {
-      return;
+  function start() {
+    W = wrap.offsetWidth;
+    H = Math.max(wrap.offsetHeight, 420);
+    canvas.width = W;
+    canvas.height = H;
+    init();
+    frame();
+  }
+
+  setInterval(() => {
+    if (twinkles.length < 12) {
+      const pool = nodes.filter((n) => n.rightness > 0.3);
+      if (!pool.length) return;
+      const n = pool[ri(0, pool.length)];
+      const roll = Math.random();
+      twinkles.push({
+        node: n, life: 0, dur: ri(50, 110),
+        color: roll > 0.72 ? 'blue' : roll > 0.88 ? 'amb' : 'green',
+        maxR: n.baseR * rnd(2.2, 4.5),
+        maxA: rnd(0.65, 1.0)
+      });
     }
+  }, 350);
 
-    const ctx = canvas.getContext('2d');
-    if (!ctx) {
-      return;
+  setInterval(() => {
+    if (pulses.length < 10 && edges.length > 0) {
+      const e = edges[ri(0, edges.length)];
+      pulses.push({
+        edge: e, t: 0,
+        spd: rnd(0.007, 0.018),
+        r: rnd(2, 3.5),
+        color: Math.random() > 0.65 ? 'blue' : 'green',
+        fwd: Math.random() > 0.5
+      });
     }
+  }, 280);
 
-    let animationFrame = 0;
-    let cleanupResize = () => {};
-
-    const render = () => {
-      const bounds = root.getBoundingClientRect();
-      const width = Math.max(Math.floor(bounds.width), 320);
-      const height = Math.max(Math.floor(bounds.height), mobileQuery.matches ? 280 : 420);
-      const dpr = clamp(window.devicePixelRatio || 1, 1, 2);
-
-      canvas.width = Math.floor(width * dpr);
-      canvas.height = Math.floor(height * dpr);
-      canvas.style.width = `${width}px`;
-      canvas.style.height = `${height}px`;
-
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-      const mobile = mobileQuery.matches;
-      const animated = !reduceMotion.matches;
-      const nodes = createNodes(width, height, mobile);
-      const edges = createEdges(nodes, width, mobile);
-
-      const frame = (time) => {
-        drawFrame(ctx, width, height, nodes, edges, time, animated);
-        if (animated) {
-          animationFrame = window.requestAnimationFrame(frame);
-        }
-      };
-
-      window.cancelAnimationFrame(animationFrame);
-      frame(0);
-      if (animated) {
-        animationFrame = window.requestAnimationFrame(frame);
-      }
-    };
-
-    const observer = new ResizeObserver(() => {
-      render();
-    });
-
-    observer.observe(root);
-    cleanupResize = () => observer.disconnect();
-
-    const handleMediaChange = () => render();
-    reduceMotion.addEventListener('change', handleMediaChange);
-    mobileQuery.addEventListener('change', handleMediaChange);
-
-    render();
-
-    window.addEventListener('pagehide', () => {
-      window.cancelAnimationFrame(animationFrame);
-      cleanupResize();
-      reduceMotion.removeEventListener('change', handleMediaChange);
-      mobileQuery.removeEventListener('change', handleMediaChange);
-    }, { once: true });
+  if (document.readyState === 'complete') { setTimeout(start, 80); }
+  else { window.addEventListener('load', () => setTimeout(start, 80)); }
+  window.addEventListener('resize', () => {
+    clearTimeout(window._rt);
+    window._rt = setTimeout(start, 200);
   });
 </script>

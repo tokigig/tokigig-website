@@ -1,6 +1,6 @@
 ---
 import MarketingShell from '../components/MarketingShell.astro';
-import { buildScanHref } from '../lib/scan-flow';
+import { APP_SCAN_ENTRY, buildScanHref } from '../lib/scan-flow';
 ---
 
 <MarketingShell
@@ -11,79 +11,40 @@ import { buildScanHref } from '../lib/scan-flow';
   <section class="scan-hero">
     <div class="scan-hero__inner">
       <div class="scan-hero__copy">
-        <p class="route-kicker">TOKISCAN</p>
-        <h1>See if AI can understand and recommend your business.</h1>
+        <p class="route-kicker">AI Trust &middot; Powered by <a href="/os">toki-os</a></p>
+        <h1>Find out your AI Trust Score</h1>
         <p class="scan-hero__lede">
-          tokiscan scans your live website, looks at the signals AI systems rely on, and shows where your business is getting understood, skipped, or guessed at.
+          tokiscan crawls your live site and scores the signals AI models use when deciding whether to recommend your business.
         </p>
+
+        <form class="scan-entry-form" id="scan-page-form" action={buildScanHref('scan-page-hero')} method="GET" novalidate>
+          <input
+            type="text"
+            name="url"
+            placeholder="yourbusiness.com"
+            aria-label="Business URL"
+            autocomplete="url"
+          />
+          <button type="submit">run a free scan</button>
+        </form>
+        <p class="scan-entry-form__error" id="scan-page-error" aria-live="polite"></p>
+
         <div class="route-actions scan-hero__actions">
-          <a href={buildScanHref('scan-page-hero')} class="btn-primary">run a free scan</a>
           <a href="#example-output" class="btn-secondary">see example output</a>
         </div>
-        <p class="scan-hero__trust">No account required · No credit card · Takes 60 seconds</p>
+        <p class="scan-hero__trust">No account required &middot; No credit card &middot; Takes 60 seconds</p>
       </div>
 
       <div class="scan-hero__summary">
         <div class="scan-summary-card">
-          <p class="scan-summary-card__label">What you get</p>
+          <p class="scan-summary-card__label">What happens</p>
           <ul class="scan-summary-list">
-            <li>A fast read on whether AI can make sense of your site</li>
-            <li>The biggest issues lowering recommendation confidence</li>
-            <li>A clear next step, whether you stay on Free or go deeper with Pro</li>
+            <li>Enter your site and hand off into the live tokiscan flow</li>
+            <li>Get a fast read on whether AI can make sense of your business</li>
+            <li>See the biggest issues lowering recommendation confidence</li>
           </ul>
         </div>
       </div>
-    </div>
-  </section>
-
-  <section class="home-section">
-    <div class="section-intro">
-      <h2>What tokiscan checks</h2>
-      <p>tokiscan does not bury you in technical jargon. It looks for the signals AI systems need in order to understand what your business is, who you serve, and whether they can recommend you with confidence.</p>
-    </div>
-    <div class="pillar-grid">
-      <article class="pillar-card">
-        <div class="pillar-card__icon">◌</div>
-        <h3>Clarity</h3>
-        <p>Can AI tell what your business does from the words and structure on the page, or is it still guessing?</p>
-      </article>
-      <article class="pillar-card">
-        <div class="pillar-card__icon">◇</div>
-        <h3>Trust signals</h3>
-        <p>Are the basics there that help AI feel confident, like structured business details, proof, and context?</p>
-      </article>
-      <article class="pillar-card">
-        <div class="pillar-card__icon">△</div>
-        <h3>Recommendation readiness</h3>
-        <p>If someone asks AI for a business like yours, do you look understandable and recommendable, or easy to skip?</p>
-      </article>
-    </div>
-  </section>
-
-  <section class="home-section home-section--comparison">
-    <div class="section-intro">
-      <h2>Free vs Pro</h2>
-      <p>The free scan gives you fast awareness. Pro shows the full diagnostic and the deeper issue set behind your score.</p>
-    </div>
-    <div class="comparison-grid">
-      <article class="comparison-card comparison-card--free">
-        <p class="comparison-card__label">Free</p>
-        <h3>Snapshot and awareness</h3>
-        <ul class="comparison-list">
-          <li>Quick scan of your live site</li>
-          <li>Your score and a few surfaced issues</li>
-          <li>A fast read on whether AI is struggling to understand you</li>
-        </ul>
-      </article>
-      <article class="comparison-card comparison-card--pro">
-        <p class="comparison-card__label">Pro</p>
-        <h3>Full diagnostic and prioritized fixes</h3>
-        <ul class="comparison-list">
-          <li>Deeper issue set behind the score</li>
-          <li>Prioritized fix guidance on what to do next</li>
-          <li>The fuller picture of what is blocking recommendation confidence</li>
-        </ul>
-      </article>
     </div>
   </section>
 
@@ -98,10 +59,10 @@ import { buildScanHref } from '../lib/scan-flow';
         <div class="report-bar">
           <span class="dot dot-red"></span>
           <span class="dot dot-amber"></span>
-          <span class="report-bar-label">tokiscan — AI Trust Report</span>
+          <span class="report-bar-label">tokiscan - AI Trust Report</span>
         </div>
         <div class="report-body">
-          <p class="report-url">yourbusiness.com · scanned just now</p>
+          <p class="report-url">yourbusiness.com &middot; scanned just now</p>
           <div class="score-row">
             <span class="score-num">34</span>
             <div>
@@ -137,7 +98,7 @@ import { buildScanHref } from '../lib/scan-flow';
       <div class="scan-value-stack">
         <article class="scan-value-card">
           <p class="scan-value-card__label">Why this matters</p>
-          <h3>AI can’t recommend what it can’t understand.</h3>
+          <h3>AI can't recommend what it can't understand.</h3>
           <p>The point of the free scan is to stop guessing. You get a concrete read on whether AI sees a trustworthy business or a confusing site.</p>
         </article>
         <article class="scan-value-card">
@@ -149,6 +110,57 @@ import { buildScanHref } from '../lib/scan-flow';
     </div>
   </section>
 
+  <section class="home-section">
+    <div class="section-intro">
+      <h2>What tokiscan checks</h2>
+      <p>tokiscan does not bury you in technical jargon. It looks for the signals AI systems need in order to understand what your business is, who you serve, and whether they can recommend you with confidence.</p>
+    </div>
+    <div class="pillar-grid">
+      <article class="pillar-card">
+        <div class="pillar-card__icon">O</div>
+        <h3>Clarity</h3>
+        <p>Can AI tell what your business does from the words and structure on the page, or is it still guessing?</p>
+      </article>
+      <article class="pillar-card">
+        <div class="pillar-card__icon">D</div>
+        <h3>Trust signals</h3>
+        <p>Are the basics there that help AI feel confident, like structured business details, proof, and context?</p>
+      </article>
+      <article class="pillar-card">
+        <div class="pillar-card__icon">A</div>
+        <h3>Recommendation readiness</h3>
+        <p>If someone asks AI for a business like yours, do you look understandable and recommendable, or easy to skip?</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="home-section home-section--comparison">
+    <div class="section-intro">
+      <h2>Free vs Pro</h2>
+      <p>The free scan gives you fast awareness. Pro shows the full diagnostic and the deeper issue set behind your score.</p>
+    </div>
+    <div class="comparison-grid">
+      <article class="comparison-card comparison-card--free">
+        <p class="comparison-card__label">Free</p>
+        <h3>Snapshot and awareness</h3>
+        <ul class="comparison-list">
+          <li>Quick scan of your live site</li>
+          <li>Your score and a few surfaced issues</li>
+          <li>A fast read on whether AI is struggling to understand you</li>
+        </ul>
+      </article>
+      <article class="comparison-card comparison-card--pro">
+        <p class="comparison-card__label">Pro</p>
+        <h3>Full diagnostic and prioritized fixes</h3>
+        <ul class="comparison-list">
+          <li>Deeper issue set behind the score</li>
+          <li>Prioritized fix guidance on what to do next</li>
+          <li>The fuller picture of what is blocking recommendation confidence</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
   <section class="home-section home-section--final">
     <div class="section-intro section-intro--center">
       <h2>Run the scan before AI makes the call without you.</h2>
@@ -156,7 +168,66 @@ import { buildScanHref } from '../lib/scan-flow';
     </div>
     <div class="section-cta">
       <a href={buildScanHref('scan-page-bottom')} class="btn-primary">run a free scan</a>
-      <p>No account required · No credit card · Takes 60 seconds</p>
+      <p>No account required &middot; No credit card &middot; Takes 60 seconds</p>
     </div>
   </section>
 </MarketingShell>
+
+<script define:vars={{ appScanEntry: APP_SCAN_ENTRY }}>
+  const form = document.getElementById('scan-page-form');
+  const input = form?.querySelector('input[name="url"]');
+  const error = document.getElementById('scan-page-error');
+
+  function normalizeDomain(value) {
+    const trimmed = value.trim();
+    if (!trimmed) {
+      return null;
+    }
+
+    const candidate = trimmed.match(/^https?:\/\//i) ? trimmed : `https://${trimmed}`;
+
+    try {
+      const parsed = new URL(candidate);
+      const hostname = parsed.hostname.toLowerCase();
+
+      if (!hostname || !hostname.includes('.') || hostname.includes(' ')) {
+        return null;
+      }
+
+      return hostname;
+    } catch {
+      return null;
+    }
+  }
+
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const normalized = normalizeDomain(input instanceof HTMLInputElement ? input.value : '');
+
+    if (!normalized) {
+      if (error) {
+        error.textContent = 'Enter a valid domain like yourbusiness.com';
+      }
+      if (input instanceof HTMLInputElement) {
+        input.setAttribute('aria-invalid', 'true');
+        input.focus();
+      }
+      return;
+    }
+
+    if (error) {
+      error.textContent = '';
+    }
+    if (input instanceof HTMLInputElement) {
+      input.removeAttribute('aria-invalid');
+    }
+
+    const destination = new URL(appScanEntry);
+    destination.searchParams.set('source', 'scan-page-hero');
+    destination.searchParams.set('domain', normalized);
+    destination.searchParams.set('url', normalized);
+
+    window.location.assign(destination.toString());
+  });
+</script>
