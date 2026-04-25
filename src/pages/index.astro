@@ -8,8 +8,8 @@ const organizationSchema = {
   '@type': 'Organization',
   name: 'tokigig',
   url: 'https://tokigig.com',
-  logo: 'https://tokigig.com/logo.svg',
-  sameAs: ['https://x.com/TheKingofKimchi'],
+  logo: 'https://tokigig.com/logos/tokigig-logo-lockup-light-bg.svg',
+  sameAs: ['https://x.com/tokiOSHQ'],
   description:
     'tokigig builds AI tools for business operators, including tokiscan for AI visibility and toki-os as the underlying operating system.',
 };
@@ -45,31 +45,392 @@ const organizationSchema = {
     </div>
   </section>
 
-  <section class="home-section home-section--contrast">
-    <div class="section-intro section-intro--center">
-      <h2>What AI actually sees on your site</h2>
+  <section id=”visibility-gap”>
+    <style>
+      #visibility-gap {
+        background: #080808;
+        padding: 5rem 1.5rem;
+      }
+      #visibility-gap .vgap-inner {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+      #visibility-gap .vgap-eyebrow {
+        color: #5a8f4e;
+        text-transform: uppercase;
+        font-size: 10px;
+        letter-spacing: 0.12em;
+        font-weight: 600;
+        margin: 0 0 0.75rem;
+      }
+      #visibility-gap .vgap-headline {
+        font-size: 36px;
+        font-weight: 500;
+        color: #f0f0f0;
+        margin: 0 0 0.75rem;
+        line-height: 1.2;
+      }
+      #visibility-gap .vgap-headline .accent {
+        color: #5a8f4e;
+      }
+      #visibility-gap .vgap-sub {
+        color: #777;
+        font-size: 15px;
+        margin: 0 0 2.5rem;
+      }
+      #visibility-gap .vgap-panels {
+        display: grid;
+        grid-template-columns: 1fr 40px 1fr;
+        margin-bottom: 1.5rem;
+      }
+      #visibility-gap .vgap-left {
+        background: #161616;
+        border: 0.5px solid #252525;
+        border-radius: 16px 0 0 16px;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+      }
+      #visibility-gap .vgap-center {
+        width: 40px;
+        background: #080808;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #visibility-gap .vgap-vs {
+        background: #141414;
+        border: 1px solid #252525;
+        color: #555;
+        font-size: 11px;
+        padding: 4px 8px;
+        border-radius: 20px;
+        font-weight: 500;
+      }
+      #visibility-gap .vgap-right {
+        background:
+          repeating-linear-gradient(
+            to bottom,
+            transparent 0px,
+            transparent 31px,
+            rgba(239, 68, 68, 0.022) 31px,
+            rgba(239, 68, 68, 0.022) 32px
+          ),
+          #131010;
+        border: 0.5px solid rgba(239, 68, 68, 0.18);
+        border-radius: 0 16px 16px 0;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+      }
+      #visibility-gap .vgap-panel-label {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin: 0 0 1.25rem;
+      }
+      #visibility-gap .vgap-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      #visibility-gap .vgap-dot--green { background: #5a8f4e; }
+      #visibility-gap .vgap-dot--red { background: rgba(239, 68, 68, 0.8); }
+      #visibility-gap .vgap-panel-label--green { color: #5a8f4e; }
+      #visibility-gap .vgap-panel-label--red { color: rgba(239, 68, 68, 0.8); }
+      #visibility-gap .vgap-items {
+        list-style: none;
+        margin: 0 0 1.5rem;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        flex: 1;
+      }
+      #visibility-gap .vgap-check-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      #visibility-gap .vgap-check-icon {
+        width: 26px;
+        height: 26px;
+        background: rgba(90, 143, 78, 0.12);
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        margin-top: 1px;
+      }
+      #visibility-gap .vgap-check-icon svg {
+        width: 12px;
+        height: 12px;
+      }
+      #visibility-gap .vgap-item-text {
+        font-size: 14px;
+        color: #bbb;
+        line-height: 1.3;
+      }
+      #visibility-gap .vgap-item-sub {
+        font-size: 11px;
+        color: #666;
+        margin-top: 2px;
+      }
+      #visibility-gap .vgap-terminal-items {
+        list-style: none;
+        margin: 0 0 1.5rem;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        flex: 1;
+      }
+      #visibility-gap .vgap-terminal-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      #visibility-gap .vgap-prompt {
+        color: rgba(239, 68, 68, 0.45);
+        font-family: monospace;
+        font-size: 14px;
+        flex-shrink: 0;
+      }
+      #visibility-gap .vgap-key {
+        font-family: monospace;
+        font-size: 13px;
+        color: #777;
+        flex: 1;
+      }
+      #visibility-gap .vgap-badge {
+        font-size: 10px;
+        font-weight: 600;
+        padding: 2px 7px;
+        border-radius: 4px;
+        white-space: nowrap;
+      }
+      #visibility-gap .vgap-badge--grey {
+        background: rgba(255, 255, 255, 0.07);
+        color: #888;
+      }
+      #visibility-gap .vgap-badge--red {
+        background: rgba(239, 68, 68, 0.1);
+        color: rgba(239, 68, 68, 0.8);
+      }
+      #visibility-gap .vgap-badge--amber {
+        background: rgba(245, 158, 11, 0.1);
+        color: rgba(245, 158, 11, 0.8);
+      }
+      #visibility-gap .vgap-confidence {
+        margin-top: auto;
+      }
+      #visibility-gap .vgap-bar-track {
+        height: 4px;
+        background: rgba(255, 255, 255, 0.06);
+        border-radius: 2px;
+        margin-bottom: 6px;
+        overflow: hidden;
+      }
+      #visibility-gap .vgap-bar-fill {
+        height: 100%;
+        border-radius: 2px;
+      }
+      #visibility-gap .vgap-bar-label {
+        font-size: 11px;
+      }
+      #visibility-gap .vgap-verdicts {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      #visibility-gap .vgap-verdict-1 {
+        background: #111;
+        border-left: 2px solid #5a8f4e;
+        border-radius: 12px;
+        padding: 1.5rem 2rem;
+        font-size: 15px;
+        color: #999;
+        line-height: 1.6;
+      }
+      #visibility-gap .vgap-verdict-1 strong {
+        color: #f0f0f0;
+      }
+      #visibility-gap .vgap-verdict-2 {
+        background: #0d0d0d;
+        border-left: 2px solid #333;
+        border-radius: 12px;
+        padding: 1.25rem 1.75rem;
+      }
+      #visibility-gap .vgap-quote {
+        font-style: italic;
+        color: #888;
+        font-size: 14px;
+        line-height: 1.65;
+        margin: 0 0 0.6rem;
+      }
+      #visibility-gap .vgap-quote em {
+        font-style: normal;
+        color: #bbb;
+      }
+      #visibility-gap .vgap-attribution {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      #visibility-gap .vgap-attribution-text {
+        font-size: 11px;
+        color: #555;
+      }
+      #visibility-gap .vgap-attr-badge {
+        font-size: 10px;
+        font-weight: 600;
+        color: #5a8f4e;
+        background: rgba(90, 143, 78, 0.1);
+        padding: 2px 7px;
+        border-radius: 4px;
+      }
+      @media (max-width: 768px) {
+        #visibility-gap .vgap-panels {
+          grid-template-columns: 1fr;
+        }
+        #visibility-gap .vgap-left {
+          border-radius: 16px 16px 0 0;
+        }
+        #visibility-gap .vgap-center {
+          width: 100%;
+          height: 40px;
+        }
+        #visibility-gap .vgap-right {
+          border-radius: 0 0 16px 16px;
+        }
+      }
+    </style>
+
+    <div class=”vgap-inner”>
+      <p class=”vgap-eyebrow”>the visibility gap</p>
+      <h2 class=”vgap-headline”>What AI <span class=”accent”>actually</span> sees on your site</h2>
+      <p class=”vgap-sub”>Most businesses assume AI understands them. Most are wrong.</p>
+
+      <div class=”vgap-panels”>
+        <div class=”vgap-left”>
+          <p class=”vgap-panel-label vgap-panel-label--green”>
+            <span class=”vgap-dot vgap-dot--green”></span>
+            What you think AI sees
+          </p>
+          <ul class=”vgap-items”>
+            <li class=”vgap-check-item”>
+              <span class=”vgap-check-icon”>
+                <svg viewBox=”0 0 12 12” fill=”none” xmlns=”http://www.w3.org/2000/svg”>
+                  <path d=”M2 6l3 3 5-5” stroke=”#5a8f4e” stroke-width=”1.5” stroke-linecap=”round” stroke-linejoin=”round”/>
+                </svg>
+              </span>
+              <div>
+                <div class=”vgap-item-text”>Beautiful product photos</div>
+                <div class=”vgap-item-sub”>High-quality visuals throughout</div>
+              </div>
+            </li>
+            <li class=”vgap-check-item”>
+              <span class=”vgap-check-icon”>
+                <svg viewBox=”0 0 12 12” fill=”none” xmlns=”http://www.w3.org/2000/svg”>
+                  <path d=”M2 6l3 3 5-5” stroke=”#5a8f4e” stroke-width=”1.5” stroke-linecap=”round” stroke-linejoin=”round”/>
+                </svg>
+              </span>
+              <div>
+                <div class=”vgap-item-text”>Your brand story &amp; expertise</div>
+                <div class=”vgap-item-sub”>Years of reputation on every page</div>
+              </div>
+            </li>
+            <li class=”vgap-check-item”>
+              <span class=”vgap-check-icon”>
+                <svg viewBox=”0 0 12 12” fill=”none” xmlns=”http://www.w3.org/2000/svg”>
+                  <path d=”M2 6l3 3 5-5” stroke=”#5a8f4e” stroke-width=”1.5” stroke-linecap=”round” stroke-linejoin=”round”/>
+                </svg>
+              </span>
+              <div>
+                <div class=”vgap-item-text”>Glowing customer reviews</div>
+                <div class=”vgap-item-sub”>5-star social proof everywhere</div>
+              </div>
+            </li>
+            <li class=”vgap-check-item”>
+              <span class=”vgap-check-icon”>
+                <svg viewBox=”0 0 12 12” fill=”none” xmlns=”http://www.w3.org/2000/svg”>
+                  <path d=”M2 6l3 3 5-5” stroke=”#5a8f4e” stroke-width=”1.5” stroke-linecap=”round” stroke-linejoin=”round”/>
+                </svg>
+              </span>
+              <div>
+                <div class=”vgap-item-text”>Clear pricing and offers</div>
+                <div class=”vgap-item-sub”>Competitive rates, easy to find</div>
+              </div>
+            </li>
+          </ul>
+          <div class=”vgap-confidence”>
+            <div class=”vgap-bar-track”>
+              <div class=”vgap-bar-fill” style=”width: 85%; background: #5a8f4e;”></div>
+            </div>
+            <span class=”vgap-bar-label” style=”color: #5a8f4e;”>High — owner assumes strong visibility</span>
+          </div>
+        </div>
+
+        <div class=”vgap-center”>
+          <span class=”vgap-vs”>vs</span>
+        </div>
+
+        <div class=”vgap-right”>
+          <p class=”vgap-panel-label vgap-panel-label--red”>
+            <span class=”vgap-dot vgap-dot--red”></span>
+            What AI actually extracts
+          </p>
+          <ul class=”vgap-terminal-items”>
+            <li class=”vgap-terminal-item”>
+              <span class=”vgap-prompt”>&gt;</span>
+              <span class=”vgap-key”>content_status</span>
+              <span class=”vgap-badge vgap-badge--grey”>Loading...</span>
+            </li>
+            <li class=”vgap-terminal-item”>
+              <span class=”vgap-prompt”>&gt;</span>
+              <span class=”vgap-key”>structured_data</span>
+              <span class=”vgap-badge vgap-badge--red”>none detected</span>
+            </li>
+            <li class=”vgap-terminal-item”>
+              <span class=”vgap-prompt”>&gt;</span>
+              <span class=”vgap-key”>business_type</span>
+              <span class=”vgap-badge vgap-badge--amber”>unclear</span>
+            </li>
+            <li class=”vgap-terminal-item”>
+              <span class=”vgap-prompt”>&gt;</span>
+              <span class=”vgap-key”>recommendation_confidence</span>
+              <span class=”vgap-badge vgap-badge--red”>low — 18 / 100</span>
+            </li>
+          </ul>
+          <div class=”vgap-confidence”>
+            <div class=”vgap-bar-track”>
+              <div class=”vgap-bar-fill” style=”width: 18%; background: #ef4444; opacity: 0.65;”></div>
+            </div>
+            <span class=”vgap-bar-label” style=”color: rgba(239,68,68,0.75);”>Effectively invisible to AI recommendation engines</span>
+          </div>
+        </div>
+      </div>
+
+      <div class=”vgap-verdicts”>
+        <div class=”vgap-verdict-1”>
+          <strong>AI can’t recommend what it can’t understand.</strong> Most businesses are invisible to AI without ever knowing it — not because their product is weak, but because their site doesn’t speak AI’s language. And AI search is no longer the future. It’s already the primary discovery layer for over 1.5 billion people.
+        </div>
+        <div class=”vgap-verdict-2”>
+          <p class=”vgap-quote”>”Search is evolving into an <em>agent manager</em> — users will have many threads running, completing tasks rather than browsing results. The businesses that AI can understand will be the ones it recommends.”</p>
+          <div class=”vgap-attribution”>
+            <span class=”vgap-attribution-text”>Sundar Pichai, CEO — Google &amp; Alphabet, April 2026</span>
+            <span class=”vgap-attr-badge”>Google I/O 2026</span>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="contrast-panels">
-      <article class="contrast-panel contrast-panel--warm">
-        <p class="contrast-panel__label">What you think AI sees</p>
-        <ul class="contrast-list">
-          <li>Beautiful product photos</li>
-          <li>Your brand story</li>
-          <li>Years of expertise</li>
-          <li>Glowing customer reviews</li>
-        </ul>
-      </article>
-      <article class="contrast-panel contrast-panel--cold">
-        <p class="contrast-panel__label">What AI actually extracts</p>
-        <ul class="contrast-list contrast-list--mono">
-          <li>"Loading..."</li>
-          <li>No structured data detected</li>
-          <li>Business type: unclear</li>
-          <li>Recommendation confidence: low</li>
-        </ul>
-      </article>
-    </div>
-    <p class="section-quote">“AI can’t recommend what it can’t understand. Most businesses are invisible without knowing it.”</p>
   </section>
 
   <section class="home-section" id="builds">
