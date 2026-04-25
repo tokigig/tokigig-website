@@ -14,9 +14,9 @@ interface Props {
 const { title, description, currentPath, schema = null } = Astro.props;
 
 const navItems = [
-  { label: 'Products', href: '/scan' },
-  { label: 'About', href: currentPath === '/' ? '#builds' : '/' },
-  { label: 'Pricing', href: '/scan' },
+  { label: 'products', href: '/scan' },
+  { label: 'about', href: currentPath === '/' ? '#builds' : '/' },
+  { label: 'pricing', href: '/scan' },
 ];
 ---
 
@@ -24,7 +24,7 @@ const navItems = [
   <div class="marketing-shell">
     <header class="marketing-header" id="site-nav">
       <div class="marketing-header__inner">
-        <a href="/" class="marketing-brand" aria-label="TokiGig home">
+        <a href="/" class="marketing-brand" aria-label="tokigig home">
           <svg class="logo-svg logo-white" width="36" height="36" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <path d={LOGO_PATHS.body} style="fill: white" />
             <path d={LOGO_PATHS.spiral} style="fill: var(--toki-black)" />
@@ -44,7 +44,7 @@ const navItems = [
           <span class="wordmark">toki<span class="wordmark-accent">gig</span></span>
         </a>
 
-        <nav class="marketing-nav" aria-label="Primary">
+        <nav class="marketing-nav" id="marketing-nav-panel" aria-label="Primary">
           {navItems.map((item) => (
             <a href={item.href} class:list={['marketing-nav__link', { 'is-current': currentPath === item.href }]}>
               {item.label}
@@ -55,6 +55,18 @@ const navItems = [
         </nav>
 
         <div class="marketing-header__actions">
+          <button
+            class="mobile-menu-toggle"
+            id="mobile-menu-toggle"
+            type="button"
+            aria-label="Toggle navigation"
+            aria-controls="marketing-nav-panel"
+            aria-expanded="false"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
           <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
             <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>
             <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5" /><line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" /><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" /><line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" /><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" /></svg>
@@ -111,5 +123,35 @@ const navItems = [
     const next = current === 'dark' ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem('toki-theme', next);
+  });
+
+  const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+  const mobileNavPanel = document.getElementById('marketing-nav-panel');
+  const mobileNavLinks = mobileNavPanel?.querySelectorAll('a');
+  const mobileMenuQuery = window.matchMedia('(max-width: 768px)');
+
+  function closeMobileMenu() {
+    mobileNavPanel?.classList.remove('is-open');
+    mobileMenuToggle?.setAttribute('aria-expanded', 'false');
+  }
+
+  mobileMenuToggle?.addEventListener('click', () => {
+    const nextOpen = !mobileNavPanel?.classList.contains('is-open');
+    mobileNavPanel?.classList.toggle('is-open', nextOpen);
+    mobileMenuToggle.setAttribute('aria-expanded', nextOpen ? 'true' : 'false');
+  });
+
+  mobileNavLinks?.forEach((link) => {
+    link.addEventListener('click', () => {
+      if (mobileMenuQuery.matches) {
+        closeMobileMenu();
+      }
+    });
+  });
+
+  mobileMenuQuery.addEventListener('change', (event) => {
+    if (!event.matches) {
+      closeMobileMenu();
+    }
   });
 </script>
