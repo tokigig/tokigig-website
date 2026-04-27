@@ -311,14 +311,16 @@
 [data-theme="light"] .logo-dark-bg { display: none; }
 [data-theme="light"] .logo-light-bg { display: block; }
 
-  .wordmark {
-    font-size: 18px;
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    color: var(--text-primary);
-  }
+  .logo-dark { display: block; }
+  .logo-light { display: none; }
 
-  .wordmark-accent { color: var(--toki-green); }
+  [data-theme="light"] .logo-dark { display: none; }
+  [data-theme="light"] .logo-light { display: block; }
+
+  .marketing-brand img {
+    height: 32px;
+    width: auto;
+  }
 
   .nav-right {
     display: flex;
@@ -915,12 +917,6 @@
 }
 
 @layer base {
-  .wordmark {
-    font-size: 15px;
-    font-weight: 500;
-    text-transform: lowercase;
-  }
-
   .marketing-nav {
     gap: 1rem;
   }
