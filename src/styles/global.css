@@ -63,6 +63,38 @@
     display: block;
   }
 
+  .logo-dark-bg {
+  display: block;
+}
+
+.logo-light-bg {
+  display: none;
+}
+
+[data-theme="light"] .logo-dark-bg {
+  display: none;
+}
+
+[data-theme="light"] .logo-light-bg {
+  display: block;
+}
+
+.icon-sun {
+  display: none;
+}
+
+.icon-moon {
+  display: block;
+}
+
+[data-theme="light"] .icon-sun {
+  display: block;
+}
+
+[data-theme="light"] .icon-moon {
+  display: none;
+}
+
   @media (max-width: 768px) {
     #neural-canvas { display: none; }
   }
