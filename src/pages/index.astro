@@ -1,186 +1,49 @@
 ---
 import MarketingShell from '../components/MarketingShell.astro';
-import HeroNetwork from '../components/HeroNetwork.astro';
+import HomeHero from '../components/home/HomeHero.astro';
+import VisibilityGap from '../components/home/VisibilityGap.astro';
 import { APP_SCAN_ENTRY, buildScanHref } from '../lib/scan-flow';
 
 const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
-  name: 'tokigig',
+  name: 'tokiGig',
   url: 'https://tokigig.com',
   logo: 'https://tokigig.com/logos/tokigig-logo-lockup-light-bg.svg',
   sameAs: ['https://x.com/tokiOSHQ'],
   description:
-    'tokigig builds AI tools for business operators, including tokiscan for AI visibility and toki-os as the underlying operating system.',
+    'tokiGig builds AI tools for business operators, including tokiScan for AI visibility and toki-OS as the underlying operating system.',
 };
 ---
 
 <MarketingShell
-  title="tokigig - AI visibility for your business"
+  title="tokiGig - AI visibility for your business"
   description="AI is recommending businesses to your customers right now. Find out if yours is showing up - or getting skipped."
   currentPath="/"
   schema={organizationSchema}
 >
-  <section class="homepage-hero" id="hero-section">
-    <HeroNetwork />
-    <div class="homepage-hero__layout">
-      <div class="homepage-hero__copy">
-        <p class="route-kicker">AI VISIBILITY</p>
-        <h1 class="homepage-hero__headline">
-          <span>AI is recommending</span>
-          <span>businesses to your</span>
-          <span class="headline-accent">customers right now.</span>
-        </h1>
-        <p class="homepage-hero__subhead">Is yours showing up — or getting skipped?</p>
-        <div class="route-actions homepage-hero__actions">
-          <a href={buildScanHref('homepage-hero')} class="btn-primary">run a free scan</a>
-          <a href="#tokiscan-in-action" class="btn-secondary">see how it works</a>
-        </div>
-        <p class="homepage-hero__powered">
-          powered by <a href="/os">toki-os</a>
-        </p>
-      </div>
+  <HomeHero />
 
-      <div class="homepage-hero__network" aria-hidden="true"></div>
-    </div>
-  </section>
-
-  <section id=”visibility-gap”>
-    <div class=”vgap-inner”>
-      <p class=”vgap-eyebrow”>the visibility gap</p>
-      <h2 class=”vgap-headline”>What AI <span class=”accent”>actually</span> sees on your site</h2>
-      <p class=”vgap-sub”>Most businesses assume AI understands them. Most are wrong.</p>
-
-      <div class=”vgap-panels”>
-        <div class=”vgap-left”>
-          <p class=”vgap-panel-label vgap-panel-label--green”>
-            <span class=”vgap-dot vgap-dot--green”></span>
-            What you think AI sees
-          </p>
-          <ul class=”vgap-items”>
-            <li class=”vgap-check-item”>
-              <span class=”vgap-check-icon”>
-                <svg viewBox=”0 0 12 12” fill=”none” xmlns=”http://www.w3.org/2000/svg”>
-                  <path d=”M2 6l3 3 5-5” stroke=”#5a8f4e” stroke-width=”1.5” stroke-linecap=”round” stroke-linejoin=”round”/>
-                </svg>
-              </span>
-              <div>
-                <div class=”vgap-item-text”>Beautiful product photos</div>
-                <div class=”vgap-item-sub”>High-quality visuals throughout</div>
-              </div>
-            </li>
-            <li class=”vgap-check-item”>
-              <span class=”vgap-check-icon”>
-                <svg viewBox=”0 0 12 12” fill=”none” xmlns=”http://www.w3.org/2000/svg”>
-                  <path d=”M2 6l3 3 5-5” stroke=”#5a8f4e” stroke-width=”1.5” stroke-linecap=”round” stroke-linejoin=”round”/>
-                </svg>
-              </span>
-              <div>
-                <div class=”vgap-item-text”>Your brand story &amp; expertise</div>
-                <div class=”vgap-item-sub”>Years of reputation on every page</div>
-              </div>
-            </li>
-            <li class=”vgap-check-item”>
-              <span class=”vgap-check-icon”>
-                <svg viewBox=”0 0 12 12” fill=”none” xmlns=”http://www.w3.org/2000/svg”>
-                  <path d=”M2 6l3 3 5-5” stroke=”#5a8f4e” stroke-width=”1.5” stroke-linecap=”round” stroke-linejoin=”round”/>
-                </svg>
-              </span>
-              <div>
-                <div class=”vgap-item-text”>Glowing customer reviews</div>
-                <div class=”vgap-item-sub”>5-star social proof everywhere</div>
-              </div>
-            </li>
-            <li class=”vgap-check-item”>
-              <span class=”vgap-check-icon”>
-                <svg viewBox=”0 0 12 12” fill=”none” xmlns=”http://www.w3.org/2000/svg”>
-                  <path d=”M2 6l3 3 5-5” stroke=”#5a8f4e” stroke-width=”1.5” stroke-linecap=”round” stroke-linejoin=”round”/>
-                </svg>
-              </span>
-              <div>
-                <div class=”vgap-item-text”>Clear pricing and offers</div>
-                <div class=”vgap-item-sub”>Competitive rates, easy to find</div>
-              </div>
-            </li>
-          </ul>
-          <div class=”vgap-confidence”>
-            <div class=”vgap-bar-track”>
-              <div class=”vgap-bar-fill” style=”width: 85%; background: #5a8f4e;”></div>
-            </div>
-            <span class=”vgap-bar-label” style=”color: #5a8f4e;”>High — owner assumes strong visibility</span>
-          </div>
-        </div>
-
-        <div class=”vgap-center”>
-          <span class=”vgap-vs”>vs</span>
-        </div>
-
-        <div class=”vgap-right”>
-          <p class=”vgap-panel-label vgap-panel-label--red”>
-            <span class=”vgap-dot vgap-dot--red”></span>
-            What AI actually extracts
-          </p>
-          <ul class=”vgap-terminal-items”>
-            <li class=”vgap-terminal-item”>
-              <span class=”vgap-prompt”>&gt;</span>
-              <span class=”vgap-key”>content_status</span>
-              <span class=”vgap-badge vgap-badge--grey”>Loading...</span>
-            </li>
-            <li class=”vgap-terminal-item”>
-              <span class=”vgap-prompt”>&gt;</span>
-              <span class=”vgap-key”>structured_data</span>
-              <span class=”vgap-badge vgap-badge--red”>none detected</span>
-            </li>
-            <li class=”vgap-terminal-item”>
-              <span class=”vgap-prompt”>&gt;</span>
-              <span class=”vgap-key”>business_type</span>
-              <span class=”vgap-badge vgap-badge--amber”>unclear</span>
-            </li>
-            <li class=”vgap-terminal-item”>
-              <span class=”vgap-prompt”>&gt;</span>
-              <span class=”vgap-key”>recommendation_confidence</span>
-              <span class=”vgap-badge vgap-badge--red”>low — 18 / 100</span>
-            </li>
-          </ul>
-          <div class=”vgap-confidence”>
-            <div class=”vgap-bar-track”>
-              <div class=”vgap-bar-fill” style=”width: 18%; background: #ef4444; opacity: 0.65;”></div>
-            </div>
-            <span class=”vgap-bar-label” style=”color: rgba(239,68,68,0.75);”>Effectively invisible to AI recommendation engines</span>
-          </div>
-        </div>
-      </div>
-
-      <div class=”vgap-verdicts”>
-        <div class=”vgap-verdict-1”>
-          <strong>AI can’t recommend what it can’t understand.</strong> Most businesses are invisible to AI without ever knowing it — not because their product is weak, but because their site doesn’t speak AI’s language. And AI search is no longer the future. It’s already the primary discovery layer for over 1.5 billion people.
-        </div>
-        <div class=”vgap-verdict-2”>
-          <p class=”vgap-quote”>”Search is evolving into an <em>agent manager</em> — users will have many threads running, completing tasks rather than browsing results. The businesses that AI can understand will be the ones it recommends.”</p>
-          <div class=”vgap-attribution”>
-            <span class=”vgap-attribution-text”>Sundar Pichai, CEO — Google &amp; Alphabet, April 2026</span>
-            <span class=”vgap-attr-badge”>Google I/O 2026</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <VisibilityGap />
 
   <section class="home-section" id="builds">
     <div class="section-intro">
       <h2>We build AI tools that work for your business — with you in control.</h2>
     </div>
+
     <div class="pillar-grid">
       <article class="pillar-card">
         <div class="pillar-card__icon">◌</div>
         <h3>Visibility</h3>
         <p>Can AI find, understand, and recommend you? Most businesses don’t know the answer. We show you.</p>
       </article>
+
       <article class="pillar-card">
         <div class="pillar-card__icon">◇</div>
         <h3>Trust</h3>
-        <p>Every tokigig tool keeps the operator in control. AI does the work. You make the calls.</p>
+        <p>Every tokiGig tool keeps the business owner in control. AI does the work. You make the calls.</p>
       </article>
+
       <article class="pillar-card">
         <div class="pillar-card__icon">△</div>
         <h3>Autonomy</h3>
@@ -189,11 +52,12 @@ const organizationSchema = {
     </div>
   </section>
 
-  <section class="home-section home-section--scan" id="tokiscan-in-action">
+  <section class="home-section home-section--scan" id="tokiScan-in-action">
     <div class="section-intro">
       <p class="route-kicker">TOKISCAN</p>
       <h2>Find out if AI can understand and recommend your business — in 60 seconds.</h2>
     </div>
+
     <div class="scan-report">
       <div class="scan-report__score">
         <div class="scan-report__score-main">
@@ -206,6 +70,7 @@ const organizationSchema = {
       <div class="scan-report__issue">
         <p class="scan-report__eyebrow">Priority issue</p>
         <h3>No structured data — AI is guessing at your business</h3>
+
         <div class="scan-report__action">
           <p class="scan-report__action-label">What to do</p>
           <p>Add structured business markup so AI can identify what you do, who you serve, and how to categorize you.</p>
@@ -218,7 +83,10 @@ const organizationSchema = {
       </div>
     </div>
 
-    <p class="section-quote section-quote--narrow">“Most businesses score under 65 on their first scan. The Pro Report shows exactly what’s wrong and what to fix.”</p>
+    <p class="section-quote section-quote--narrow">
+      “Most businesses score under 65 on their first scan. The Pro Report shows exactly what’s wrong and what to fix.”
+    </p>
+
     <div class="section-cta">
       <a href={buildScanHref('homepage-section-4')} class="btn-primary">Run your free scan — takes 60 seconds</a>
       <p>No account required · No credit card · Instant results</p>
@@ -227,27 +95,33 @@ const organizationSchema = {
 
   <section class="home-section">
     <div class="section-intro">
-      <h2>tokiscan is just the beginning.</h2>
-      <p>We’re building a suite of AI tools for business operators — each one designed to make your business more visible, more trusted, and more capable. No technical expertise required.</p>
+      <h2>tokiScan is just the beginning.</h2>
+      <p>
+        We’re building a suite of AI tools for business owners — each one designed to make your business more visible,
+        more trusted, and more capable. No technical expertise required.
+      </p>
     </div>
+
     <div class="module-list" aria-label="Upcoming modules">
       <article class="module-row module-row--active">
         <div>
-          <h3>tokiscan</h3>
+          <h3>tokiScan</h3>
           <p>AI visibility diagnostic</p>
         </div>
         <span>Available now</span>
       </article>
+
       <article class="module-row">
         <div>
-          <h3>tokipatch</h3>
+          <h3>tokiPatch</h3>
           <p>AI-powered fix implementation</p>
         </div>
         <span>Coming soon</span>
       </article>
+
       <article class="module-row">
         <div>
-          <h3>tokiworker</h3>
+          <h3>tokiWorker</h3>
           <p>Autonomous AI workforce</p>
         </div>
         <span>Coming soon</span>
@@ -259,8 +133,13 @@ const organizationSchema = {
     <div class="trust-band__inner">
       <h2>AI that won’t act without you.</h2>
       <p class="trust-band__subhead">Autonomous but accountable.</p>
-      <p class="trust-band__body">Every tokigig tool is built on a simple principle: AI does the work, you make the calls. No black boxes. No surprises. No agents going rogue. Just your business, running smarter — with you in control.</p>
-      <p class="trust-band__foot">Built on <a href="/os">toki-os</a> — an open AI operating system anyone can inspect, extend, and trust.</p>
+      <p class="trust-band__body">
+        Every tokiGig tool is built on a simple principle: AI does the work, you make the calls. No black boxes.
+        No surprises. No agents going rogue. Just your business, running smarter — with you in control.
+      </p>
+      <p class="trust-band__foot">
+        Built on <a href="/os">toki-OS</a> — an open AI operating system anyone can inspect, extend, and trust.
+      </p>
     </div>
   </section>
 
@@ -269,282 +148,19 @@ const organizationSchema = {
       <h2>Find out where you stand.</h2>
       <p>Most businesses are surprised by what AI can’t understand about them.</p>
     </div>
+
     <form class="final-cta" id="homepage-scan-form" action={buildScanHref('homepage-final')} method="GET" novalidate>
       <input type="text" name="url" placeholder="yourbusiness.com" aria-label="Business URL" autocomplete="url" />
       <button type="submit">Run free AI scan</button>
     </form>
+
     <p class="final-cta__error" id="homepage-scan-error" aria-live="polite"></p>
     <p class="final-cta__micro">No account required · Takes 60 seconds</p>
-    <p class="final-cta__secondary">Want the full platform? <a href="https://apps.tokigig.com">Get early access →</a></p>
+    <p class="final-cta__secondary">
+      Want the full platform? <a href="https://apps.tokigig.com">Get early access →</a>
+    </p>
   </section>
 </MarketingShell>
-
-<style is:global>
-  #visibility-gap {
-    background: #080808;
-    padding: 5rem 1.5rem;
-  }
-  #visibility-gap .vgap-inner {
-    max-width: 900px;
-    margin: 0 auto;
-  }
-  #visibility-gap .vgap-eyebrow {
-    color: #5a8f4e;
-    text-transform: uppercase;
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    font-weight: 600;
-    margin: 0 0 0.75rem;
-  }
-  #visibility-gap .vgap-headline {
-    font-size: 36px;
-    font-weight: 500;
-    color: #f0f0f0;
-    margin: 0 0 0.75rem;
-    line-height: 1.2;
-  }
-  #visibility-gap .vgap-headline .accent {
-    color: #5a8f4e;
-  }
-  #visibility-gap .vgap-sub {
-    color: #777;
-    font-size: 15px;
-    margin: 0 0 2.5rem;
-  }
-  #visibility-gap .vgap-panels {
-    display: grid;
-    grid-template-columns: 1fr 40px 1fr;
-    margin-bottom: 1.5rem;
-  }
-  #visibility-gap .vgap-left {
-    background: #161616;
-    border: 0.5px solid #252525;
-    border-radius: 16px 0 0 16px;
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-  }
-  #visibility-gap .vgap-center {
-    width: 40px;
-    background: #080808;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  #visibility-gap .vgap-vs {
-    background: #141414;
-    border: 1px solid #252525;
-    color: #555;
-    font-size: 11px;
-    padding: 4px 8px;
-    border-radius: 20px;
-    font-weight: 500;
-  }
-  #visibility-gap .vgap-right {
-    background:
-      repeating-linear-gradient(
-        to bottom,
-        transparent 0px,
-        transparent 31px,
-        rgba(239, 68, 68, 0.022) 31px,
-        rgba(239, 68, 68, 0.022) 32px
-      ),
-      #131010;
-    border: 0.5px solid rgba(239, 68, 68, 0.18);
-    border-radius: 0 16px 16px 0;
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-  }
-  #visibility-gap .vgap-panel-label {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin: 0 0 1.25rem;
-  }
-  #visibility-gap .vgap-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-  #visibility-gap .vgap-dot--green { background: #5a8f4e; }
-  #visibility-gap .vgap-dot--red { background: rgba(239, 68, 68, 0.8); }
-  #visibility-gap .vgap-panel-label--green { color: #5a8f4e; }
-  #visibility-gap .vgap-panel-label--red { color: rgba(239, 68, 68, 0.8); }
-  #visibility-gap .vgap-items {
-    list-style: none;
-    margin: 0 0 1.5rem;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    flex: 1;
-  }
-  #visibility-gap .vgap-check-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-  }
-  #visibility-gap .vgap-check-icon {
-    width: 26px;
-    height: 26px;
-    background: rgba(90, 143, 78, 0.12);
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-  #visibility-gap .vgap-check-icon svg {
-    width: 12px;
-    height: 12px;
-  }
-  #visibility-gap .vgap-item-text {
-    font-size: 14px;
-    color: #bbb;
-    line-height: 1.3;
-  }
-  #visibility-gap .vgap-item-sub {
-    font-size: 11px;
-    color: #666;
-    margin-top: 2px;
-  }
-  #visibility-gap .vgap-terminal-items {
-    list-style: none;
-    margin: 0 0 1.5rem;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    flex: 1;
-  }
-  #visibility-gap .vgap-terminal-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  #visibility-gap .vgap-prompt {
-    color: rgba(239, 68, 68, 0.45);
-    font-family: monospace;
-    font-size: 14px;
-    flex-shrink: 0;
-  }
-  #visibility-gap .vgap-key {
-    font-family: monospace;
-    font-size: 13px;
-    color: #777;
-    flex: 1;
-  }
-  #visibility-gap .vgap-badge {
-    font-size: 10px;
-    font-weight: 600;
-    padding: 2px 7px;
-    border-radius: 4px;
-    white-space: nowrap;
-  }
-  #visibility-gap .vgap-badge--grey {
-    background: rgba(255, 255, 255, 0.07);
-    color: #888;
-  }
-  #visibility-gap .vgap-badge--red {
-    background: rgba(239, 68, 68, 0.1);
-    color: rgba(239, 68, 68, 0.8);
-  }
-  #visibility-gap .vgap-badge--amber {
-    background: rgba(245, 158, 11, 0.1);
-    color: rgba(245, 158, 11, 0.8);
-  }
-  #visibility-gap .vgap-confidence {
-    margin-top: auto;
-  }
-  #visibility-gap .vgap-bar-track {
-    height: 4px;
-    background: rgba(255, 255, 255, 0.06);
-    border-radius: 2px;
-    margin-bottom: 6px;
-    overflow: hidden;
-  }
-  #visibility-gap .vgap-bar-fill {
-    height: 100%;
-    border-radius: 2px;
-  }
-  #visibility-gap .vgap-bar-label {
-    font-size: 11px;
-  }
-  #visibility-gap .vgap-verdicts {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  #visibility-gap .vgap-verdict-1 {
-    background: #111;
-    border-left: 2px solid #5a8f4e;
-    border-radius: 12px;
-    padding: 1.5rem 2rem;
-    font-size: 15px;
-    color: #999;
-    line-height: 1.6;
-  }
-  #visibility-gap .vgap-verdict-1 strong {
-    color: #f0f0f0;
-  }
-  #visibility-gap .vgap-verdict-2 {
-    background: #0d0d0d;
-    border-left: 2px solid #333;
-    border-radius: 12px;
-    padding: 1.25rem 1.75rem;
-  }
-  #visibility-gap .vgap-quote {
-    font-style: italic;
-    color: #888;
-    font-size: 14px;
-    line-height: 1.65;
-    margin: 0 0 0.6rem;
-  }
-  #visibility-gap .vgap-quote em {
-    font-style: normal;
-    color: #bbb;
-  }
-  #visibility-gap .vgap-attribution {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-  #visibility-gap .vgap-attribution-text {
-    font-size: 11px;
-    color: #555;
-  }
-  #visibility-gap .vgap-attr-badge {
-    font-size: 10px;
-    font-weight: 600;
-    color: #5a8f4e;
-    background: rgba(90, 143, 78, 0.1);
-    padding: 2px 7px;
-    border-radius: 4px;
-  }
-  @media (max-width: 768px) {
-    #visibility-gap .vgap-panels {
-      grid-template-columns: 1fr;
-    }
-    #visibility-gap .vgap-left {
-      border-radius: 16px 16px 0 0;
-    }
-    #visibility-gap .vgap-center {
-      width: 100%;
-      height: 40px;
-    }
-    #visibility-gap .vgap-right {
-      border-radius: 0 0 16px 16px;
-    }
-  }
-</style>
 
 <script define:vars={{ appScanEntry: APP_SCAN_ENTRY }}>
   const form = document.getElementById('homepage-scan-form');
@@ -553,6 +169,7 @@ const organizationSchema = {
 
   function normalizeDomain(value) {
     const trimmed = value.trim();
+
     if (!trimmed) {
       return null;
     }
@@ -582,16 +199,19 @@ const organizationSchema = {
       if (error) {
         error.textContent = 'Enter a valid domain like yourbusiness.com';
       }
+
       if (input instanceof HTMLInputElement) {
         input.setAttribute('aria-invalid', 'true');
         input.focus();
       }
+
       return;
     }
 
     if (error) {
       error.textContent = '';
     }
+
     if (input instanceof HTMLInputElement) {
       input.removeAttribute('aria-invalid');
     }

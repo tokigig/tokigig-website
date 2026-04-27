@@ -1,0 +1,33 @@
+---
+import HeroNetwork from '../HeroNetwork.astro';
+import { buildScanHref } from '../../lib/scan-flow';
+---
+
+<section class="homepage-hero" id="hero-section">
+  <HeroNetwork />
+
+  <div class="homepage-hero__layout">
+    <div class="homepage-hero__copy">
+      <p class="route-kicker">AI VISIBILITY</p>
+
+      <h1 class="homepage-hero__headline">
+        <span>AI is recommending</span>
+        <span>businesses to your</span>
+        <span class="headline-accent">customers right now.</span>
+      </h1>
+
+      <p class="homepage-hero__subhead">Is yours showing up — or getting skipped?</p>
+
+      <div class="route-actions homepage-hero__actions">
+        <a href={buildScanHref('homepage-hero')} class="btn-primary">run a free scan</a>
+        <a href="#tokiScan-in-action" class="btn-secondary">see how it works</a>
+      </div>
+
+      <p class="homepage-hero__powered">
+        powered by <a href="/os">toki-OS</a>
+      </p>
+    </div>
+
+    <div class="homepage-hero__network" aria-hidden="true"></div>
+  </div>
+</section>

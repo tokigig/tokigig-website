@@ -6,3 +6,14 @@ export const LOGO_PATHS = {
   legR: "M125.94,254.87l-14.77,25.34-17.36.33,16.15-33.69c6.65-.75,9.88,6.73,15.98,8.03Z",
   eye: "M302.43,193.33c-8.02,7.1-17.88-10.35-5.23-11.01,8.31-.44,9.59,7.15,5.23,11.01Z",
 };
+
+export const BRAND = {
+  company: 'tokiGig',
+  platform: 'toki-OS',
+
+  products: {
+    scan: 'tokiScan',
+    patch: 'tokiPatch',
+    worker: 'tokiWorker',
+  },
+};

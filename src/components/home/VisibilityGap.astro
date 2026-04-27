@@ -1,0 +1,364 @@
+<section class="visibility-gap" id="visibility-gap">
+  <div class="vgap-inner">
+    <p class="vgap-eyebrow">the visibility gap</p>
+    <h2 class="vgap-headline">What AI <span>actually</span> sees on your site</h2>
+    <p class="vgap-sub">Most businesses assume AI understands them. Most are wrong.</p>
+
+    <div class="vgap-panels">
+      <div class="vgap-left">
+        <p class="vgap-panel-label vgap-panel-label--green">
+          <span class="vgap-dot vgap-dot--green"></span>
+          What you think AI sees
+        </p>
+
+        <ul class="vgap-items">
+          <li>Beautiful product photos <small>High-quality visuals throughout</small></li>
+          <li>Your brand story &amp; expertise <small>Years of reputation on every page</small></li>
+          <li>Glowing customer reviews <small>5-star social proof everywhere</small></li>
+          <li>Clear pricing and offers <small>Competitive rates, easy to find</small></li>
+        </ul>
+
+        <div class="vgap-confidence">
+          <div class="vgap-bar-track">
+            <div class="vgap-bar-fill vgap-bar-fill--green"></div>
+          </div>
+          <span class="vgap-bar-label vgap-bar-label--green">High — owner assumes strong visibility</span>
+        </div>
+      </div>
+
+      <div class="vgap-center">
+        <span class="vgap-vs">vs</span>
+      </div>
+
+      <div class="vgap-right">
+        <p class="vgap-panel-label vgap-panel-label--red">
+          <span class="vgap-dot vgap-dot--red"></span>
+          What AI actually extracts
+        </p>
+
+        <ul class="vgap-terminal-items">
+          <li><span>&gt;</span><code>content_status</code><b>Loading...</b></li>
+          <li><span>&gt;</span><code>structured_data</code><b class="is-red">none detected</b></li>
+          <li><span>&gt;</span><code>business_type</code><b class="is-amber">unclear</b></li>
+          <li><span>&gt;</span><code>recommendation_confidence</code><b class="is-red">low — 18 / 100</b></li>
+        </ul>
+
+        <div class="vgap-confidence">
+          <div class="vgap-bar-track">
+            <div class="vgap-bar-fill vgap-bar-fill--red"></div>
+          </div>
+          <span class="vgap-bar-label vgap-bar-label--red">Effectively invisible to AI recommendation engines</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="vgap-verdicts">
+      <div class="vgap-verdict-1">
+        <strong>AI can’t recommend what it can’t understand.</strong>
+        Most businesses are invisible to AI without ever knowing it — not because their product is weak, but because their site doesn’t speak AI’s language.
+      </div>
+
+      <div class="vgap-verdict-2">
+        <p>
+          “Search is evolving into an <em>agent manager</em> — users will have many threads running, completing tasks rather than browsing results.”
+        </p>
+        <div class="vgap-attribution">
+          <span>Sundar Pichai, CEO — Google &amp; Alphabet</span>
+          <strong>AI discovery shift</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .visibility-gap {
+    background: #080808;
+    padding: 5rem 1.5rem;
+  }
+
+  .vgap-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .vgap-eyebrow {
+    color: var(--toki-green);
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    font-weight: 600;
+    margin: 0 0 0.75rem;
+  }
+
+  .vgap-headline {
+    font-size: 36px;
+    font-weight: 500;
+    color: #f0f0f0;
+    margin: 0 0 0.75rem;
+    line-height: 1.2;
+  }
+
+  .vgap-headline span {
+    color: var(--toki-green);
+  }
+
+  .vgap-sub {
+    color: #777;
+    font-size: 15px;
+    margin: 0 0 2.5rem;
+  }
+
+  .vgap-panels {
+    display: grid;
+    grid-template-columns: 1fr 40px 1fr;
+    margin-bottom: 1.5rem;
+  }
+
+  .vgap-left,
+  .vgap-right {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .vgap-left {
+    background: #161616;
+    border: 0.5px solid #252525;
+    border-radius: 16px 0 0 16px;
+  }
+
+  .vgap-right {
+    background:
+      repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 31px,
+        rgba(239,68,68,0.022) 31px,
+        rgba(239,68,68,0.022) 32px
+      ),
+      #131010;
+    border: 0.5px solid rgba(239,68,68,0.18);
+    border-radius: 0 16px 16px 0;
+  }
+
+  .vgap-center {
+    width: 40px;
+    background: #080808;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .vgap-vs {
+    background: #141414;
+    border: 1px solid #252525;
+    color: #555;
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+
+  .vgap-panel-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 0 0 1.25rem;
+  }
+
+  .vgap-panel-label--green { color: var(--toki-green); }
+  .vgap-panel-label--red { color: rgba(239,68,68,0.8); }
+
+  .vgap-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+
+  .vgap-dot--green { background: var(--toki-green); }
+  .vgap-dot--red { background: rgba(239,68,68,0.8); }
+
+  .vgap-items,
+  .vgap-terminal-items {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+  }
+
+  .vgap-items li {
+    color: #bbb;
+    font-size: 14px;
+    line-height: 1.35;
+  }
+
+  .vgap-items small {
+    display: block;
+    color: #666;
+    font-size: 11px;
+    margin-top: 2px;
+  }
+
+  .vgap-terminal-items li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .vgap-terminal-items span {
+    color: rgba(239,68,68,0.45);
+    font-family: var(--font-mono);
+  }
+
+  .vgap-terminal-items code {
+    color: #777;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    flex: 1;
+  }
+
+  .vgap-terminal-items b {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 4px;
+    white-space: nowrap;
+    background: rgba(255,255,255,0.07);
+    color: #888;
+  }
+
+  .vgap-terminal-items .is-red {
+    background: rgba(239,68,68,0.1);
+    color: rgba(239,68,68,0.8);
+  }
+
+  .vgap-terminal-items .is-amber {
+    background: rgba(245,158,11,0.1);
+    color: rgba(245,158,11,0.8);
+  }
+
+  .vgap-confidence {
+    margin-top: auto;
+  }
+
+  .vgap-bar-track {
+    height: 4px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 2px;
+    margin-bottom: 6px;
+    overflow: hidden;
+  }
+
+  .vgap-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+  }
+
+  .vgap-bar-fill--green {
+    width: 85%;
+    background: var(--toki-green);
+  }
+
+  .vgap-bar-fill--red {
+    width: 18%;
+    background: #ef4444;
+    opacity: 0.65;
+  }
+
+  .vgap-bar-label {
+    font-size: 11px;
+  }
+
+  .vgap-bar-label--green { color: var(--toki-green); }
+  .vgap-bar-label--red { color: rgba(239,68,68,0.75); }
+
+  .vgap-verdicts {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .vgap-verdict-1,
+  .vgap-verdict-2 {
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    font-size: 15px;
+    color: #999;
+    line-height: 1.6;
+  }
+
+  .vgap-verdict-1 {
+    background: #111;
+    border-left: 2px solid var(--toki-green);
+  }
+
+  .vgap-verdict-1 strong {
+    color: #f0f0f0;
+  }
+
+  .vgap-verdict-2 {
+    background: #0d0d0d;
+    border-left: 2px solid #333;
+  }
+
+  .vgap-verdict-2 p {
+    font-style: italic;
+    color: #888;
+    font-size: 14px;
+    line-height: 1.65;
+    margin: 0 0 0.6rem;
+  }
+
+  .vgap-verdict-2 em {
+    font-style: normal;
+    color: #bbb;
+  }
+
+  .vgap-attribution {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .vgap-attribution span {
+    font-size: 11px;
+    color: #555;
+  }
+
+  .vgap-attribution strong {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--toki-green);
+    background: rgba(90,143,78,0.1);
+    padding: 2px 7px;
+    border-radius: 4px;
+  }
+
+  @media (max-width: 768px) {
+    .vgap-panels {
+      grid-template-columns: 1fr;
+    }
+
+    .vgap-left {
+      border-radius: 16px 16px 0 0;
+    }
+
+    .vgap-center {
+      width: 100%;
+      height: 40px;
+    }
+
+    .vgap-right {
+      border-radius: 0 0 16px 16px;
+    }
+  }
+</style>
