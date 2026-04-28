@@ -1,107 +1,163 @@
-<!--
-  Section 3 — Pillars / Why Now
-  Purpose: Address the "why do I need an AI workforce" fear BEFORE selling features.
-  Structure: tension headline → fear statement → 3 cards (fear hook + pillar copy)
-  Icons: SVG inline at 32px with DOS green glow, replacing tiny unicode chars
--->
+---
+// PillarSection.astro
+// Section 3 — Pillars / Why Now
+// Addresses "why do I need an AI workforce" fear BEFORE selling features.
+// Structure: tension headline → fear statements → 3 cards with animated SVG icons
+---
 
-<div class="section-intro">
+<section class="pillar-section">
 
-  <!-- Primary headline: still positions tokiGig, but now with teeth -->
-  <h2>We build AI tools that work for your business — with you in control.</h2>
+  <!-- ── Section intro ──────────────────────────────────────────────────── -->
+  <div class="section-intro">
 
-  <!-- WHY NOW beat: name the tension directly before showing the solution -->
-  <p class="section-tension">
-    Your competitors are already running AI workforces.
-    The question isn't <em>whether</em> to adopt AI —
-    it's whether you do it on your terms.
-  </p>
+    <!-- Primary headline — positions tokiGig with authority -->
+    <h2>We build AI tools that work for your business — with you in control.</h2>
 
-</div>
+    <!-- WHY NOW beat — names the tension before showing the solution -->
+    <p class="section-tension">
+      Your competitors are already running AI workforces.
+      The question isn't <em>whether</em> to adopt AI —
+      it's whether you do it on your terms.
+    </p>
 
-<div class="pillar-grid">
+  </div>
 
-  <!-- Card 1 — Visibility -->
-  <!-- Fear: "Am I even showing up when customers ask AI for recommendations?" -->
-  <article class="pillar-card">
+  <!-- ── Pillar cards ────────────────────────────────────────────────────── -->
+  <div class="pillar-grid">
 
-    <!-- SVG icon: circle — represents radar/presence. 32px, DOS green glow -->
-    <div class="pillar-card__icon" aria-hidden="true">
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Outer ring -->
-        <circle cx="16" cy="16" r="13" stroke="currentColor" stroke-width="1.5" opacity="0.4"/>
-        <!-- Inner ring -->
-        <circle cx="16" cy="16" r="7" stroke="currentColor" stroke-width="1.5" opacity="0.7"/>
-        <!-- Center dot -->
-        <circle cx="16" cy="16" r="2.5" fill="currentColor"/>
-      </svg>
-    </div>
+    <!-- ── Card 1: Visibility — Radar icon ──────────────────────────────── -->
+    <!-- Fear: AI search is already ranking competitors above you           -->
+    <article class="pillar-card">
 
-    <!-- Fear hook: the question keeping them up at night -->
-    <p class="pillar-card__fear">"Is AI even finding my business?"</p>
+      <div class="pillar-card__icon" aria-hidden="true">
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Concentric range rings — like a real radar scope -->
+          <circle cx="26" cy="26" r="22" stroke="#3d6b35" stroke-width="1"   opacity="0.35"/>
+          <circle cx="26" cy="26" r="15" stroke="#3d6b35" stroke-width="1"   opacity="0.5"/>
+          <circle cx="26" cy="26" r="8"  stroke="#5a8f4e" stroke-width="1"   opacity="0.7"/>
+          <!-- Crosshair lines -->
+          <line x1="26" y1="4"  x2="26" y2="48" stroke="#3d6b35" stroke-width="0.5" opacity="0.3"/>
+          <line x1="4"  y1="26" x2="48" y2="26" stroke="#3d6b35" stroke-width="0.5" opacity="0.3"/>
+          <!-- Rotating sweep wedge — spins around center -->
+          <g class="radar-sweep">
+            <path d="M26 26 L26 4 A22 22 0 0 1 45.6 34.8 Z" fill="url(#sweep-grad)" opacity="0.55"/>
+          </g>
+          <!-- Ping dot — fades in/out in sync with sweep -->
+          <circle class="radar-ping" cx="35" cy="16" r="3" fill="#a8d888" opacity="0"/>
+          <!-- Center dot — the origin point -->
+          <circle cx="26" cy="26" r="3"   fill="#7ab66a"/>
+          <circle cx="26" cy="26" r="1.2" fill="#e0f5d0"/>
+          <defs>
+            <!-- Radial gradient gives the sweep wedge a trailing fade -->
+            <radialGradient id="sweep-grad" cx="26" cy="26" r="22" gradientUnits="userSpaceOnUse">
+              <stop offset="0%"   stop-color="#7ab66a" stop-opacity="0.9"/>
+              <stop offset="100%" stop-color="#7ab66a" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+        </svg>
+      </div>
 
-    <h3>Visibility</h3>
-    <p>Can AI find, understand, and recommend you? Most businesses don't know the answer. We show you exactly where you stand — and what to fix.</p>
+      <!-- Hard fear statement — not a soft question -->
+      <p class="pillar-card__fear">AI is already deciding who gets recommended.</p>
 
-  </article>
+      <h3>Visibility</h3>
+      <p>Most businesses are invisible to AI search. We scan your site, score your AI readability, and show you exactly where you're being skipped — and what to fix.</p>
 
-  <!-- Card 2 — Trust -->
-  <!-- Fear: "Will I lose control of my own business to some AI black box?" -->
-  <article class="pillar-card">
+    </article>
 
-    <!-- SVG icon: diamond — represents value, integrity, clarity -->
-    <div class="pillar-card__icon" aria-hidden="true">
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Outer diamond -->
-        <path d="M16 3L29 16L16 29L3 16Z" stroke="currentColor" stroke-width="1.5" opacity="0.4"/>
-        <!-- Inner diamond -->
-        <path d="M16 9L23 16L16 23L9 16Z" stroke="currentColor" stroke-width="1.5" opacity="0.7"/>
-        <!-- Center dot -->
-        <circle cx="16" cy="16" r="2.5" fill="currentColor"/>
-      </svg>
-    </div>
+    <!-- ── Card 2: Trust — Shield icon ───────────────────────────────────── -->
+    <!-- Fear: handing control to an AI black box                           -->
+    <article class="pillar-card">
 
-    <!-- Fear hook -->
-    <p class="pillar-card__fear">"Will I lose control of my own business?"</p>
+      <div class="pillar-card__icon" aria-hidden="true">
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Glow layer — slow pulse signals active protection -->
+          <path class="shield-glow"
+            d="M26 6 L44 13 L44 28 C44 38 34 45 26 48 C18 45 8 38 8 28 L8 13 Z"
+            fill="#5a8f4e" opacity="0.18"/>
+          <!-- Outer shield body -->
+          <path
+            d="M26 6 L44 13 L44 28 C44 38 34 45 26 48 C18 45 8 38 8 28 L8 13 Z"
+            stroke="#5a8f4e" stroke-width="1.5" fill="none" opacity="0.9"/>
+          <!-- Inner shield — adds depth/layering -->
+          <path
+            d="M26 12 L39 17.5 L39 28 C39 35 32.5 40.5 26 43 C19.5 40.5 13 35 13 28 L13 17.5 Z"
+            stroke="#7ab66a" stroke-width="1" fill="none" opacity="0.55"/>
+          <!-- Checkmark — represents owner approval / control point -->
+          <path d="M19 27 L24 32 L34 21"
+            stroke="#a8d888" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+      </div>
 
-    <h3>Trust</h3>
-    <p>Every tokiGig tool keeps the business owner in the driver's seat. AI does the heavy lifting. You make every call that matters.</p>
+      <p class="pillar-card__fear">You won't hand your business to a black box.</p>
 
-  </article>
+      <h3>Trust</h3>
+      <p>Every tokiGig tool keeps you in command. AI handles the execution. You approve what matters. No black boxes. No surprises. No loss of control.</p>
 
-  <!-- Card 3 — Autonomy -->
-  <!-- Fear: "Do I have to babysit this thing 24/7 or retrain my whole team?" -->
-  <article class="pillar-card">
+    </article>
 
-    <!-- SVG icon: triangle / upward arrow — represents growth, direction, momentum -->
-    <div class="pillar-card__icon" aria-hidden="true">
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Outer triangle -->
-        <path d="M16 4L28 26H4L16 4Z" stroke="currentColor" stroke-width="1.5" opacity="0.4"/>
-        <!-- Inner triangle -->
-        <path d="M16 11L23 23H9L16 11Z" stroke="currentColor" stroke-width="1.5" opacity="0.7"/>
-        <!-- Center dot -->
-        <circle cx="16" cy="19" r="2.5" fill="currentColor"/>
-      </svg>
-    </div>
+    <!-- ── Card 3: Autonomy — Gears icon ─────────────────────────────────── -->
+    <!-- Fear: needing to babysit AI or retrain the whole team              -->
+    <article class="pillar-card">
 
-    <!-- Fear hook -->
-    <p class="pillar-card__fear">"Do I need to babysit this thing?"</p>
+      <div class="pillar-card__icon" aria-hidden="true">
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Large gear — clockwise rotation -->
+          <g class="gear-cw">
+            <!-- Gear body ring -->
+            <circle cx="28" cy="24" r="9"   stroke="#5a8f4e" stroke-width="1.5" fill="none" opacity="0.85"/>
+            <!-- Gear hub -->
+            <circle cx="28" cy="24" r="3.5" fill="#5a8f4e" opacity="0.7"/>
+            <!-- 8 teeth via rotated rects around the gear center -->
+            <rect x="27" y="13" width="2" height="4" rx="1" fill="#5a8f4e" opacity="0.85"/>
+            <rect x="27" y="31" width="2" height="4" rx="1" fill="#5a8f4e" opacity="0.85"/>
+            <rect x="17" y="23" width="4" height="2" rx="1" fill="#5a8f4e" opacity="0.85"/>
+            <rect x="35" y="23" width="4" height="2" rx="1" fill="#5a8f4e" opacity="0.85"/>
+            <rect x="20.5" y="16.5" width="4" height="2" rx="1" fill="#5a8f4e" opacity="0.85" transform="rotate(45 28 24)"/>
+            <rect x="20.5" y="16.5" width="4" height="2" rx="1" fill="#5a8f4e" opacity="0.85" transform="rotate(-45 28 24)"/>
+            <rect x="20.5" y="16.5" width="4" height="2" rx="1" fill="#5a8f4e" opacity="0.85" transform="rotate(135 28 24)"/>
+            <rect x="20.5" y="16.5" width="4" height="2" rx="1" fill="#5a8f4e" opacity="0.85" transform="rotate(-135 28 24)"/>
+          </g>
 
-    <h3>Autonomy</h3>
-    <p>Your workflows run. Your team stays focused. You sleep. That's the destination — an AI workforce that operates without constant hand-holding. We build the path.</p>
+          <!-- Small gear — counter-clockwise (opposite direction = meshing) -->
+          <g class="gear-ccw">
+            <circle cx="16" cy="32" r="6"   stroke="#7ab66a" stroke-width="1.2" fill="none" opacity="0.7"/>
+            <circle cx="16" cy="32" r="2.2" fill="#7ab66a" opacity="0.6"/>
+            <!-- 8 teeth on small gear -->
+            <rect x="15" y="25" width="2" height="3" rx="1" fill="#7ab66a" opacity="0.7"/>
+            <rect x="15" y="36" width="2" height="3" rx="1" fill="#7ab66a" opacity="0.7"/>
+            <rect x="9"  y="31" width="3" height="2" rx="1" fill="#7ab66a" opacity="0.7"/>
+            <rect x="20" y="31" width="3" height="2" rx="1" fill="#7ab66a" opacity="0.7"/>
+            <rect x="11" y="27" width="3" height="2" rx="1" fill="#7ab66a" opacity="0.7" transform="rotate(45 16 32)"/>
+            <rect x="11" y="27" width="3" height="2" rx="1" fill="#7ab66a" opacity="0.7" transform="rotate(-45 16 32)"/>
+            <rect x="11" y="27" width="3" height="2" rx="1" fill="#7ab66a" opacity="0.7" transform="rotate(135 16 32)"/>
+            <rect x="11" y="27" width="3" height="2" rx="1" fill="#7ab66a" opacity="0.7" transform="rotate(-135 16 32)"/>
+          </g>
 
-  </article>
+          <!-- Mesh point — the contact where both gears meet -->
+          <circle cx="22.5" cy="28.5" r="1.5" fill="#a8d888" opacity="0.8"/>
+        </svg>
+      </div>
 
-</div>
+      <p class="pillar-card__fear">Your team can't scale manually forever.</p>
+
+      <h3>Autonomy</h3>
+      <p>Your workflows run around the clock. Your team stays focused on what humans do best. That's the destination — an AI workforce that doesn't need babysitting. We build the path.</p>
+
+    </article>
+
+  </div>
+
+</section>
 
 <style>
-  /* ── Section intro ────────────────────────────────────────────────────── */
-  .section-intro h2 {
-    /* Keep existing heading styles from your theme */
+  /* ── Layout ───────────────────────────────────────────────────────────── */
+  .pillar-section {
+    /* Inherits padding/width from page layout — don't override here */
   }
 
-  /* Tension statement — smaller than h2, more editorial/urgent */
+  /* ── Tension statement ────────────────────────────────────────────────── */
   .section-tension {
     margin-top: 1rem;
     font-size: 1.05rem;
@@ -111,54 +167,91 @@
   }
 
   .section-tension em {
-    /* Italicize "whether" for emphasis — not colored, just rhythm */
     font-style: italic;
-    opacity: 1;
+    opacity: 1; /* full opacity on the key word "whether" */
   }
 
-  /* ── Card grid ────────────────────────────────────────────────────────── */
+  /* ── Card grid — matches existing layout pattern ──────────────────────── */
   .pillar-grid {
-    /* Keep your existing grid layout */
-  }
-
-  /* ── Individual card ──────────────────────────────────────────────────── */
-  .pillar-card {
-    /* Keep your existing card styles */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+    margin-top: 2.5rem;
   }
 
   /* ── Icon container ───────────────────────────────────────────────────── */
   .pillar-card__icon {
-    /* DOS green — pulls from your locked brand palette */
-    color: var(--color-accent, #5a8f4e);
-    margin-bottom: 1.25rem;
-
-    /* Subtle drop shadow glow — matches neural network aesthetic */
-    filter: drop-shadow(0 0 6px rgba(90, 143, 78, 0.5));
-
-    /* Smooth glow pulse on hover */
+    margin-bottom: 1rem;
+    /* Glow uses DOS green from locked brand palette */
+    filter: drop-shadow(0 0 6px rgba(90, 143, 78, 0.45));
     transition: filter 0.3s ease;
   }
 
   .pillar-card:hover .pillar-card__icon {
-    filter: drop-shadow(0 0 12px rgba(122, 184, 106, 0.75));
+    /* Intensifies on hover — matches neural network node hover behavior */
+    filter: drop-shadow(0 0 14px rgba(122, 184, 106, 0.75));
   }
 
-  /* ── Fear hook ────────────────────────────────────────────────────────── */
+  /* ── Fear hook — hard statement, not a question ───────────────────────── */
   .pillar-card__fear {
-    /* Smaller, italic, muted — reads as the customer's internal voice */
     font-size: 0.78rem;
-    font-style: italic;
-    opacity: 0.5;
-    margin-bottom: 0.35rem;
-    line-height: 1.4;
-
-    /* No margin-top — sits tight under the icon */
-    margin-top: 0;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--color-accent, #7ab66a); /* DOS green accent */
+    margin: 0 0 0.3rem;
+    line-height: 1.3;
   }
 
-  /* ── Card heading ─────────────────────────────────────────────────────── */
+  /* ── Card heading — tight spacing after fear hook ─────────────────────── */
   .pillar-card h3 {
-    /* Keep existing — just ensure margin-top is snug after the fear hook */
-    margin-top: 0.2rem;
+    margin-top: 0.15rem;
+  }
+
+  /* ── Radar sweep animation ────────────────────────────────────────────── */
+  @keyframes radar-sweep {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  /* transform-origin must match the SVG center point (26,26) */
+  .radar-sweep {
+    transform-origin: 26px 26px;
+    animation: radar-sweep 2.8s linear infinite;
+  }
+
+  /* Ping dot fades in and grows as the sweep passes over it */
+  @keyframes radar-ping {
+    0%   { opacity: 0; r: 3; }
+    30%  { opacity: 1; }
+    100% { opacity: 0; r: 7; }
+  }
+
+  .radar-ping {
+    animation: radar-ping 2.8s ease-out infinite;
+  }
+
+  /* ── Shield pulse — slow breathe signals active protection ───────────── */
+  @keyframes shield-pulse {
+    0%, 100% { opacity: 0.18; }
+    50%       { opacity: 0.42; }
+  }
+
+  .shield-glow {
+    animation: shield-pulse 2.4s ease-in-out infinite;
+  }
+
+  /* ── Gear rotations — opposite directions to simulate meshing ─────────── */
+  @keyframes gear-spin-cw  { from { transform: rotate(0deg); }   to { transform: rotate(360deg); } }
+  @keyframes gear-spin-ccw { from { transform: rotate(0deg); }   to { transform: rotate(-360deg); } }
+
+  /* transform-origins match the SVG center of each gear */
+  .gear-cw  {
+    transform-origin: 28px 24px;
+    animation: gear-spin-cw 5s linear infinite;
+  }
+
+  .gear-ccw {
+    transform-origin: 16px 32px;
+    animation: gear-spin-ccw 5s linear infinite;
   }
 </style>
