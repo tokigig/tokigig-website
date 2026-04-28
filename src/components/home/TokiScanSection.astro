@@ -1,14 +1,13 @@
 ---
+// TokiScanSection.astro
+// Section 4 — tokiScan product preview
+// REFERENCE IMPLEMENTATION — uses token system throughout, no hardcoded hex
+// This is the pattern to copy when refactoring SampleReport.tsx
 const { scanHref } = Astro.props;
 ---
 
-// TokiScanSection.astro (or replace inline in index.astro)
-// Section 4 — tokiScan product preview
-// Fixes: brand label turtle case, score color by tier, locked bar visual, report mock polish
----
-
 <div class="section-intro">
-  <!-- tokiScan in turtle case per finalized brand convention — never all-caps -->
+  <!-- tokiScan in turtle case — finalized brand convention, never all-caps -->
   <p class="route-kicker">tokiScan</p>
   <h2>Find out if AI can understand and recommend your business — in 60 seconds.</h2>
 </div>
@@ -16,18 +15,17 @@ const { scanHref } = Astro.props;
 <div class="scan-report">
 
   <!-- ── Score panel ─────────────────────────────────────────────────────── -->
-  <!-- Score value gets a data-tier attribute so CSS can color it correctly  -->
-  <!-- Tier logic: 0-49 = danger, 50-69 = warning, 70-79 = passing, 80+ = strong -->
+  <!-- data-tier drives color — swap value when wiring to real score        -->
+  <!-- Tiers: danger (0-49) | warning (50-69) | passing (70-79) | strong (80+) -->
   <div class="scan-report__score">
     <div class="scan-report__score-main">
       <span class="scan-report__score-value" data-tier="warning">59</span>
       <span class="scan-report__score-total">/100</span>
     </div>
-    <!-- Label should match the tier — "Borderline" is correct for 50-69 -->
     <p class="scan-report__score-label" data-tier="warning">Borderline</p>
   </div>
 
-  <!-- ── Priority issue panel ───────────────────────────────────────────── -->
+  <!-- ── Priority issue panel — one visible issue in the free preview ────── -->
   <div class="scan-report__issue">
     <p class="scan-report__eyebrow">Priority issue</p>
     <h3>No structured data — AI is guessing at your business</h3>
@@ -38,27 +36,64 @@ const { scanHref } = Astro.props;
     </div>
   </div>
 
-  <!-- ── Locked / teaser row ────────────────────────────────────────────── -->
-  <!-- Mimics blurred report rows beneath a paywall — intentional, not a glitch -->
-  <div class="scan-report__locked">
-    <!-- Fake redacted rows — gives the impression of real data underneath -->
-    <div class="scan-report__locked-rows" aria-hidden="true">
-      <!-- Each fake row simulates a blurred issue line -->
-      <div class="scan-report__locked-row"><span></span><span></span></div>
-      <div class="scan-report__locked-row"><span></span><span></span></div>
-      <div class="scan-report__locked-row"><span></span><span></span></div>
+  <!-- ── Locked rows — real categories, fake issues, blurred paywall ──────── -->
+  <!-- Mirrors actual report row structure so visitors see what they're missing -->
+  <div class="scan-report__locked" aria-hidden="true">
+
+    <div class="scan-report__locked-rows">
+
+      <!-- Row 1: Reputation — review & trust signals -->
+      <div class="scan-report__locked-issue">
+        <div class="scan-report__locked-meta">
+          <span class="scan-report__locked-category">Reputation</span>
+          <span class="scan-report__locked-badge scan-report__locked-badge--warn">Needs work</span>
+        </div>
+        <p class="scan-report__locked-title">No review signals found — AI can't assess your trustworthiness</p>
+      </div>
+
+      <!-- Row 2: Consistency — brand name + address fragmentation -->
+      <div class="scan-report__locked-issue">
+        <div class="scan-report__locked-meta">
+          <span class="scan-report__locked-category">Consistency</span>
+          <span class="scan-report__locked-badge scan-report__locked-badge--danger">Critical</span>
+        </div>
+        <p class="scan-report__locked-title">Conflicting business name across sources — fragmenting your identity</p>
+      </div>
+
+      <!-- Row 3: Authority — citations, backlinks, expertise signals -->
+      <div class="scan-report__locked-issue">
+        <div class="scan-report__locked-meta">
+          <span class="scan-report__locked-category">Authority</span>
+          <span class="scan-report__locked-badge scan-report__locked-badge--warn">Needs work</span>
+        </div>
+        <p class="scan-report__locked-title">Low authority signals — AI ranks you below less established competitors</p>
+      </div>
+
+      <!-- Row 4: fades out — implies more issues below the fold -->
+      <div class="scan-report__locked-issue scan-report__locked-issue--fading">
+        <div class="scan-report__locked-meta">
+          <span class="scan-report__locked-category">Consistency</span>
+          <span class="scan-report__locked-badge scan-report__locked-badge--danger">Critical</span>
+        </div>
+        <p class="scan-report__locked-title">Address format mismatch detected across 4 directories</p>
+      </div>
+
     </div>
-    <!-- Gradient overlay fades the fake rows into the CTA text -->
-    <div class="scan-report__locked-overlay" aria-hidden="true"></div>
-    <!-- CTA label sits on top of the fade -->
+
+    <!-- Gradient fade — dissolves rows into the CTA using bg-card token -->
+    <div class="scan-report__locked-overlay"></div>
+
+    <!-- Lock CTA — anchored above the fade -->
     <div class="scan-report__locked-cta">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-        <!-- Lock icon — reinforces "this content is locked" clearly -->
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <!-- Lock body -->
         <rect x="3" y="6" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.2" fill="none"/>
+        <!-- Lock shackle -->
         <path d="M4.5 6V4.5a2.5 2.5 0 0 1 5 0V6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" fill="none"/>
       </svg>
       <p>+20 more issues in the Pro Report</p>
     </div>
+
   </div>
 
 </div>
@@ -68,116 +103,168 @@ const { scanHref } = Astro.props;
 </p>
 
 <div class="section-cta">
+  <!-- scanHref passed as prop from index.astro -->
   <a href={scanHref} class="btn-primary">Run your free scan — takes 60 seconds</a>
   <p>No account required · No credit card · Instant results</p>
 </div>
 
 <style>
-  /* ── Score color tiers — honest signaling, not false green ───────────── */
-  /* These override the global var(--toki-green-lt) on .scan-report__score-value */
+  /* ────────────────────────────────────────────────────────────────────────
+     REFERENCE IMPLEMENTATION
+     All colors pull from tokens.css — zero hardcoded hex.
+     Pattern to replicate in SampleReport.tsx refactor.
+     Token map:
+       surfaces  → --bg-card, --bg-elevated, --bg-surface
+       text      → --text-primary, --text-secondary, --text-tertiary
+       borders   → --border-base, --border-strong, --border-green
+       brand     → --toki-green, --toki-amber, --toki-amber-lt, --toki-red
+  ──────────────────────────────────────────────────────────────────────── */
 
-  /* 0–49: danger — red, something is badly wrong */
+  /* ── Score color tiers ────────────────────────────────────────────────── */
+
+  /* 0–49: danger — red */
   .scan-report__score-value[data-tier="danger"],
   .scan-report__score-label[data-tier="danger"] {
-    color: #EF4444; /* Force-Fail red — used sparingly, only when warranted */
+    color: var(--toki-red);
   }
 
-  /* 50–69: warning — amber, borderline territory */
+  /* 50–69: warning — amber, honest for borderline */
   .scan-report__score-value[data-tier="warning"],
   .scan-report__score-label[data-tier="warning"] {
-    color: var(--toki-amber); /* pulls from your existing palette — honest signal */
+    color: var(--toki-amber);
   }
 
-  /* 70–79: passing — lightened from --toki-amber (#c8a030), no -lt var defined */
+  /* 70–79: passing — lighter amber */
   .scan-report__score-value[data-tier="passing"],
   .scan-report__score-label[data-tier="passing"] {
     color: var(--toki-amber-lt);
   }
 
-  /* 80–100: strong — DOS green, AI Ready */
+  /* 80–100: strong — full DOS green, earned not defaulted */
   .scan-report__score-value[data-tier="strong"],
   .scan-report__score-label[data-tier="strong"] {
-    color: var(--toki-green-lt); /* Full DOS green — earned, not defaulted to */
+    color: var(--toki-green-lt);
   }
 
-  /* ── Locked rows — fake redacted report data ──────────────────────────── */
-  /* Replaces the CSS stripe pattern that looked like a rendering glitch     */
-
+  /* ── Locked section container ─────────────────────────────────────────── */
   .scan-report__locked {
     position: relative;
     grid-column: 1 / -1;
-    min-height: 120px;
+    min-height: 220px;
     overflow: hidden;
-    /* Remove old flex centering — content is now layered via position */
-    display: block;
+    /* Uses same tokens as the cards above — themes correctly in light + dark */
+    border: 1px solid var(--border-base);
+    border-radius: 18px;
+    background: var(--bg-card);
   }
 
-  /* Container for the fake blurred issue rows */
+  /* ── Issue rows — blurred, mirror real report structure ───────────────── */
   .scan-report__locked-rows {
-    position: absolute;
-    inset: 0;
-    padding: 1rem 1.25rem;
+    padding: 1.25rem;
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
+    gap: 0.85rem;
+    /* Blur entire block — readable enough to create FOMO, not enough to copy */
+    filter: blur(3.5px);
+    user-select: none;
+    pointer-events: none;
   }
 
-  /* Each fake row — two pill shapes mimicking issue title + severity badge */
-  .scan-report__locked-row {
+  /* Individual issue row */
+  .scan-report__locked-issue {
     display: flex;
-    align-items: center;
-    gap: 0.75rem;
+    flex-direction: column;
+    gap: 0.3rem;
+    opacity: 0.85;
+  }
+
+  /* Last row fades — implies more below */
+  .scan-report__locked-issue--fading {
     opacity: 0.35;
   }
 
-  /* Long pill = issue title text placeholder */
-  .scan-report__locked-row span:first-child {
-    height: 10px;
-    width: 55%;
-    border-radius: 999px;
-    background: rgba(255,255,255,0.15);
+  /* Meta row: category + badge */
+  .scan-report__locked-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
   }
 
-  /* Short pill = severity/badge placeholder */
-  .scan-report__locked-row span:last-child {
-    height: 10px;
-    width: 18%;
-    border-radius: 999px;
-    background: rgba(255,255,255,0.1);
+  /* Category label — matches eyebrow style */
+  .scan-report__locked-category {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--toki-green); /* token, not hardcoded */
   }
 
-  /* Gradient overlay — fades the rows down into the CTA, clean not glitchy */
+  /* Badge base */
+  .scan-report__locked-badge {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 999px;
+  }
+
+  /* Warning badge — uses amber token */
+  .scan-report__locked-badge--warn {
+    background: rgba(200, 160, 48, 0.15);
+    color: var(--toki-amber);
+    border: 1px solid rgba(200, 160, 48, 0.3);
+  }
+
+  /* Critical badge — uses red token */
+  .scan-report__locked-badge--danger {
+    background: rgba(239, 68, 68, 0.12);
+    color: var(--toki-red);
+    border: 1px solid rgba(239, 68, 68, 0.25);
+  }
+
+  /* Issue title — uses text-primary token, adapts in light/dark */
+  .scan-report__locked-title {
+    margin: 0;
+    font-size: 13px;
+    color: var(--text-primary);
+    line-height: 1.4;
+  }
+
+  /* ── Gradient overlay ─────────────────────────────────────────────────── */
+  /* Uses --bg-card so it matches the container in both themes               */
   .scan-report__locked-overlay {
     position: absolute;
     inset: 0;
     background: linear-gradient(
       to bottom,
       transparent 0%,
-      var(--bg-card, #111) 72%
+      transparent 25%,
+      var(--bg-card) 75%  /* fades to card bg — works in light AND dark */
     );
+    z-index: 1;
   }
 
-  /* CTA sits at the bottom, on top of the fade */
+  /* ── Lock CTA ─────────────────────────────────────────────────────────── */
   .scan-report__locked-cta {
     position: absolute;
     bottom: 1.25rem;
     left: 0;
     right: 0;
+    z-index: 2;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    color: var(--text-primary);
   }
 
   .scan-report__locked-cta svg {
-    color: var(--text-secondary);
+    color: var(--text-secondary); /* token — muted in both themes */
     flex-shrink: 0;
   }
 
   .scan-report__locked-cta p {
     margin: 0;
     font-size: 14px;
-    color: var(--text-primary);
+    color: var(--text-primary); /* token — readable in both themes */
   }
 </style>

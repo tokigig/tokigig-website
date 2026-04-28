@@ -1,0 +1,107 @@
+---
+// RoadmapSection.astro
+// Combines "tokiScan is just the beginning" + "AI that won't act without you"
+// into one cohesive story: here's what we're building + here's why we build it that way
+---
+
+<section class="home-section roadmap-section">
+
+  <!-- ── Section intro ──────────────────────────────────────────────────── -->
+  <div class="section-intro">
+    <p class="route-kicker">The platform</p>
+    <!-- Headline bridges roadmap + philosophy in one line -->
+    <h2>tokiScan is just the beginning — and it's all built different.</h2>
+    <p>
+      Every tool we ship follows the same principle: AI does the work, you make the calls.
+      No black boxes. No agents going rogue. Just your business, running smarter — with you in control.
+    </p>
+  </div>
+
+  <!-- ── Module roadmap rows ────────────────────────────────────────────── -->
+  <!-- Shows the product trajectory — tokiScan live, more coming            -->
+  <div class="module-list" aria-label="tokiGig platform modules">
+
+    <!-- tokiScan — live, highlighted with green accent -->
+    <article class="module-row module-row--active">
+      <div>
+        <h3>tokiScan</h3>
+        <p>AI visibility diagnostic — find out if AI can find, understand, and recommend your business</p>
+      </div>
+      <span class="module-row__badge module-row__badge--live">Available now</span>
+    </article>
+
+    <!-- tokiPatch — fixes the issues tokiScan finds -->
+    <article class="module-row">
+      <div>
+        <h3>tokiPatch</h3>
+        <p>AI-powered fix implementation — closes the gaps tokiScan uncovers, automatically</p>
+      </div>
+      <span class="module-row__badge">Coming soon</span>
+    </article>
+
+    <!-- tokiWorker — the autonomous workforce layer -->
+    <article class="module-row">
+      <div>
+        <h3>tokiWorker</h3>
+        <p>Autonomous AI workforce — agents that run your workflows without constant oversight</p>
+      </div>
+      <span class="module-row__badge">Coming soon</span>
+    </article>
+
+  </div>
+
+  <!-- ── Philosophy footer — the WHY behind all of it ──────────────────── -->
+  <!-- Sits below the roadmap, ties the whole section together              -->
+  <div class="roadmap-philosophy">
+    <p>
+      Built on <a href="/os">tokiOS</a> — an open AI operating system anyone can inspect, extend, and trust.
+    </p>
+  </div>
+
+</section>
+
+<style>
+  /* ── Section spacing ──────────────────────────────────────────────────── */
+  .roadmap-section {
+    /* Inherits .home-section padding and max-width from sections.css */
+  }
+
+  /* ── Module row badge variants ────────────────────────────────────────── */
+
+  /* Base badge — "Coming soon" muted state */
+  .module-row__badge {
+    font-size: 13px;
+    white-space: nowrap;
+    color: var(--text-secondary);
+  }
+
+  /* Live badge — "Available now" gets green pill treatment */
+  .module-row__badge--live {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--toki-green);
+    background: rgba(90, 143, 78, 0.1);
+    border: 1px solid var(--border-green);
+    padding: 4px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  /* ── Module row description — slightly more copy than before ─────────── */
+  .module-row p {
+    font-size: 13px; /* slightly smaller than default to fit longer descriptions */
+  }
+
+  /* ── Philosophy footer ────────────────────────────────────────────────── */
+  .roadmap-philosophy {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-base); /* token — no hardcoded color */
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+
+  .roadmap-philosophy a {
+    color: var(--toki-green-lt); /* matches existing trust-band__foot link style */
+  }
+</style>

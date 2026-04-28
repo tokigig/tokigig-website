@@ -155,7 +155,7 @@
   .scan-report__locked {
     border: 1px solid var(--border-base);
     border-radius: 18px;
-    background: rgba(255,255,255,0.02);
+    background: var(--bg-elevated);
   }
 
   .scan-report__score {
@@ -300,8 +300,8 @@
 
   .trust-band {
     padding: 6rem 1.5rem;
-    background: #080808;
-    color: #f0f0f0;
+    background: var(--bg-base); 
+    color: var(--text-primary);
     text-align: center;
   }
 
@@ -315,20 +315,20 @@
   .trust-band__subhead {
     margin: 1rem 0 0;
     font-size: 20px;
-    color: #888;
+    color: var(--text-secondary);
   }
 
   .trust-band__body {
     max-width: 560px;
     margin: 1.5rem auto 0;
-    color: #888;
+    color: var(--text-secondary);
     font-size: 16px;
     line-height: 1.7;
   }
 
   .trust-band__foot {
     margin: 1.25rem 0 0;
-    color: #888;
+    color: var(--text-secondary);
     font-size: 13px;
   }
 

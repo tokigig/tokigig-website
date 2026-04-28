@@ -4,6 +4,7 @@ import HomeHero from '../components/home/HomeHero.astro';
 import VisibilityGap from '../components/home/VisibilityGap.astro';
 import PillarSection from '../components/home/PillarSection.astro';
 import TokiScanSection from '../components/home/TokiScanSection.astro';
+import RoadmapSection from '../components/home/RoadmapSection.astro';
 import { APP_SCAN_ENTRY, buildScanHref } from '../lib/scan-flow';
 
 const organizationSchema = {
@@ -36,55 +37,7 @@ const organizationSchema = {
     <TokiScanSection scanHref={buildScanHref('homepage-section-4')} />
   </section>
 
-  <section class="home-section">
-    <div class="section-intro">
-      <h2>tokiScan is just the beginning.</h2>
-      <p>
-        We’re building a suite of AI tools for business owners — each one designed to make your business more visible,
-        more trusted, and more capable. No technical expertise required.
-      </p>
-    </div>
-
-    <div class="module-list" aria-label="Upcoming modules">
-      <article class="module-row module-row--active">
-        <div>
-          <h3>tokiScan</h3>
-          <p>AI visibility diagnostic</p>
-        </div>
-        <span>Available now</span>
-      </article>
-
-      <article class="module-row">
-        <div>
-          <h3>tokiPatch</h3>
-          <p>AI-powered fix implementation</p>
-        </div>
-        <span>Coming soon</span>
-      </article>
-
-      <article class="module-row">
-        <div>
-          <h3>tokiWorker</h3>
-          <p>Autonomous AI workforce</p>
-        </div>
-        <span>Coming soon</span>
-      </article>
-    </div>
-  </section>
-
-  <section class="trust-band">
-    <div class="trust-band__inner">
-      <h2>AI that won’t act without you.</h2>
-      <p class="trust-band__subhead">Autonomous but accountable.</p>
-      <p class="trust-band__body">
-        Every tokiGig tool is built on a simple principle: AI does the work, you make the calls. No black boxes.
-        No surprises. No agents going rogue. Just your business, running smarter — with you in control.
-      </p>
-      <p class="trust-band__foot">
-        Built on <a href="/os">tokiOS</a> — an open AI operating system anyone can inspect, extend, and trust.
-      </p>
-    </div>
-  </section>
+  <RoadmapSection />
 
   <section class="home-section home-section--final">
     <div class="section-intro section-intro--center">
