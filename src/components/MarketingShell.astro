@@ -79,31 +79,23 @@ const navItems = [
 
     <footer class="marketing-footer">
       <div class="marketing-footer__inner">
-        <div class="footer-logo">
-          <svg width="24" height="24" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d={LOGO_PATHS.body} style="fill: var(--toki-green)" />
-            <path d={LOGO_PATHS.spiral} style="fill: white" />
-            <path d={LOGO_PATHS.head} style="fill: white" />
-            <path d={LOGO_PATHS.legL} style="fill: white" />
-            <path d={LOGO_PATHS.legR} style="fill: white" />
-            <path d={LOGO_PATHS.eye} style="fill: var(--toki-green)" />
-          </svg>
-          <span>toki<span class="footer-logo-accent">gig</span></span>
-        </div>
-
+        <a href="/" class="footer-logo" aria-label="tokiGig home">
+  <img src="/logos/tokigig-logo-lockup-dark.svg" alt="tokiGig" width="140" height="32" />
+        </a>
+        
         <div class="marketing-footer__links" aria-label="Marketing routes">
           <a href="/scan">Products</a>
           <a href={currentPath === '/' ? '#builds' : '/'}>About</a>
           <a href="/scan">Pricing</a>
-          <a href="/os">toki-os</a>
+          <a href="/os">toki-OS</a>
           <a href="/privacy">Privacy</a>
         </div>
 
         <div class="marketing-footer__social">
-          <a href="https://x.com/TheKingofKimchi" target="_blank" rel="noreferrer">@TheKingofKimchi</a>
+          <a href="https://x.com/Toki-OSHQ" target="_blank" rel="noreferrer">Follow Us on X @toki_OSHQ</a>
         </div>
       </div>
-      <p class="marketing-footer__bottom">© 2026 tokigig. Built on <a href="/os">toki-os</a>.</p>
+      <p class="marketing-footer__bottom">© 2026 tokiGig. Built on <a href="/os">tokiOS</a>.</p>
     </footer>
   </div>
 </Layout>

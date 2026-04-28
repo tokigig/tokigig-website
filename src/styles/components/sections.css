@@ -59,20 +59,20 @@
   .homepage-hero__layout {
     position: relative;
     z-index: 2;
-    max-width: 1180px;
+    max-width: 1280px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: minmax(0, 480px) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 620px) minmax(0, 1fr);
     align-items: center;
-    gap: 2rem;
-    min-height: calc(100vh - 120px);
+    gap: 3rem;
+    min-height: calc(100vh - 90px);
   }
 
   .homepage-hero__headline {
     margin: 0;
-    font-size: clamp(40px, 5.4vw, 42px);
-    line-height: 1.1;
-    letter-spacing: -0.025em;
+    font-size: clamp(44px, 5.4vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -0.035em;
     font-weight: 500;
   }
 
@@ -81,12 +81,15 @@
   .headline-accent { color: var(--toki-green); }
 
   .homepage-hero__subhead {
-    margin: 1rem 0 0;
-    font-size: 16px;
+    margin: 1.25rem 0 0;
+    font-size: 20px;
     color: var(--text-secondary);
   }
 
-  .homepage-hero__actions { justify-content: flex-start; }
+  .homepage-hero__actions { 
+    justify-content: flex-start;
+    margin-top: 2.25rem;
+}
 
   .homepage-hero__powered {
     margin: 1.25rem 0 0;
