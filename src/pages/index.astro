@@ -3,6 +3,7 @@ import MarketingShell from '../components/MarketingShell.astro';
 import HomeHero from '../components/home/HomeHero.astro';
 import VisibilityGap from '../components/home/VisibilityGap.astro';
 import PillarSection from '../components/home/PillarSection.astro';
+import TokiScanSection from '../components/home/TokiScanSection.astro';
 import { APP_SCAN_ENTRY, buildScanHref } from '../lib/scan-flow';
 
 const organizationSchema = {
@@ -32,44 +33,7 @@ const organizationSchema = {
   </section>
 
   <section class="home-section home-section--scan" id="tokiScan-in-action">
-    <div class="section-intro">
-      <p class="route-kicker">TOKISCAN</p>
-      <h2>Find out if AI can understand and recommend your business — in 60 seconds.</h2>
-    </div>
-
-    <div class="scan-report">
-      <div class="scan-report__score">
-        <div class="scan-report__score-main">
-          <span class="scan-report__score-value">59</span>
-          <span class="scan-report__score-total">/100</span>
-        </div>
-        <p class="scan-report__score-label">Borderline</p>
-      </div>
-
-      <div class="scan-report__issue">
-        <p class="scan-report__eyebrow">Priority issue</p>
-        <h3>No structured data — AI is guessing at your business</h3>
-
-        <div class="scan-report__action">
-          <p class="scan-report__action-label">What to do</p>
-          <p>Add structured business markup so AI can identify what you do, who you serve, and how to categorize you.</p>
-        </div>
-      </div>
-
-      <div class="scan-report__locked">
-        <div class="scan-report__locked-blur"></div>
-        <p>+20 more issues in the Pro Report</p>
-      </div>
-    </div>
-
-    <p class="section-quote section-quote--narrow">
-      “Most businesses score under 65 on their first scan. The Pro Report shows exactly what’s wrong and what to fix.”
-    </p>
-
-    <div class="section-cta">
-      <a href={buildScanHref('homepage-section-4')} class="btn-primary">Run your free scan — takes 60 seconds</a>
-      <p>No account required · No credit card · Instant results</p>
-    </div>
+    <TokiScanSection scanHref={buildScanHref('homepage-section-4')} />
   </section>
 
   <section class="home-section">
