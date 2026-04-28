@@ -52,7 +52,7 @@
   .homepage-hero {
     position: relative;
     overflow: hidden;
-    background: #080808;
+    background: var(--bg-base);
     padding: 6.5rem 1.5rem 3rem;
   }
 
@@ -371,7 +371,7 @@
     font-size: 13px;
     color: var(--text-tertiary);
   }
-  
+
   .final-cta__micro,
   .final-cta__secondary {
     margin: 0.9rem 0 0;

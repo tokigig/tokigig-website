@@ -1,0 +1,164 @@
+<!--
+  Section 3 — Pillars / Why Now
+  Purpose: Address the "why do I need an AI workforce" fear BEFORE selling features.
+  Structure: tension headline → fear statement → 3 cards (fear hook + pillar copy)
+  Icons: SVG inline at 32px with DOS green glow, replacing tiny unicode chars
+-->
+
+<div class="section-intro">
+
+  <!-- Primary headline: still positions tokiGig, but now with teeth -->
+  <h2>We build AI tools that work for your business — with you in control.</h2>
+
+  <!-- WHY NOW beat: name the tension directly before showing the solution -->
+  <p class="section-tension">
+    Your competitors are already running AI workforces.
+    The question isn't <em>whether</em> to adopt AI —
+    it's whether you do it on your terms.
+  </p>
+
+</div>
+
+<div class="pillar-grid">
+
+  <!-- Card 1 — Visibility -->
+  <!-- Fear: "Am I even showing up when customers ask AI for recommendations?" -->
+  <article class="pillar-card">
+
+    <!-- SVG icon: circle — represents radar/presence. 32px, DOS green glow -->
+    <div class="pillar-card__icon" aria-hidden="true">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Outer ring -->
+        <circle cx="16" cy="16" r="13" stroke="currentColor" stroke-width="1.5" opacity="0.4"/>
+        <!-- Inner ring -->
+        <circle cx="16" cy="16" r="7" stroke="currentColor" stroke-width="1.5" opacity="0.7"/>
+        <!-- Center dot -->
+        <circle cx="16" cy="16" r="2.5" fill="currentColor"/>
+      </svg>
+    </div>
+
+    <!-- Fear hook: the question keeping them up at night -->
+    <p class="pillar-card__fear">"Is AI even finding my business?"</p>
+
+    <h3>Visibility</h3>
+    <p>Can AI find, understand, and recommend you? Most businesses don't know the answer. We show you exactly where you stand — and what to fix.</p>
+
+  </article>
+
+  <!-- Card 2 — Trust -->
+  <!-- Fear: "Will I lose control of my own business to some AI black box?" -->
+  <article class="pillar-card">
+
+    <!-- SVG icon: diamond — represents value, integrity, clarity -->
+    <div class="pillar-card__icon" aria-hidden="true">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Outer diamond -->
+        <path d="M16 3L29 16L16 29L3 16Z" stroke="currentColor" stroke-width="1.5" opacity="0.4"/>
+        <!-- Inner diamond -->
+        <path d="M16 9L23 16L16 23L9 16Z" stroke="currentColor" stroke-width="1.5" opacity="0.7"/>
+        <!-- Center dot -->
+        <circle cx="16" cy="16" r="2.5" fill="currentColor"/>
+      </svg>
+    </div>
+
+    <!-- Fear hook -->
+    <p class="pillar-card__fear">"Will I lose control of my own business?"</p>
+
+    <h3>Trust</h3>
+    <p>Every tokiGig tool keeps the business owner in the driver's seat. AI does the heavy lifting. You make every call that matters.</p>
+
+  </article>
+
+  <!-- Card 3 — Autonomy -->
+  <!-- Fear: "Do I have to babysit this thing 24/7 or retrain my whole team?" -->
+  <article class="pillar-card">
+
+    <!-- SVG icon: triangle / upward arrow — represents growth, direction, momentum -->
+    <div class="pillar-card__icon" aria-hidden="true">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Outer triangle -->
+        <path d="M16 4L28 26H4L16 4Z" stroke="currentColor" stroke-width="1.5" opacity="0.4"/>
+        <!-- Inner triangle -->
+        <path d="M16 11L23 23H9L16 11Z" stroke="currentColor" stroke-width="1.5" opacity="0.7"/>
+        <!-- Center dot -->
+        <circle cx="16" cy="19" r="2.5" fill="currentColor"/>
+      </svg>
+    </div>
+
+    <!-- Fear hook -->
+    <p class="pillar-card__fear">"Do I need to babysit this thing?"</p>
+
+    <h3>Autonomy</h3>
+    <p>Your workflows run. Your team stays focused. You sleep. That's the destination — an AI workforce that operates without constant hand-holding. We build the path.</p>
+
+  </article>
+
+</div>
+
+<style>
+  /* ── Section intro ────────────────────────────────────────────────────── */
+  .section-intro h2 {
+    /* Keep existing heading styles from your theme */
+  }
+
+  /* Tension statement — smaller than h2, more editorial/urgent */
+  .section-tension {
+    margin-top: 1rem;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    opacity: 0.72;
+    max-width: 52ch;
+  }
+
+  .section-tension em {
+    /* Italicize "whether" for emphasis — not colored, just rhythm */
+    font-style: italic;
+    opacity: 1;
+  }
+
+  /* ── Card grid ────────────────────────────────────────────────────────── */
+  .pillar-grid {
+    /* Keep your existing grid layout */
+  }
+
+  /* ── Individual card ──────────────────────────────────────────────────── */
+  .pillar-card {
+    /* Keep your existing card styles */
+  }
+
+  /* ── Icon container ───────────────────────────────────────────────────── */
+  .pillar-card__icon {
+    /* DOS green — pulls from your locked brand palette */
+    color: var(--color-accent, #5a8f4e);
+    margin-bottom: 1.25rem;
+
+    /* Subtle drop shadow glow — matches neural network aesthetic */
+    filter: drop-shadow(0 0 6px rgba(90, 143, 78, 0.5));
+
+    /* Smooth glow pulse on hover */
+    transition: filter 0.3s ease;
+  }
+
+  .pillar-card:hover .pillar-card__icon {
+    filter: drop-shadow(0 0 12px rgba(122, 184, 106, 0.75));
+  }
+
+  /* ── Fear hook ────────────────────────────────────────────────────────── */
+  .pillar-card__fear {
+    /* Smaller, italic, muted — reads as the customer's internal voice */
+    font-size: 0.78rem;
+    font-style: italic;
+    opacity: 0.5;
+    margin-bottom: 0.35rem;
+    line-height: 1.4;
+
+    /* No margin-top — sits tight under the icon */
+    margin-top: 0;
+  }
+
+  /* ── Card heading ─────────────────────────────────────────────────────── */
+  .pillar-card h3 {
+    /* Keep existing — just ensure margin-top is snug after the fear hook */
+    margin-top: 0.2rem;
+  }
+</style>
