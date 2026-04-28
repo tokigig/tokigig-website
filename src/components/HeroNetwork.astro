@@ -182,12 +182,15 @@
       }
     }
 
+    const isLightTheme = document.documentElement.getAttribute('data-theme') === 'light';
+    const maskColor = isLightTheme ? '245,244,240' : '8,8,8';
+
     const mask = ctx.createLinearGradient(0, 0, W, 0);
-    mask.addColorStop(0, 'rgba(8,8,8,1)');
-    mask.addColorStop(0.28, 'rgba(8,8,8,1)');
-    mask.addColorStop(0.44, 'rgba(8,8,8,0.92)');
-    mask.addColorStop(0.55, 'rgba(8,8,8,0.4)');
-    mask.addColorStop(0.68, 'rgba(8,8,8,0.0)');
+    mask.addColorStop(0, `rgba(${maskColor},1)`);
+    mask.addColorStop(0.28, `rgba(${maskColor},1)`);
+    mask.addColorStop(0.44, `rgba(${maskColor},0.92)`);
+    mask.addColorStop(0.55, `rgba(${maskColor},0.4)`);
+    mask.addColorStop(0.68, `rgba(${maskColor},0.0)`);
     ctx.fillStyle = mask;
     ctx.fillRect(0, 0, W, H);
 
@@ -237,4 +240,13 @@
     clearTimeout(window._rt);
     window._rt = setTimeout(start, 200);
   });
+
+  window.addEventListener('storage', start);
+
+  const themeObserver = new MutationObserver(start);
+  themeObserver.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['data-theme'],
+});
+
 </script>
