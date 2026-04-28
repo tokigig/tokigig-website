@@ -9,7 +9,7 @@ export const LOGO_PATHS = {
 
 export const BRAND = {
   company: 'tokiGig',
-  platform: 'toki-OS',
+  platform: 'tokiOS',
 
   products: {
     scan: 'tokiScan',
