@@ -150,7 +150,7 @@
 
 .marketing-nav__link,
 .marketing-nav__divider {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .marketing-nav__link {
@@ -318,12 +318,7 @@
     width: 34px;
     height: 34px;
   }
-
-  .nav-cta {
-    padding: 0.5rem 1rem;
-    font-size: 13px;
-  }
-
+  
   .marketing-footer__inner {
     flex-direction: column;
     align-items: flex-start;
