@@ -1,107 +1,389 @@
 ---
 // RoadmapSection.astro
-// Combines "tokiScan is just the beginning" + "AI that won't act without you"
-// into one cohesive story: here's what we're building + here's why we build it that way
+// The "why tokiGig" section — competitive positioning + tokiOS trust layer + roadmap tease
+// Operator language throughout — no tech jargon, no framework terms
+// Structure:
+//   1. Tension headline — most AI tools require assembly
+//   2. 4 product-level advantages (why we win)
+//   3. tokiOS trust layer (why you can trust it)
+//   4. Product roadmap tease (more is coming)
 ---
 
 <section class="home-section roadmap-section">
 
-  <!-- ── Section intro ──────────────────────────────────────────────────── -->
+  <!-- ── Section intro — name the tension without naming competitors ──────── -->
   <div class="section-intro">
-    <p class="route-kicker">The platform</p>
-    <!-- Headline bridges roadmap + philosophy in one line -->
-    <h2>tokiScan is just the beginning — and it's all built different.</h2>
+    <p class="route-kicker">Why tokiGig</p>
+    <h2>Most AI tools require setup, configuration, and ongoing maintenance.</h2>
     <p>
-      Every tool we ship follows the same principle: AI does the work, you make the calls.
-      No black boxes. No agents going rogue. Just your business, running smarter — with you in control.
+      We built tokiGig for the business owner who doesn't have an engineering team —
+      and doesn't want one just to run AI. No wiring. No stack. Just results.
     </p>
   </div>
 
-  <!-- ── Module roadmap rows ────────────────────────────────────────────── -->
-  <!-- Shows the product trajectory — tokiScan live, more coming            -->
-  <div class="module-list" aria-label="tokiGig platform modules">
+  <!-- ── 4 product advantages ───────────────────────────────────────────── -->
+  <!-- Operator-facing language — no mention of frameworks or pipelines     -->
+  <div class="advantage-grid">
 
-    <!-- tokiScan — live, highlighted with green accent -->
-    <article class="module-row module-row--active">
-      <div>
-        <h3>tokiScan</h3>
-        <p>AI visibility diagnostic — find out if AI can find, understand, and recommend your business</p>
+    <!-- 1. Operator-ready -->
+    <div class="advantage-card">
+      <div class="advantage-card__icon" aria-hidden="true">
+        <!-- Checkmark in a circle — "works out of the box" -->
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <circle cx="14" cy="14" r="12" stroke="var(--toki-green)" stroke-width="1.5" opacity="0.5"/>
+          <path d="M9 14.5L12.5 18L19 11" stroke="var(--toki-green-lt)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
       </div>
-      <span class="module-row__badge module-row__badge--live">Available now</span>
-    </article>
+      <h3>Operator-ready, not build-your-own</h3>
+      <p>Works out of the box. No wiring agents. No configuring flows. No maintaining a stack. You run your business — we handle the AI.</p>
+    </div>
 
-    <!-- tokiPatch — fixes the issues tokiScan finds -->
-    <article class="module-row">
-      <div>
-        <h3>tokiPatch</h3>
-        <p>AI-powered fix implementation — closes the gaps tokiScan uncovers, automatically</p>
+    <!-- 2. Understands your business -->
+    <div class="advantage-card">
+      <div class="advantage-card__icon" aria-hidden="true">
+        <!-- Magnifying glass with a dot — "sees your business" -->
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <circle cx="12" cy="12" r="8" stroke="var(--toki-green)" stroke-width="1.5" opacity="0.5"/>
+          <circle cx="12" cy="12" r="3" fill="var(--toki-green-lt)" opacity="0.8"/>
+          <line x1="18" y1="18" x2="23" y2="23" stroke="var(--toki-green-lt)" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
       </div>
-      <span class="module-row__badge">Coming soon</span>
-    </article>
+      <h3>Understands your business, not just your tools</h3>
+      <p>Other tools connect apps. tokiGig interprets what you sell, maps how AI systems see you, and surfaces the gaps hurting your visibility and trust.</p>
+    </div>
 
-    <!-- tokiWorker — the autonomous workforce layer -->
-    <article class="module-row">
-      <div>
-        <h3>tokiWorker</h3>
-        <p>Autonomous AI workforce — agents that run your workflows without constant oversight</p>
+    <!-- 3. Trust-native -->
+    <div class="advantage-card">
+      <div class="advantage-card__icon" aria-hidden="true">
+        <!-- Shield with line through center — "stays under control" -->
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <path d="M14 3L24 7.5V15C24 20.5 18.5 24.5 14 26C9.5 24.5 4 20.5 4 15V7.5Z" stroke="var(--toki-green)" stroke-width="1.5" fill="none" opacity="0.5"/>
+          <path d="M9.5 14.5L12.5 17.5L18.5 11.5" stroke="var(--toki-green-lt)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
       </div>
-      <span class="module-row__badge">Coming soon</span>
-    </article>
+      <h3>Trust-native by design</h3>
+      <p>No silent automation. No black-box decisions. Every action is visible, every boundary is yours to set. AI that won't act without you.</p>
+    </div>
+
+    <!-- 4. Built for outcomes -->
+    <div class="advantage-card">
+      <div class="advantage-card__icon" aria-hidden="true">
+        <!-- Arrow hitting target — "results not experiments" -->
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <circle cx="14" cy="14" r="11" stroke="var(--toki-green)" stroke-width="1.5" opacity="0.3"/>
+          <circle cx="14" cy="14" r="6"  stroke="var(--toki-green)" stroke-width="1.5" opacity="0.5"/>
+          <circle cx="14" cy="14" r="2.5" fill="var(--toki-green-lt)"/>
+          <line x1="14" y1="14" x2="25" y2="3" stroke="var(--toki-green-lt)" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+        </svg>
+      </div>
+      <h3>Built for outcomes, not experiments</h3>
+      <p>Not a playground. Improve your AI visibility, increase trust signals, and make your business show up when AI recommends services in your category.</p>
+    </div>
 
   </div>
 
-  <!-- ── Philosophy footer — the WHY behind all of it ──────────────────── -->
-  <!-- Sits below the roadmap, ties the whole section together              -->
-  <div class="roadmap-philosophy">
-    <p>
-      Built on <a href="/os">tokiOS</a> — an open AI operating system anyone can inspect, extend, and trust.
+  <!-- ── tokiOS trust layer ──────────────────────────────────────────────── -->
+  <!-- Why you can trust it — operator translation of technical capabilities -->
+  <div class="tokios-band">
+
+    <div class="tokios-band__intro">
+      <!-- One anchor sentence — leads with trust not technology -->
+      <p class="tokios-band__kicker">Powered by tokiOS</p>
+      <h3>An AI system designed to be visible, reliable, and under your control.</h3>
+      <p>
+        tokiOS is the engine behind every tokiGig tool. You don't need to know how it works —
+        you just need to know you can trust it. Here's why.
+      </p>
+    </div>
+
+    <div class="tokios-pillars">
+
+      <!-- Auditable -->
+      <div class="tokios-pillar">
+        <span class="tokios-pillar__label">Auditable</span>
+        <p>Every action is visible. If something changes in your business, you'll know why — not after the fact, but in real time.</p>
+      </div>
+
+      <!-- Guardrails -->
+      <div class="tokios-pillar">
+        <span class="tokios-pillar__label">Guardrails</span>
+        <p>You define the boundaries. AI won't do anything you didn't approve. No surprise behavior. No going rogue.</p>
+      </div>
+
+      <!-- Reliable -->
+      <div class="tokios-pillar">
+        <span class="tokios-pillar__label">Reliable</span>
+        <p>Built like infrastructure, not a demo. It works the same way every time — you can depend on it like you depend on your CRM.</p>
+      </div>
+
+      <!-- Trust-building -->
+      <div class="tokios-pillar">
+        <span class="tokios-pillar__label">Trust-building</span>
+        <p>The more you use it, the more you trust it. Starts transparent. Stays accountable. Improves with your oversight over time.</p>
+      </div>
+
+    </div>
+
+    <!-- tokiOS link — subtle, not a hard sell -->
+    <p class="tokios-band__foot">
+      <a href="/os">Learn more about tokiOS →</a>
     </p>
+
+  </div>
+
+  <!-- ── Product roadmap tease ───────────────────────────────────────────── -->
+  <!-- Shows trajectory — tokiScan is live, more is coming                  -->
+  <div class="roadmap-tease">
+
+    <p class="roadmap-tease__label">The platform</p>
+    <p class="roadmap-tease__sub">tokiScan is live. More is coming.</p>
+
+    <div class="module-list" aria-label="tokiGig platform modules">
+
+      <!-- tokiScan — live -->
+      <article class="module-row module-row--active">
+        <div>
+          <h3>tokiScan</h3>
+          <p>AI visibility diagnostic</p>
+        </div>
+        <span class="module-badge module-badge--live">Available now</span>
+      </article>
+
+      <!-- tokiPatch — coming -->
+      <article class="module-row">
+        <div>
+          <h3>tokiPatch</h3>
+          <p>Closes the gaps tokiScan finds — automatically</p>
+        </div>
+        <span class="module-badge">Coming soon</span>
+      </article>
+
+      <!-- tokiWorker — coming -->
+      <article class="module-row">
+        <div>
+          <h3>tokiWorker</h3>
+          <p>Autonomous AI workforce — runs without babysitting</p>
+        </div>
+        <span class="module-badge">Coming soon</span>
+      </article>
+
+      <!-- Placeholder — signals there's even more in the pipeline -->
+      <article class="module-row module-row--ghost">
+        <div>
+          <h3>More tools in development</h3>
+          <p>We're building the full operator stack — visibility, fixes, automation, and beyond</p>
+        </div>
+        <span class="module-badge">In the lab</span>
+      </article>
+
+    </div>
+
   </div>
 
 </section>
 
 <style>
-  /* ── Section spacing ──────────────────────────────────────────────────── */
-  .roadmap-section {
-    /* Inherits .home-section padding and max-width from sections.css */
+  /* ── Advantage grid — 2x2 on desktop, 1 col on mobile ────────────────── */
+  .advantage-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 2.5rem;
   }
 
-  /* ── Module row badge variants ────────────────────────────────────────── */
-
-  /* Base badge — "Coming soon" muted state */
-  .module-row__badge {
-    font-size: 13px;
-    white-space: nowrap;
-    color: var(--text-secondary);
+  /* Individual advantage card — same token pattern as pillar cards */
+  .advantage-card {
+    padding: 1.5rem;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border-base);
+    background: var(--bg-card);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
   }
 
-  /* Live badge — "Available now" gets green pill treatment */
-  .module-row__badge--live {
-    font-size: 12px;
+  .advantage-card__icon {
+    /* Icon sized and glowed — matches pillar section treatment */
+    width: 28px;
+    height: 28px;
+    filter: drop-shadow(0 0 6px var(--toki-green-glow));
+    transition: filter 0.3s ease;
+  }
+
+  .advantage-card:hover .advantage-card__icon {
+    filter: drop-shadow(0 0 12px rgba(122, 184, 106, 0.6));
+  }
+
+  .advantage-card h3 {
+    margin: 0;
+    font-size: 15px;
     font-weight: 500;
+    color: var(--text-primary);
+    line-height: 1.3;
+  }
+
+  .advantage-card p {
+    margin: 0;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+
+  /* ── tokiOS trust band ────────────────────────────────────────────────── */
+  .tokios-band {
+    margin-top: 3rem;
+    padding: 2rem;
+    border-radius: var(--radius-xl);
+    /* Subtle green tint — distinct from plain cards, signals the OS layer */
+    border: 1px solid var(--border-green);
+    background: var(--bg-elevated);
+  }
+
+  .tokios-band__intro {
+    max-width: 560px;
+    margin-bottom: 1.75rem;
+  }
+
+  /* Kicker label */
+  .tokios-band__kicker {
+    margin: 0 0 0.5rem;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--toki-green);
+  }
+
+  .tokios-band__intro h3 {
+    margin: 0 0 0.75rem;
+    font-size: clamp(18px, 2.5vw, 24px);
+    font-weight: 500;
+    color: var(--text-primary);
+    line-height: 1.2;
+  }
+
+  .tokios-band__intro p {
+    margin: 0;
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+
+  /* 4 pillars in a row — stack to 2 col on mobile */
+  .tokios-pillars {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+    border-top: 1px solid var(--border-base);
+    padding-top: 1.5rem;
+  }
+
+  /* Individual pillar */
+  .tokios-pillar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  /* Pillar label — green pill */
+  .tokios-pillar__label {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     color: var(--toki-green);
     background: rgba(90, 143, 78, 0.1);
     border: 1px solid var(--border-green);
-    padding: 4px 10px;
+    padding: 3px 8px;
     border-radius: 999px;
-    white-space: nowrap;
+    width: fit-content;
   }
 
-  /* ── Module row description — slightly more copy than before ─────────── */
-  .module-row p {
-    font-size: 13px; /* slightly smaller than default to fit longer descriptions */
-  }
-
-  /* ── Philosophy footer ────────────────────────────────────────────────── */
-  .roadmap-philosophy {
-    margin-top: 2rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--border-base); /* token — no hardcoded color */
+  .tokios-pillar p {
+    margin: 0;
     font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+
+  /* tokiOS footer link */
+  .tokios-band__foot {
+    margin: 1.5rem 0 0;
+    font-size: 13px;
+    border-top: 1px solid var(--border-base);
+    padding-top: 1.25rem;
+  }
+
+  .tokios-band__foot a {
+    color: var(--toki-green-lt);
+    transition: color 0.15s;
+  }
+
+  .tokios-band__foot a:hover {
+    color: var(--toki-green);
+  }
+
+  /* ── Roadmap tease ────────────────────────────────────────────────────── */
+  .roadmap-tease {
+    margin-top: 3rem;
+  }
+
+  .roadmap-tease__label {
+    margin: 0 0 0.25rem;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--toki-green);
+  }
+
+  .roadmap-tease__sub {
+    margin: 0 0 1.25rem;
+    font-size: clamp(18px, 2.2vw, 22px);
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  /* Live badge — green pill */
+  .module-badge {
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
     color: var(--text-secondary);
   }
 
-  .roadmap-philosophy a {
-    color: var(--toki-green-lt); /* matches existing trust-band__foot link style */
+  .module-badge--live {
+    color: var(--toki-green);
+    background: rgba(90, 143, 78, 0.1);
+    border: 1px solid var(--border-green);
+    padding: 3px 10px;
+    border-radius: 999px;
+  }
+
+  /* Ghost row — "more in the lab" — more muted than coming soon rows */
+  .module-row--ghost {
+    opacity: 0.5;
+    border-style: dashed;
+  }
+
+  /* ── Responsive ───────────────────────────────────────────────────────── */
+  @media (max-width: 768px) {
+    /* Advantage grid goes 1 col */
+    .advantage-grid {
+      grid-template-columns: 1fr;
+    }
+
+    /* tokiOS pillars go 2 col */
+    .tokios-pillars {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    /* tokiOS pillars go 1 col on small screens */
+    .tokios-pillars {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
