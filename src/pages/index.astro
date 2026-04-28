@@ -2,6 +2,7 @@
 import MarketingShell from '../components/MarketingShell.astro';
 import HomeHero from '../components/home/HomeHero.astro';
 import VisibilityGap from '../components/home/VisibilityGap.astro';
+import PillarSection from '../components/home/PillarSection.astro';
 import { APP_SCAN_ENTRY, buildScanHref } from '../lib/scan-flow';
 
 const organizationSchema = {
@@ -27,29 +28,7 @@ const organizationSchema = {
   <VisibilityGap />
 
   <section class="home-section" id="builds">
-    <div class="section-intro">
-      <h2>We build AI tools that work for your business — with you in control.</h2>
-    </div>
-
-    <div class="pillar-grid">
-      <article class="pillar-card">
-        <div class="pillar-card__icon">◌</div>
-        <h3>Visibility</h3>
-        <p>Can AI find, understand, and recommend you? Most businesses don’t know the answer. We show you.</p>
-      </article>
-
-      <article class="pillar-card">
-        <div class="pillar-card__icon">◇</div>
-        <h3>Trust</h3>
-        <p>Every tokiGig tool keeps the business owner in control. AI does the work. You make the calls.</p>
-      </article>
-
-      <article class="pillar-card">
-        <div class="pillar-card__icon">△</div>
-        <h3>Autonomy</h3>
-        <p>Your business running AI workflows without constant oversight. That’s the destination. We build the path.</p>
-      </article>
-    </div>
+    <PillarSection />
   </section>
 
   <section class="home-section home-section--scan" id="tokiScan-in-action">
