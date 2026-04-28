@@ -36,8 +36,8 @@
     margin: 0 0 1rem;
     color: var(--toki-green);
     text-transform: uppercase;
-    letter-spacing: 0.16em;
-    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    font-size: 0.9rem;
     font-weight: 500;
   }
 
@@ -93,9 +93,9 @@
 
   .homepage-hero__powered {
     margin: 1.25rem 0 0;
-    font-size: 10px;
+    font-size: 14px;
     color: var(--text-tertiary);
-    text-transform: lowercase;
+    opacity: 0.85;
   }
 
   .homepage-hero__powered a { color: var(--toki-green-lt); }
@@ -366,7 +366,12 @@
     font-weight: 500;
     cursor: pointer;
   }
-
+  .cta-micro {
+    margin-top: 0.75rem;
+    font-size: 13px;
+    color: var(--text-tertiary);
+  }
+  
   .final-cta__micro,
   .final-cta__secondary {
     margin: 0.9rem 0 0;
