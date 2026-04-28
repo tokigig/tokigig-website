@@ -106,9 +106,12 @@
   }
 
   function frame() {
+    // Full clear to transparent every frame
     ctx.clearRect(0, 0, W, H);
+    ctx.globalCompositeOperation = 'source-over';
     t++;
 
+    // ── Edges ──────────────────────────────────────────────────────────────
     for (const e of edges) {
       ctx.beginPath();
       ctx.moveTo(e.a.x, e.a.y);
@@ -118,6 +121,7 @@
       ctx.stroke();
     }
 
+    // ── Pulses ─────────────────────────────────────────────────────────────
     for (let i = pulses.length - 1; i >= 0; i--) {
       const p = pulses[i];
       p.t += p.spd;
@@ -132,6 +136,7 @@
       ctx.fill();
     }
 
+    // ── Twinkles ───────────────────────────────────────────────────────────
     for (let i = twinkles.length - 1; i >= 0; i--) {
       const tw = twinkles[i];
       tw.life++;
@@ -155,6 +160,7 @@
       ctx.fill();
     }
 
+    // ── Nodes ──────────────────────────────────────────────────────────────
     for (const n of nodes) {
       const tw = Math.sin(t * n.twinkSpd + n.twinkOff) * 0.5 + 0.5;
       const gl = Math.sin(t * n.glowSpd + n.glowOff) * 0.5 + 0.5;
@@ -182,17 +188,22 @@
       }
     }
 
-    const isLightTheme = document.documentElement.getAttribute('data-theme') === 'light';
-    const maskColor = isLightTheme ? '245,244,240' : '8,8,8';
-
+    // ── Left-fade mask via destination-out ─────────────────────────────────
+    // This ERASES canvas pixels to transparent instead of painting a solid
+    // color — works correctly in both light and dark themes because the page
+    // background shows through naturally.
+    ctx.globalCompositeOperation = 'destination-out';
     const mask = ctx.createLinearGradient(0, 0, W, 0);
-    mask.addColorStop(0, `rgba(${maskColor},1)`);
-    mask.addColorStop(0.28, `rgba(${maskColor},1)`);
-    mask.addColorStop(0.44, `rgba(${maskColor},0.92)`);
-    mask.addColorStop(0.55, `rgba(${maskColor},0.4)`);
-    mask.addColorStop(0.68, `rgba(${maskColor},0.0)`);
+    mask.addColorStop(0,    'rgba(0,0,0,1)');   // fully erased (transparent)
+    mask.addColorStop(0.28, 'rgba(0,0,0,1)');
+    mask.addColorStop(0.44, 'rgba(0,0,0,0.92)');
+    mask.addColorStop(0.55, 'rgba(0,0,0,0.4)');
+    mask.addColorStop(0.68, 'rgba(0,0,0,0)');   // fully visible
     ctx.fillStyle = mask;
     ctx.fillRect(0, 0, W, H);
+
+    // Reset composite mode for next frame
+    ctx.globalCompositeOperation = 'source-over';
 
     requestAnimationFrame(frame);
   }
@@ -236,17 +247,17 @@
 
   if (document.readyState === 'complete') { setTimeout(start, 80); }
   else { window.addEventListener('load', () => setTimeout(start, 80)); }
+
   window.addEventListener('resize', () => {
     clearTimeout(window._rt);
     window._rt = setTimeout(start, 200);
   });
 
-  window.addEventListener('storage', start);
-
+  // Theme switch: just re-init so node/edge layout refreshes cleanly.
+  // No need to re-observe storage — destination-out mask is theme-agnostic.
   const themeObserver = new MutationObserver(start);
   themeObserver.observe(document.documentElement, {
     attributes: true,
     attributeFilter: ['data-theme'],
-});
-
+  });
 </script>
